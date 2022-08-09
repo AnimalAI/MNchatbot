@@ -95,7 +95,7 @@ public class MemberController {
         }
     }
 
-    // 인증코드 입력 (비밀번호 변경)
+    // 인증코드 입력 (비밀번호 변경)2
     @PostMapping("/enterEmailCode/changePw")
     public ResponseEntity<String> enterEmailCode_password(@RequestBody CodeDto codeDto){
         int sendCode = codeDto.getSendCode();
