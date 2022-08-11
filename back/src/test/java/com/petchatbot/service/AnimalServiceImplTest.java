@@ -1,7 +1,10 @@
 package com.petchatbot.service;
 
-import com.petchatbot.domain.model.Member;
-import com.petchatbot.domain.model.Pet;
+import com.petchatbot.domain.dto.MemberDto;
+import com.petchatbot.domain.model.*;
+import com.petchatbot.domain.requestAndResponse.PetRegReq;
+import com.petchatbot.repository.MemberRepository;
+import com.petchatbot.repository.PetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,15 +20,18 @@ class AnimalServiceImplTest {
     @Autowired
     PetService petServiceImpl;
 
+    @Autowired
+    MemberService memberService;
+
+
     @Test
     void 반려동물추가(){
-        Member member = new Member("abc@naver.com", "password");
-        Pet pet = new Pet();
+        MemberDto memberDto = new MemberDto("abc@naver.com", "password");
+        memberService.join(memberDto);
+        PetRegReq petRegReq = new PetRegReq("abc@naver.com", Breed.DOG, "hera", "33", PetSex.FEMALE, Neutralization.NOTNEUTER);
 
-        petServiceImpl.registerPet(member, pet);
-        assertThat(pet.getMember()).isEqualTo(member);
-        assertThat(member.getPetList()).contains(pet);
-        log.info(pet.getMember().getMemberEmail());
+        petServiceImpl.registerPet(petRegReq);
+
     }
 
 

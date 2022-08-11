@@ -7,6 +7,7 @@ import com.petchatbot.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class PetServiceImpl implements PetService{
 
 
 
+    @Transactional
     @Override
     public void registerPet(PetRegReq petRegReq) {
         Member findMember = getFindMember(petRegReq);

@@ -38,7 +38,6 @@ public class Member {
         petList.add(pet);
         pet.addMember(this);
         log.info("pet.addMember={}", pet.getMember());
-
     }
 
 
