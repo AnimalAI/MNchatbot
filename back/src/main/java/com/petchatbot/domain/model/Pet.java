@@ -18,7 +18,7 @@ public class Pet {
     @Enumerated(EnumType.STRING)
     private Breed petBreed;
     private String petName;
-    private String petAge;
+    private int petAge;
     @Enumerated(EnumType.STRING)
     private PetSex petSex;
     @Enumerated(EnumType.STRING)
@@ -27,7 +27,7 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(Breed petBreed, String petName, String petAge, PetSex petSex, Neutralization petNeutralization) {
+    public Pet(Breed petBreed, String petName, int petAge, PetSex petSex, Neutralization petNeutralization) {
         this.petBreed = petBreed;
         this.petName = petName;
         this.petAge = petAge;
@@ -35,7 +35,7 @@ public class Pet {
         this.petNeutralization = petNeutralization;
     }
 
-    public void changePetInfo(String petName, String petAge, PetSex petSex,  Neutralization petNeutralization){
+    public void changePetInfo(String petName, int petAge, PetSex petSex,  Neutralization petNeutralization){
         this.petName = petName;
         this.petAge = petAge;
         this.petSex = petSex;

@@ -10,11 +10,14 @@ public class PetRegReq {
     private String memberEmail;
     private Breed petBreed;
     private String petName;
-    private String petAge;
+    private int petAge;
     private PetSex petSex;
     private Neutralization petNeutralization;
 
-    public PetRegReq(String memberEmail, Breed petBreed, String petName, String petAge, PetSex petSex, Neutralization petNeutralization) {
+    public PetRegReq() {
+    }
+
+    public PetRegReq(String memberEmail, Breed petBreed, String petName, int petAge, PetSex petSex, Neutralization petNeutralization) {
         this.memberEmail = memberEmail;
         this.petBreed = petBreed;
         this.petName = petName;

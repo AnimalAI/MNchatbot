@@ -31,6 +31,6 @@ public class PetController {
 
         petService.registerPet(petRegReq);
         log.info("petRegReg={}",petRegReq.getPetName());
-        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.ENTER_JOIN_INFORMATION), HttpStatus.OK);
+        return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.ADD_ANIMAL), HttpStatus.OK);
     }
 }
