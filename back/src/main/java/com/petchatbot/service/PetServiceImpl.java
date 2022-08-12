@@ -38,7 +38,7 @@ public class PetServiceImpl implements PetService{
         Breed petBreed = petRegReq.getPetBreed();
         log.info("petBreed={}", petBreed);
         String petName = petRegReq.getPetName();
-        String petAge = petRegReq.getPetAge();
+        int petAge = petRegReq.getPetAge();
         PetSex petSex = petRegReq.getPetSex();
         Neutralization petNeutralization = petRegReq.getPetNeutralization();
 
