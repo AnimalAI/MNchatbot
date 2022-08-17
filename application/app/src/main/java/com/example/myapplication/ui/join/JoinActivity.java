@@ -138,8 +138,8 @@ public class JoinActivity extends AppCompatActivity {
                     dialog.show();
                     validate = true;
                 } else {
-                    string faileResult = "사용할 수 없는 이메일입니다.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "사용할 수 없는 이메일입니다.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -164,8 +164,8 @@ public class JoinActivity extends AppCompatActivity {
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
                 } else {
-                    string faileResult = "코드 전송에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "코드 전송에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -201,8 +201,8 @@ public class JoinActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    string faileResult = "회원가입에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "회원가입에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

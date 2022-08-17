@@ -117,8 +117,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
                 } else {
-                    string faileResult = "입력하신 이메일로 코드를 전송하는데 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "입력하신 이메일로 코드를 전송하는데 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -162,8 +162,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
                             .create();
                     dialog.show();
                 } else {
-                    string faileResult = "이메일로 인증에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "이메일로 인증에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -186,8 +186,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    string faileResult = "비밀번호에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "비밀번호에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
