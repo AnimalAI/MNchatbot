@@ -17,8 +17,6 @@ public class PetServiceImpl implements PetService{
     private final MemberRepository memberRepository;
     private final PetRepository petRepository;
 
-
-
     @Transactional
     @Override
     public void registerPet(PetRegReq petRegReq) {
