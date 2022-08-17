@@ -1,16 +1,18 @@
 package com.petchatbot.domain.model;
 
+import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@Data
 public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pet_serial;
+    private Long petSerial;
 
     @ManyToOne
     @JoinColumn(name="member_serial")
@@ -35,7 +37,8 @@ public class Pet {
         this.petNeutralization = petNeutralization;
     }
 
-    public void changePetInfo(String petName, int petAge, PetSex petSex,  Neutralization petNeutralization){
+    public void changePetInfo(Breed petBreed, String petName, int petAge, PetSex petSex,  Neutralization petNeutralization){
+        this.petBreed = petBreed;
         this.petName = petName;
         this.petAge = petAge;
         this.petSex = petSex;

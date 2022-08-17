@@ -1,6 +1,7 @@
 package com.petchatbot.service;
 
 import com.petchatbot.domain.model.*;
+import com.petchatbot.domain.requestAndResponse.ChangePetInfoReq;
 import com.petchatbot.domain.requestAndResponse.PetRegReq;
 import com.petchatbot.repository.MemberRepository;
 import com.petchatbot.repository.PetRepository;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,15 +25,37 @@ public class PetServiceImpl implements PetService{
     @Transactional
     @Override
     public void registerPet(PetRegReq petRegReq) {
-        Member findMember = getFindMember(petRegReq);
+        Member findMember = getFindMember(petRegReq.getMemberEmail());
         Pet pet = createPetEntity(petRegReq);
         petRepository.save(pet);
         findMember.addPet(pet);
     }
 
-    private Member getFindMember(PetRegReq petRegReq) {
-        String memberEmail = petRegReq.getMemberEmail();
-        Member findMember = memberRepository.findByMemberEmail(memberEmail);
+    @Override
+    @Transactional
+    public void changePetInfo(ChangePetInfoReq petInfoReq) {
+        Pet findPet = getFindPet(petInfoReq);
+        setPet(petInfoReq, findPet);
+    }
+
+    private void setPet(ChangePetInfoReq petInfoReq, Pet findPet) {
+        Breed petBreed = petInfoReq.getPetBreed();
+        String petName = petInfoReq.getPetName();
+        int petAge = petInfoReq.getPetAge();
+        PetSex petSex = petInfoReq.getPetSex();
+        Neutralization petNeutralization = petInfoReq.getPetNeutralization();
+        findPet.changePetInfo(petBreed, petName, petAge, petSex, petNeutralization);
+    }
+
+    private Pet getFindPet(ChangePetInfoReq petInfoReq) {
+        Long petSerial = petInfoReq.getPetSerial();
+        log.info("petSerial={}", petSerial);
+        Pet findPet = petRepository.findByPetSerial(petSerial);
+        return findPet;
+    }
+
+    private Member getFindMember(String email) {
+        Member findMember = memberRepository.findByMemberEmail(email);
         return findMember;
     }
 
@@ -46,8 +71,5 @@ public class PetServiceImpl implements PetService{
         return pet;
     }
 
-    @Override
-    public void changePetInfo(Pet pet) {
 
-    }
 }
