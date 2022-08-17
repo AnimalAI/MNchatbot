@@ -42,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
 
     // 비밀번호 변경
     @Transactional
+
     public void changePassword(MemberDto memberDto){
         Member findMember = memberRepository.findByMemberEmail(memberDto.getMemberEmail());
         if (memberDto.getMemberPassword() == null){

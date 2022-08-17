@@ -20,7 +20,10 @@ public abstract class ResponseMessage {
     public static final String INCORRECT_APPROACH = "잘못된 접근";
     public static final String SEND_EMAIL = "이메일 발송";
 
-    public static final String ADD_ANIMAL = "반려동물추가 성공";
+    public static final String ADD_PET = "반려동물추가 성공";
+    public static final String SUCCESS_CHANGE_PET_INFO = "반려동물 프로필 변경 성공";
+    public static final String WRONG_CHANGE_PET_INFO = "반려동물 프로필 변경 성공";
+
     public static final String SEND_EMAIL_FAIL = "이메일 발송 실패";
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
     public static final String DB_ERROR = "데이터베이스 에러";

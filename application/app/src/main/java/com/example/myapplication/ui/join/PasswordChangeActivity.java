@@ -103,19 +103,22 @@ public class PasswordChangeActivity extends AppCompatActivity {
         });
     }
 
-    // 회원가입 버튼 클릭시에 코드를 전송
+    // 이메일 전송
     private void sendEmail(EmailValidationData data) {
         service.sendEmail(data).enqueue(new Callback<JoinResponse>() {
             @Override
             public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
                 JoinResponse result = response.body();
-                Toast.makeText(PasswordChangeActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if (result.getCode() == 200) {
+                    Toast.makeText(PasswordChangeActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     enterCodeDialog = new Dialog(PasswordChangeActivity.this);
                     enterCodeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     enterCodeDialog.setContentView(R.layout.email_check_dialog);
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
+                } else {
+                    String faileResult = "입력하신 이메일로 코드를 전송하는데 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -158,6 +161,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
                                  })
                             .create();
                     dialog.show();
+                } else {
+                    String faileResult = "이메일로 인증에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -179,6 +185,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PasswordChangeActivity.this);
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+                } else {
+                    String faileResult = "비밀번호에 실패하였습니다. 다시 시도해주세요.";
+                    //Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
