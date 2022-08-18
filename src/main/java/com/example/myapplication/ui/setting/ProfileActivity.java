@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
@@ -21,7 +22,7 @@ import retrofit2.Response;
 public class ProfileActivity extends SettingActivity {
     private Intent intent;
     private TextView ID, pwchange, logout, deleteinfo;
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

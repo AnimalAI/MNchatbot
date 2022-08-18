@@ -17,16 +17,13 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgView_item;
-        TextView txt_main;
-        TextView txt_sub;
-
+        TextView petNickName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgView_item = (ImageView) itemView.findViewById(R.id.imgView_item);
-            txt_main = (TextView) itemView.findViewById(R.id.txt_main);
-            txt_sub = (TextView) itemView.findViewById(R.id.txt_sub);
+            petNickName = (TextView) itemView.findViewById(R.id.petName);
 
             imgView_item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,8 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else
             holder.imgView_item.setImageResource(R.drawable.dogface);
 
-        holder.txt_main.setText(item.getMainText());
-        holder.txt_sub.setText(item.getSubText());
+        holder.petNickName.setText(item.getMainText());
     }
 
     @Override

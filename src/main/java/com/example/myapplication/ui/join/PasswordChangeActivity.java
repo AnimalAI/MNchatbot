@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.login.LoginRequest;
 
@@ -28,7 +30,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     private AlertDialog dialog;
     private JoinUserState joinUserState = new JoinUserState();
-    private ServiceAPI service = RetrofitClient.getClient().create(ServiceAPI.class);
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
     private Dialog enterCodeDialog;
     private boolean isEmailValidated = false;
     private int codeEntered;

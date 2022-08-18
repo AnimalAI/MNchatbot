@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.petSelect;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,9 +16,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.setting.PetinfoData;
-import com.example.myapplication.ui.setting.ProfileAPI;
 import com.example.myapplication.ui.setting.ProfileResponse;
 
 import retrofit2.Call;
@@ -30,8 +31,7 @@ public class AddPetActivity extends AppCompatActivity {
     private EditText petBreed,petNickName;
     private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
-
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +119,7 @@ public class AddPetActivity extends AppCompatActivity {
             }
         });
     }
-    //반려동물 정보 변경
+    //반려동물 정보 설정
     public void getPetinfo(){
         String Name = petNickName.getText().toString().trim();
         String Age = petAge.getText().toString().trim();
@@ -148,8 +148,9 @@ public class AddPetActivity extends AppCompatActivity {
                 if (!response.equals(200)) {
                     Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
-                    startActivity(intent);
-                    AddPetActivity.this.finish();
+                    intent.putExtra("petName", Name);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
             }
 

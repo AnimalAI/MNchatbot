@@ -17,9 +17,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.login.LoginActivity;
-import com.example.myapplication.ui.mainPage.NewActivity;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +29,7 @@ public class JoinActivity extends AppCompatActivity {
 
     private JoinUserState joinUserState = new JoinUserState();
     private boolean validate = false;
-    private ServiceAPI service = RetrofitClient.getClient().create(ServiceAPI.class);
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
     private Dialog enterCodeDialog;
     private AlertDialog dialog;
     private int codeEntered;

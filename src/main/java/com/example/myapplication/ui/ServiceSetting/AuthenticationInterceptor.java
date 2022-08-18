@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.RetrofitSetting;
+package com.example.myapplication.ui.ServiceSetting;
 
 import java.io.IOException;
 

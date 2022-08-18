@@ -13,7 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;
@@ -24,7 +25,7 @@ public class PetProfileActivity extends SettingActivity {
     private TextView petAge;
     private EditText petBreed,petNickName;
     private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnDelete;
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
     public void MaterialButtonToggleGroup (Context context) {
 
     }
