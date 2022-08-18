@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Hash암호방식
         String jwtToken = JWT.create()
                 .withSubject("cos토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 10)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 30))) // jwt 토큰 30분 설정
                 .withClaim("id", principalDetails.getMember().getMember_serial())
                 .withClaim("email", principalDetails.getMember().getMemberEmail())
                 .sign(Algorithm.HMAC512("cos")); // secret key
@@ -93,9 +93,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("statusCode", StatusCode.OK);
             jsonObject.addProperty("responseMessage", ResponseMessage.LOGIN_SUCCESS);
+            jsonObject.addProperty("data","");
+
             response.getWriter().print(jsonObject);
         } catch (IOException e){
-            log.error("로그인 정상 처리에서 오류");
+            log.error("로그인 정리에서 오류");
         }
     }
 
@@ -105,6 +107,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("statusCode", StatusCode.UNAUTHORIZED);
             jsonObject.addProperty("responseMessage", ResponseMessage.LOGIN_FAIL);
+            jsonObject.addProperty("data","");
             response.getWriter().print(jsonObject);
         } catch (IOException e){
             log.error("로그인 실패 처리에서 오류");
