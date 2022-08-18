@@ -69,6 +69,7 @@ public class PetSelectActivity extends AppCompatActivity {
         if (requestCode == 101) {
             if (resultCode == Activity.RESULT_OK) {
                 String petName = intent.getExtras().getString("petName");
+                //리사이클러뷰 새로 생성
             }
         }
     }
