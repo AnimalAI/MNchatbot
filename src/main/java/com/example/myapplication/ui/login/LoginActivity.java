@@ -16,9 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.RetrofitSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.JoinActivity;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.join.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;
@@ -28,12 +29,17 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginAPI loginAPI = RetrofitClient.getClient().create(LoginAPI.class);
+    private String TOKEN = getToken(); // access token을 가져오는 함수를 직접 정의하셔야합니다.
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
 
     private TextView pw_change;
     private EditText login_email, login_password;
     private Button login_button, join_button;
     private LoginFormState LoginFormState = new LoginFormState();
+
+    public String getToken() {
+        return TOKEN;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     public void LoginResponse() {
         String userID = login_email.getText().toString().trim();
         String userPassword = login_password.getText().toString().trim();
@@ -125,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(userID, userPassword);
 
         //loginRequest에 저장된 데이터와 함께 LoginAPI에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        loginAPI.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
+        service.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 //response.body()를 result에 저장
