@@ -22,6 +22,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("statusCode", StatusCode.UNAUTHORIZED);
         jsonObject.addProperty("responseMessage", ResponseMessage.INCORRECT_APPROACH);
+        jsonObject.addProperty("data","");
         response.getWriter().print(jsonObject);
     }
 }
