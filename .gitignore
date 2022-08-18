@@ -238,3 +238,6 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,gradle,androidstudio,android,java
+=======
+/build
+>>>>>>> ce01560af1ee5d401f95b7d0e4eb8569aa810f83

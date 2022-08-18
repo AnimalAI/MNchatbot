@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background_detail">
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/catface" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="16dp">
+        <TextView
+            android:id="@+id/pet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나의 반려동물은?"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"/>
+        <Button
+            android:backgroundTint="#26FFFFFF"
+            android:textColor="@color/white"
+
+            android:id="@+id/selectDog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/pet"
+            android:text="개"
+            android:textSize="15dp"
+            android:layout_marginLeft="25dp"
+            style="?attr/materialButtonOutlinedStyle"/>
+        <Button
+            android:backgroundTint="#26FFFFFF"
+            android:textColor="@color/white"
+
+            android:id="@+id/selectCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고양이"
+            android:textSize="15dp"
+            android:layout_toRightOf="@+id/selectDog"
+            android:layout_marginLeft="20dp"
+            style="?attr/materialButtonOutlinedStyle"/>
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="16dp"
+        android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:text="품종"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+            <EditText
+                android:id="@+id/petbreed"
+                android:hint="무슨 종인지 적어주세요."
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@color/white"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="20dp">
+            <TextView
+                android:text="이름"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_column="0"
+                android:layout_gravity="center"/>
+            <EditText
+                android:id="@+id/petNickname"
+                android:hint="이름(별명)을 적어주세요."
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@color/white"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="15dp">
+            <TextView
+                android:text="나이"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+            <TextView
+                android:hint="x"
+                android:textColorHint="@color/white"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:id="@+id/petAge"
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+            <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
+                android:text="입력"
+                android:textSize="18dp"
+                android:id="@+id/btnAge"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+        <TableRow android:layout_marginTop="20dp">
+            <TextView
+                android:text="성별"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_column="0"
+                android:layout_gravity="center"/>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/Gendertoggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/materialTv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
+                    android:id="@+id/man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="남"
+                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+                <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
+                    android:id="@+id/woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여"
+                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </TableRow>
+        <TableRow android:layout_marginTop="15dp">
+            <TextView
+                android:text="중성화"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:layout_column="0"
+                android:layout_gravity="center"/>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/Neuteringtoggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/materialTv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
+                    android:id="@+id/Neuteringyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O"
+                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+                <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
+                    android:id="@+id/Neuteringno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X"
+                    android:textSize="15dp"
+                    android:layout_weight="1"
+                    style="?attr/materialButtonOutlinedStyle"
+                    />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </TableRow></TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+        <TableRow>
+            <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
+                android:text="저장"
+                android:textSize="18dp"
+                android:id="@+id/btnAddPetSave"
+                android:layout_weight="1"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"/>
+
+            <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
+                android:text="취소"
+                android:textSize="18dp"
+                android:id="@+id/btnAddPetCancel"
+                android:layout_width="120dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
