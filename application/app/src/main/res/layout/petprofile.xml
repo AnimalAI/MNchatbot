@@ -4,74 +4,89 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    android:background="@drawable/background_setting">
 
     <ImageView
         android:id="@+id/pic"
-        android:layout_width="163dp"
-        android:layout_height="155dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:src="@drawable/dog" />
+        android:src="@drawable/dogface" />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="16dp"
         android:stretchColumns="*">
         <TableRow>
             <TextView
                 android:text="품종"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <EditText
                 android:hint="요크셔테리어"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:id="@+id/petBreed"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLength="10"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@color/white"/>
         </TableRow>
-        <TableRow android:layout_marginTop="5dp">
+        <TableRow android:layout_marginTop="20dp">
             <TextView
                 android:text="이름"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <EditText
-                android:hint="홍삼"
+                android:hint="밤"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:id="@+id/petNickname"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLength="10"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="15dp"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@color/white"/>
         </TableRow>
-        <TableRow android:layout_marginTop="5dp">
+        <TableRow android:layout_marginTop="15dp">
             <TextView
                 android:text="나이"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <TextView
                 android:text="2"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:id="@+id/petAge"
                 android:layout_column="1"
                 android:layout_gravity="center"/>
             <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
                 android:text="변경"
                 android:textSize="20dp"
                 android:id="@+id/btnAge"
                 android:layout_column="2"
                 android:layout_gravity="center"/>
         </TableRow>
-        <TableRow android:layout_marginTop="5dp">
+        <TableRow android:layout_marginTop="20dp">
             <TextView
                 android:text="성별"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <com.google.android.material.button.MaterialButtonToggleGroup
@@ -84,9 +99,13 @@
                 app:singleSelection="true"
                 app:selectionRequired="true"
                 android:layout_gravity="center"
+                app:checkedButton="@+id/woman"
                 android:layout_weight="1">
 
                 <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
                     android:id="@+id/man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,6 +115,9 @@
                     style="?attr/materialButtonOutlinedStyle"
                     />
                 <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
                     android:id="@+id/woman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,10 +128,11 @@
                     />
             </com.google.android.material.button.MaterialButtonToggleGroup>
         </TableRow>
-        <TableRow android:layout_marginTop="5dp">
+        <TableRow android:layout_marginTop="15dp">
             <TextView
                 android:text="중성화"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_column="0"
                 android:layout_gravity="center"/>
 
@@ -122,10 +145,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:singleSelection="true"
                 app:selectionRequired="true"
+                app:checkedButton="@+id/Neuteringyes"
                 android:layout_gravity="center"
                 android:layout_weight="1">
 
                 <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
                     android:id="@+id/Neuteringyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,6 +162,9 @@
                     style="?attr/materialButtonOutlinedStyle"
                     />
                 <Button
+                    android:backgroundTint="#26FFFFFF"
+                    android:textColor="@color/white"
+
                     android:id="@+id/Neuteringno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,10 +180,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
         <TableRow>
             <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
                 android:text="저장"
                 android:textSize="20dp"
                 android:id="@+id/btnSave"
@@ -163,6 +196,9 @@
                 android:layout_marginRight="35dp"/>
 
             <Button
+                android:backgroundTint="#CCFFFFFF"
+                android:textColor="@color/purple"
+
                 android:text="삭제"
                 android:textSize="20dp"
                 android:id="@+id/btnDelete"

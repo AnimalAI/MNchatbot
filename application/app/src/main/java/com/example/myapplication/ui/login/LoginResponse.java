@@ -9,11 +9,18 @@ public class LoginResponse {
 
     @SerializedName("responseMessage")
     private String message;
+    //회원 기본 정보
+    @SerializedName("memberEmail")
+    public String inputId;
 
     public int getStatusCode() { return statusCode; }
 
     public String getMessage() {
         return message;
+    }
+
+    public String getuserID() {
+        return inputId;
     }
 
 }

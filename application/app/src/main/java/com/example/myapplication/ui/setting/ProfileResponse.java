@@ -19,6 +19,10 @@ public class ProfileResponse {
     private String petBreed;
     @SerializedName("petAge")
     private String petAge;
+    /*@SerializedName("petGender")
+    public String petGender;
+    @SerializedName("petNeutering")
+    public String petNeutering;*/
 
     public String getPetName() {
         return petName;
@@ -29,6 +33,7 @@ public class ProfileResponse {
     public String getPetAge() {
         return petAge;
     }
+    //public String getPetGender() { return petGender;}
 
     public int getCode() {
         return code;

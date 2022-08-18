@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.petSelect;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,9 +16,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.setting.PetinfoData;
-import com.example.myapplication.ui.setting.ProfileAPI;
 import com.example.myapplication.ui.setting.ProfileResponse;
 
 import retrofit2.Call;
@@ -28,9 +29,9 @@ public class AddPetActivity extends AppCompatActivity {
     private ImageView petprofile;
     private TextView petAge;
     private EditText petBreed,petNickName;
-    private Button btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
+    private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,15 @@ public class AddPetActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnAddPetCancel);
         selectCatButton = findViewById(R.id.selectCat);
         selectDogButton = findViewById(R.id.selectDog);
+        man = findViewById(R.id.man);
+        woman = findViewById(R.id.woman);
+        NeuteringYes = findViewById(R.id.Neuteringyes);
+        NeuteringNo = findViewById(R.id.Neuteringno);
 
         petBreed = findViewById(R.id.petbreed);
         petNickName = findViewById(R.id.petNickname);
         petAge = findViewById(R.id.petAge);
+        
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -103,22 +109,36 @@ public class AddPetActivity extends AppCompatActivity {
         selectCatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                petprofile.setImageResource(R.drawable.cat);
+                petprofile.setImageResource(R.drawable.catface);
             }
         });
         selectDogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                petprofile.setImageResource(R.drawable.dog);
+                petprofile.setImageResource(R.drawable.dogface);
             }
         });
     }
-    //반려동물 정보 변경
+    //반려동물 정보 설정
     public void getPetinfo(){
         String Name = petNickName.getText().toString().trim();
         String Age = petAge.getText().toString().trim();
         //String Breed = petBreed.getText().toString().trim();
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, 1, 1);
+        String Gender = null;
+        String Neutering = null;
+        if (man.isEnabled()) {
+            Gender = man.getText().toString();
+        } else if (woman.isEnabled()) {
+            Gender = woman.getText().toString();
+        }
+
+        if (NeuteringYes.isEnabled()) {
+            Neutering = NeuteringYes.getText().toString();
+        } else if (NeuteringNo.isEnabled()) {
+            Neutering = NeuteringNo.getText().toString();
+        }
+
+        PetinfoData petinfoData = new PetinfoData(Name, Age, null, Gender, Neutering);
 
         Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
 
@@ -126,10 +146,11 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
-                    Toast.makeText(getApplicationContext(),"변경되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
-                    startActivity(intent);
-                    AddPetActivity.this.finish();
+                    intent.putExtra("petName", Name);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
             }
 

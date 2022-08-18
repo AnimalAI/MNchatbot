@@ -4,6 +4,7 @@
     package="com.example.myapplication">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.mainPage.MainActivity" />
+        <activity android:name=".ui.mainPage.NewActivity" />
+        <activity android:name=".ui.mainPage.ChatbotWeb" />
         <activity android:name=".ui.join.JoinActivity" />
         <activity android:name=".ui.setting.SettingActivity" />
         <activity android:name=".ui.join.PasswordChangeActivity" />
