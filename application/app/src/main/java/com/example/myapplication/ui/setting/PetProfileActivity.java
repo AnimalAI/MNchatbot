@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.setting;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.join.RetrofitClient;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;
@@ -22,10 +24,11 @@ import retrofit2.Response;
 public class PetProfileActivity extends SettingActivity {
     private TextView petAge;
     private EditText petBreed,petNickName;
-    private Button btnAge, btnSave, btnDelete;
+    private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnDelete;
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
+    public void MaterialButtonToggleGroup (Context context) {
 
-    private Intent intent;
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,15 @@ public class PetProfileActivity extends SettingActivity {
         btnAge = findViewById(R.id.btnAge);
         btnSave = findViewById(R.id.btnSave);
         btnDelete = findViewById(R.id.btnDelete);
+        man = findViewById(R.id.man);
+        woman = findViewById(R.id.woman);
+        NeuteringYes = findViewById(R.id.Neuteringyes);
+        NeuteringNo = findViewById(R.id.Neuteringno);
         
         //사용자가 초기 설정한 축종에 따라 사진 보여주기
 
         //품종 사용자가 작성한 내용, DB 연결해 보여주기
-        getNameBreedAge();
+        callPetinfo();
         //반려동물 이름, 사용자가 작성한 내용 보여주기
 
 
@@ -123,7 +130,21 @@ public class PetProfileActivity extends SettingActivity {
         String Name = petNickName.getText().toString().trim();
         String Age = petAge.getText().toString().trim();
         //String Breed = petBreed.getText().toString().trim();
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, 1, 1);
+        String Gender = null;
+        String Neutering = null;
+        if (man.isEnabled()) {
+            Gender = man.getText().toString();
+        } else if (woman.isEnabled()) {
+            Gender = woman.getText().toString();
+        }
+
+        if (NeuteringYes.isEnabled()) {
+            Neutering = NeuteringYes.getText().toString();
+        } else if (NeuteringNo.isEnabled()) {
+            Neutering = NeuteringNo.getText().toString();
+        }
+
+        PetinfoData petinfoData = new PetinfoData(Name, Age, null, Gender, Neutering);
 
         Call<ProfileResponse> call = profileAPI.updatePetPost(Age, petinfoData);
 
@@ -170,21 +191,26 @@ public class PetProfileActivity extends SettingActivity {
             }
         });
     }
-    public void getNameBreedAge(){
+    public void callPetinfo(){
         String Name = petNickName.getText().toString().trim();
         String Age = petAge.getText().toString().trim();
         //String Breed = petBreed.getText().toString().trim();
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, 1, 1);
-        Call<ProfileResponse> call = profileAPI.getNameBreedAge(Name, petinfoData);
+        //String Gender = null;
+        //String Neutering = "";
+        PetinfoData petinfoData = new PetinfoData(Name, Age, null, null, null);
+        Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
                     //정보 받아오는 것에서 오류 발생
-                    /*petNickName.setText(response.body().getPetName());
-                    petBreed.setText(response.body().getPetBreed());
-                    petAge.setText(response.body().getPetAge());*/
+                    petNickName.setHint(response.body().getPetName());
+                    //petBreed.setText(response.body().getPetBreed());
+                    petAge.setText(response.body().getPetAge());
+                    /*if ((response.body().getPetGender()).equals("남")) {
+
+                    }*/
                     Toast.makeText(getApplicationContext(),"설정되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -199,6 +225,8 @@ public class PetProfileActivity extends SettingActivity {
                         .show();
             }
         });
+
+
     }
 
 }

@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
        // getActionBar().setDisplayShowTitleEnabled(false);
 
         // 버튼 선언
-        Button questionnaireBtn = (Button) findViewById(R.id.home_button1);
-        Button chatbotBtn = (Button) findViewById(R.id.home_button2);
+        Button chatbotBtn = (Button) findViewById(R.id.home_button1);
+        Button questionnaireBtn = (Button) findViewById(R.id.home_button2);
         Button diseaseListBtn = (Button) findViewById(R.id.home_button3);
         Button loginPage = (Button) findViewById(R.id.drawer_button_login);
         Button petPage = (Button) findViewById(R.id.drawer_button_pet);
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
 
         // 버튼 클릭 시의 화면 이동 구현
-        questionnaireBtn.setOnClickListener(new View.OnClickListener(){
+        chatbotBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChatbotWeb.class);
                 startActivity(intent);
             }
         });
-        chatbotBtn.setOnClickListener(new View.OnClickListener(){
+        questionnaireBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), NewActivity.class);

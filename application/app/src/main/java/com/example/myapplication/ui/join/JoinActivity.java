@@ -17,9 +17,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.login.LoginActivity;
-import com.example.myapplication.ui.mainPage.NewActivity;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +29,7 @@ public class JoinActivity extends AppCompatActivity {
 
     private JoinUserState joinUserState = new JoinUserState();
     private boolean validate = false;
-    private ServiceAPI service = RetrofitClient.getClient().create(ServiceAPI.class);
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
     private Dialog enterCodeDialog;
     private AlertDialog dialog;
     private int codeEntered;
@@ -124,8 +124,8 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
+                // Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if (result.getCode() == 200) {
-                    // Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder builder = new AlertDialog.Builder(JoinActivity.this);
                     dialog = builder.setMessage("사용할 수 있는 이메일입니다.")
                             .setCancelable(false)
@@ -137,9 +137,6 @@ public class JoinActivity extends AppCompatActivity {
                             .create();
                     dialog.show();
                     validate = true;
-                } else {
-                    string faileResult = "사용할 수 없는 이메일입니다.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -156,16 +153,13 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
                 JoinResponse result = response.body();
+                Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if (result.getCode() == 200) {
-                    Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     enterCodeDialog = new Dialog(JoinActivity.this);
                     enterCodeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     enterCodeDialog.setContentView(R.layout.email_check_dialog);
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
-                } else {
-                    string faileResult = "코드 전송에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -196,13 +190,10 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
+                Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                 if (result.getCode() == 200) {
-                    Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
-                } else {
-                    string faileResult = "회원가입에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

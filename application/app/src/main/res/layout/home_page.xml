@@ -10,7 +10,8 @@
    <RelativeLayout
        android:id="@+id/main_content"
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:background="@drawable/background_default">
 
        <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="match_parent"
@@ -25,6 +26,9 @@
                app:layout_constraintTop_toTopOf="parent">
 
                <Button
+                   android:backgroundTint="#80FFFFFF"
+                   android:textColor="@color/purple"
+
                    android:id="@+id/home_button1"
                    android:layout_width="350dp"
                    android:layout_height="100dp"
@@ -33,6 +37,9 @@
                    android:text="@string/chatbot" />
 
                <Button
+                   android:backgroundTint="#80FFFFFF"
+                   android:textColor="@color/purple"
+
                    android:id="@+id/home_button2"
                    android:layout_width="350dp"
                    android:layout_height="100dp"
@@ -41,6 +48,9 @@
                    android:text="@string/questionnaire" />
 
                <Button
+                   android:backgroundTint="#80FFFFFF"
+                   android:textColor="@color/purple"
+
                    android:id="@+id/home_button3"
                    android:layout_width="350dp"
                    android:layout_height="100dp"
@@ -49,6 +59,9 @@
                    android:text="@string/diagnosis" />
 
                <Button
+                   android:backgroundTint="#80FFFFFF"
+                   android:textColor="@color/purple"
+
                    android:id="@+id/home_button4"
                    android:layout_width="350dp"
                    android:layout_height="100dp"
@@ -57,6 +70,9 @@
                    android:text="@string/hospital" />
 
                <Button
+                   android:backgroundTint="#80FFFFFF"
+                   android:textColor="@color/purple"
+
                    android:id="@+id/home_button5"
                    android:layout_width="350dp"
                    android:layout_height="100dp"
@@ -76,7 +92,6 @@
                    android:layout_width="match_parent"
                    android:layout_height="?actionBarSize"
                    android:layout_centerInParent="true"
-                   android:background="#EEEEEE"
                    android:elevation="3dp">
 
                    <ImageButton
@@ -84,7 +99,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_margin="16dp"
-                       android:background="#EEEEEE"
+                       android:background="#00FFFFFF"
                        android:contentDescription="@string/drawer_button"
                        android:minWidth="48dp"
                        android:minHeight="48dp"
@@ -95,14 +110,15 @@
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
                        android:text="메인 화면"
-                       android:textSize="24sp" />
+                       android:textSize="24sp"
+                       android:textColor="@color/white"/>
 
                    <ImageButton
                        android:id="@+id/setting_btn"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="end"
-                       android:background="#EEEEEE"
+                       android:background="#00FFFFFF"
                        android:contentDescription="@string/setting_button"
                        android:minWidth="48dp"
                        android:minHeight="48dp"
@@ -117,7 +133,7 @@
 
     <!-- Drawer -->
     <LinearLayout
-        android:id="@+id/drawer_menu"
+        android:id="@+id/drawer_mednu"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -125,42 +141,56 @@
         android:layout_gravity="start">
 
         <Button
+            android:backgroundTint="@color/lightYellow"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_login"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="로그아웃"
             />
         <Button
+            android:backgroundTint="@color/lightYellow"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_pet"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="펫 선택"
             />
         <Button
+            android:backgroundTint="@color/white"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_chatbot"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="@string/chatbot"
             />
         <Button
+            android:backgroundTint="@color/white"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_question"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="@string/questionnaire"
             />
         <Button
+            android:backgroundTint="@color/white"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_diagnose"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="@string/diagnosis"
             />
         <Button
+            android:backgroundTint="@color/white"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_hospital"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="@string/hospital"
             />
         <Button
+            android:backgroundTint="@color/white"
+            android:textColor="@color/darkbrown"
             android:id="@+id/drawer_button_encyclopedia"
             android:layout_width="150dp"
             android:layout_height="75dp"

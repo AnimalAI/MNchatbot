@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.join.RetrofitClient;
-import com.example.myapplication.ui.login.LoginActivity;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.login.LoginActivity;
+import com.example.myapplication.ui.login.LoginRequest;
+import com.example.myapplication.ui.login.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,18 +21,20 @@ import retrofit2.Response;
 
 public class ProfileActivity extends SettingActivity {
     private Intent intent;
-
-    private ProfileAPI profileAPI = RetrofitClient.getClient().create(ProfileAPI.class);
+    private TextView ID, pwchange, logout, deleteinfo;
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
 
-        TextView ID = findViewById(R.id.userID);
-        TextView pwchange = findViewById(R.id.pwchange);
-        TextView logout = findViewById(R.id.logout);
-        TextView deleteinfo = findViewById(R.id.deleteinfo);
+        ID = findViewById(R.id.userID);
+        pwchange = findViewById(R.id.pwchange);
+        logout = findViewById(R.id.logout);
+        deleteinfo = findViewById(R.id.deleteinfo);
+
+        calluserInfo();
 
         //비밀번호 변경
         pwchange.setOnClickListener(new View.OnClickListener() {
@@ -98,5 +103,32 @@ public class ProfileActivity extends SettingActivity {
                         .show();
             }
         });
+    }
+    public void calluserInfo(){
+        String userID = ID.getText().toString().trim();
+        LoginRequest loginRequest = new LoginRequest(userID, null);
+        Call<LoginResponse> call = profileAPI.getLoginResponse(loginRequest);
+
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (!response.equals(200)) {
+                    //정보 받아오는 것에서 오류 발생
+                    ID.setText(response.body().getuserID());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+
+
     }
 }

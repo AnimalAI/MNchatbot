@@ -15,17 +15,17 @@ public class PetinfoData {
     public String petAge;
 
     @SerializedName("petGender")
-    public int petGender;
+    public String petGender;
 
-    @SerializedName("pet중성화")
-    public int pet중성화;
+    @SerializedName("petNeutering")
+    public String petNeutering;
 
-    public PetinfoData(String petName, String petAge, String petBreed, int petGender, int pet중성화) {
+    public PetinfoData(String petName, String petAge, String petBreed, String petGender, String petNeutering) {
         this.petName = petName;
         this.petAge = petAge;
         this.petBreed = petBreed;
         this.petGender = petGender;
-        this.pet중성화 = pet중성화;
+        this.petNeutering = petNeutering;
 
     }
 }
