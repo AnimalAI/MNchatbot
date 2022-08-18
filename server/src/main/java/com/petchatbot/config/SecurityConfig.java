@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/join", "/sendEmail", "/enterEmailCode/join","/validateDuplicateEmail","/addPet").permitAll()
+                .antMatchers("/", "/login", "/join", "/sendEmail", "/enterEmailCode/join","/validateDuplicateEmail").permitAll()
                 .anyRequest().authenticated();
 
 
