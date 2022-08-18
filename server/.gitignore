@@ -3,3 +3,6 @@
 /build/
 /build/classes/java/main/
 src/main/resources/application.yml
+
+# InteliJ
+out/
