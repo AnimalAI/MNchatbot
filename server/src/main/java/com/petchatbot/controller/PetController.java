@@ -29,7 +29,7 @@ public class PetController {
     @PostMapping("/addPet")
     public ResponseEntity<String> addPet(@RequestBody PetRegReq petRegReq) {
 
-        petService.registerPet(petRegReq);
+        petService.registerPet(petRegReq); // 펫 등록
         log.info("petRegReg={}",petRegReq.getPetName());
         return new ResponseEntity(DefaultRes.res(StatusCode.OK, ResponseMessage.ADD_ANIMAL), HttpStatus.OK);
     }
