@@ -21,11 +21,14 @@ import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.ProfileResponse;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddPetActivity extends AppCompatActivity {
+    private String CATDOG;
     private ImageView petprofile;
     private TextView petAge;
     private EditText petBreed,petNickName;
@@ -105,19 +108,22 @@ public class AddPetActivity extends AppCompatActivity {
                 AgePicker.show();
             }
         });
-        // 개/고양이 버튼 클릭 시에 해당 사진으로 이미지뷰 변경
-        selectCatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                petprofile.setImageResource(R.drawable.catface);
-            }
-        });
+        //개/고양이 버튼 클릭 시에 해당 사진으로 이미지뷰 변경
         selectDogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                petprofile.setImageResource(R.drawable.dogface);
+                petprofile.setImageResource(R.drawable.dog2);
+                CATDOG = "dog";
             }
         });
+        selectCatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                petprofile.setImageResource(R.drawable.cat2);
+                CATDOG = "cat";
+            }
+        });
+
     }
     //반려동물 정보 설정
     public void getPetinfo(){
@@ -126,20 +132,13 @@ public class AddPetActivity extends AppCompatActivity {
         //String Breed = petBreed.getText().toString().trim();
         String Gender = null;
         String Neutering = null;
-        if (man.isEnabled()) {
-            Gender = man.getText().toString();
-        } else if (woman.isEnabled()) {
-            Gender = woman.getText().toString();
-        }
+        if (man.isEnabled()) { Gender = man.getText().toString();
+        } else if (woman.isEnabled()) { Gender = woman.getText().toString();}
 
-        if (NeuteringYes.isEnabled()) {
-            Neutering = NeuteringYes.getText().toString();
-        } else if (NeuteringNo.isEnabled()) {
-            Neutering = NeuteringNo.getText().toString();
-        }
+        if (NeuteringYes.isEnabled()) { Neutering = NeuteringYes.getText().toString();
+        } else if (NeuteringNo.isEnabled()) { Neutering = NeuteringNo.getText().toString(); }
 
         PetinfoData petinfoData = new PetinfoData(Name, Age, null, Gender, Neutering);
-
         Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
@@ -149,6 +148,7 @@ public class AddPetActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
                     intent.putExtra("petName", Name);
+                    intent.putExtra("CATDOG", CATDOG);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }

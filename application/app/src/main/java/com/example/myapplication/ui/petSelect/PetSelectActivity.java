@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PetSelectActivity extends AppCompatActivity {
 
@@ -33,11 +35,9 @@ public class PetSelectActivity extends AppCompatActivity {
 
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
         addItem("cat", "밤이");
-        addItem("dog", "보리");
 
         mRecyclerViewAdapter = new RecyclerViewAdapter(mList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         // 리사이클러뷰 안의 아이템(반려동물 아이콘) 클릭시 메인화면으로 이동
@@ -62,14 +62,17 @@ public class PetSelectActivity extends AppCompatActivity {
         });
 
     }
+    //사용자가 작성한 반려동물 정보 불러오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if (requestCode == 101) {
-            if (resultCode == Activity.RESULT_OK) {
-                String petName = intent.getExtras().getString("petName");
-                //리사이클러뷰 새로 생성
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent !=null) {
+                String petName = intent.getStringExtra("petName");
+                String CATDOG = intent.getStringExtra("CATDOG");
+                addItem(CATDOG, petName);
+                mRecyclerViewAdapter.notifyDataSetChanged();
             }
         }
     }
