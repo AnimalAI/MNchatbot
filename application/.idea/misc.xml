@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/yeeunyuk/AndroidStudioProjects/Hanium-AI-Pet-Chatbot/application/app/src/main/res/layout/newpetprofile.xml" value="0.264" />
+        <entry key="..\:/Users/yeeunyuk/AndroidStudioProjects/Hanium-AI-Pet-Chatbot/application/app/src/main/res/layout/pet_activity_main.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/yeeunyuk/AndroidStudioProjects/Hanium-AI-Pet-Chatbot/application/app/src/main/res/layout/pet_activity_recycler_item.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/yeeunyuk/AndroidStudioProjects/Hanium-AI-Pet-Chatbot/application/app/src/main/res/layout/petprofile.xml" value="0.22327898550724637" />
+        <entry key="..\:/Users/yeeunyuk/AndroidStudioProjects/Hanium-AI-Pet-Chatbot/application/app/src/main/res/layout/recyclerview_item.xml" value="0.22327898550724637" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.12" />
       </map>
     </option>
