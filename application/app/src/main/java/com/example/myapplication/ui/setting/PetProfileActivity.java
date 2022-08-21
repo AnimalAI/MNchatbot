@@ -25,7 +25,14 @@ public class PetProfileActivity extends SettingActivity {
     private TextView petAge;
     private EditText petBreed,petNickName;
     private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnDelete;
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
+
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() {
+        return TOKEN;
+    }
+
     public void MaterialButtonToggleGroup (Context context) {
 
     }

@@ -29,11 +29,17 @@ public class JoinActivity extends AppCompatActivity {
 
     private JoinUserState joinUserState = new JoinUserState();
     private boolean validate = false;
-    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
     private Dialog enterCodeDialog;
     private AlertDialog dialog;
     private int codeEntered;
     private int codeReceived;
+
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() {
+        return TOKEN;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +144,7 @@ public class JoinActivity extends AppCompatActivity {
                     dialog.show();
                     validate = true;
                 } else {
-                    string faileResult = "사용할 수 없는 이메일입니다.";
+                    String faileResult = "사용할 수 없는 이메일입니다.";
                     Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -164,7 +170,7 @@ public class JoinActivity extends AppCompatActivity {
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
                 } else {
-                    string faileResult = "코드 전송에 실패하였습니다. 다시 시도해주세요.";
+                    String faileResult = "코드 전송에 실패하였습니다. 다시 시도해주세요.";
                     Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -201,7 +207,7 @@ public class JoinActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    string faileResult = "회원가입에 실패하였습니다. 다시 시도해주세요.";
+                    String faileResult = "회원가입에 실패하였습니다. 다시 시도해주세요.";
                     Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -213,4 +219,3 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 }
-

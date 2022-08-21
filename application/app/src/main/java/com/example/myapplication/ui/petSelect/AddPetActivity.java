@@ -34,7 +34,13 @@ public class AddPetActivity extends AppCompatActivity {
     private EditText petBreed,petNickName;
     private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() {
+        return TOKEN;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

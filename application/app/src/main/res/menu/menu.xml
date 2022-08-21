@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--    <item android:id="@+id/setting_btn"-->
-<!--        android:title="setting"-->
-<!--        android:icon="@drawable/ic_option"-->
-<!--        app:showAsAction="always"-->
-<!--        />-->
+    <!--<item
+        android:id="@+id/tab_home"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="홈" />-->
+    <item
+        android:id="@+id/tab_chatbot"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/icon_app"
+        android:title="챗봇" />
+    <item
+        android:id="@+id/tab_2"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="문진표" />
+    <item
+        android:id="@+id/tab_3"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="예측진단" />
+    <item
+        android:id="@+id/tab_4"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_input_get"
+        android:title="연계병원" />
+    <item
+        android:id="@+id/tab_5"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:title="질병백과" />
+
 </menu>

@@ -22,7 +22,13 @@ import retrofit2.Response;
 public class ProfileActivity extends SettingActivity {
     private Intent intent;
     private TextView ID, pwchange, logout, deleteinfo;
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class);
+
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() {
+        return TOKEN;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
