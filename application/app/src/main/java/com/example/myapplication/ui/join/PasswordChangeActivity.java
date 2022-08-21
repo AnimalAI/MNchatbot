@@ -30,11 +30,17 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     private AlertDialog dialog;
     private JoinUserState joinUserState = new JoinUserState();
-    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
     private Dialog enterCodeDialog;
     private boolean isEmailValidated = false;
     private int codeEntered;
     private int codeReceived;
+
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() {
+        return TOKEN;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +117,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JoinResponse> call, retrofit2.Response<JoinResponse> response) {
                 JoinResponse result = response.body();
+
                 if (result.getCode() == 200) {
                     Toast.makeText(PasswordChangeActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
                     enterCodeDialog = new Dialog(PasswordChangeActivity.this);
@@ -119,8 +126,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     codeReceived = result.getData();
                     showEmailCodeEnterDialog();
                 } else {
-                    string faileResult = "입력하신 이메일로 코드를 전송하는데 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "입력하신 이메일로 코드를 전송하는데 실패하였습니다. 다시 시도해주세요.";
+                    Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -157,15 +164,15 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     isEmailValidated = true;
                     AlertDialog.Builder builder = new AlertDialog.Builder(PasswordChangeActivity.this);
                     dialog = builder.setMessage("이메일이 인증되었습니다.")
-                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                 @Override
-                                 public void onClick(DialogInterface dialog, int which) {}
-                                 })
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {}
+                            })
                             .create();
                     dialog.show();
                 } else {
-                    string faileResult = "이메일로 인증에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "이메일로 인증에 실패하였습니다. 다시 시도해주세요.";
+                    Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -188,8 +195,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    string faileResult = "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.";
-                    Toast.makeText(JoinActivity.this, faileResult, Toast.LENGTH_SHORT).show();
+                    String faileResult = "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.";
+                    Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

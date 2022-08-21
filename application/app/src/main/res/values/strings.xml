@@ -29,4 +29,6 @@
     <string name="hospital">연계병원</string>
     <string name="diagnosis">예측진단</string>
     <string name="disease_encyclopedia">질병백과</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

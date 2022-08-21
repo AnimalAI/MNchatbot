@@ -29,14 +29,14 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String TOKEN = getToken(); // access token을 가져오는 함수를 직접 정의하셔야합니다.
-    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-
     private TextView pw_change;
     private EditText login_email, login_password;
     private Button login_button, join_button;
     private LoginFormState LoginFormState = new LoginFormState();
 
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
     public String getToken() {
         return TOKEN;
     }
@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                 //받은 코드 저장
                 int statusCode = result.getStatusCode();
 
-                if (result.getStatusCode()==200) {
+                if (statusCode==200) {
                     String userID = login_email.getText().toString();
 
                     Toast.makeText(LoginActivity.this, userID + "님 환영합니다.", Toast.LENGTH_SHORT).show();

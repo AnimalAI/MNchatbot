@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -14,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.mainPage.Home;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class PetSelectActivity extends AppCompatActivity {
 
@@ -76,27 +75,6 @@ public class PetSelectActivity extends AppCompatActivity {
             }
         }
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    //result.getResultCode()를 통하여 결과값 확인
-                    if (result.getResultCode() == RESULT_OK) {
-                        //ToDo
-                        String petName = intent.getExtras().getString("petName");
-                        addItem("cat", petName, "멍멍이");
-                        mRecyclerViewAdapter.notifyDataSetChanged();
-                    }
-                    if (result.getResultCode() == RESULT_CANCELED) {
-                        //ToDo
-                    }
-                });
-        mStartForResult.launch(intent);
-    }*/
 
     // 리사이클러뷰에 데이터추가
     public void addItem(String imgName, String mainText){

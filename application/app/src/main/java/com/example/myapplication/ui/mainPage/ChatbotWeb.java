@@ -1,46 +1,43 @@
 package com.example.myapplication.ui.mainPage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.setting.SettingActivity;
 
-public class ChatbotWeb extends AppCompatActivity {
+public class ChatbotWeb extends Fragment {
+
+    MainActivity mainActivity;
     private String TAG = ChatbotWeb.class.getSimpleName();
     private WebView webView = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.chatbot);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // 버튼 선언
-        Button loginPage = (Button) findViewById(R.id.drawer_button_login);
-        Button petPage = (Button) findViewById(R.id.drawer_button_pet);
-        Button hospitalListPage = (Button) findViewById(R.id.drawer_button_hospital);
-        Button chatbotPage = (Button) findViewById(R.id.drawer_button_chatbot);
-        Button questionnairePage = (Button) findViewById(R.id.drawer_button_question);
-        Button diseaseListPage = (Button) findViewById(R.id.drawer_button_diagnose);
-        ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
-        ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
 
-        webView = findViewById(R.id.webview);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.chatbot,container,false);
+        webView = rootview.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());  // 새 창 띄우기 않기
         webView.setWebChromeClient(new WebChromeClient());
 
@@ -60,70 +57,6 @@ public class ChatbotWeb extends AppCompatActivity {
         //웹 뷰 호출
         webView.loadUrl("http://www.naver.com");
 
-        /* ================= [드로어 버튼] ========================== */
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
-        drawerBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT);
-                else drawer. closeDrawer(Gravity.LEFT);
-            }
-        });
-        settingBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // (상세) 드로어 버튼 클릭 시의 화면 이동 구현
-        loginPage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        petPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PetSelectActivity.class);
-                startActivity(intent);
-            }
-        });
-        chatbotPage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), ChatbotWeb.class);
-                startActivity(intent);
-            }
-        });
-        questionnairePage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
-                startActivity(intent);
-            }
-        });
-        diseaseListPage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
-                startActivity(intent);
-            }
-        });
-        hospitalListPage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        return rootview;
     }
 }
