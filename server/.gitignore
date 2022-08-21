@@ -1,7 +1,10 @@
 # Project exclude paths
 /.gradle/
 /build/
+/.idea/
+
 /build/classes/java/main/
 src/main/resources/application.yml
+
 #intelij
 out/
