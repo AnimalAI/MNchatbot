@@ -3,7 +3,6 @@ package com.example.myapplication.ui.petSelect;
 public class RecyclerViewItem {
     private String mImgName;
     private String mMainText;
-    private String mSubText;
 
     public String getImgName() {
         return mImgName;
@@ -19,13 +18,5 @@ public class RecyclerViewItem {
 
     public void setMainText(String mainText) {
         this.mMainText = mainText;
-    }
-
-    public String getSubText() {
-        return mSubText;
-    }
-
-    public void setSubText(String subText) {
-        this.mSubText = subText;
     }
 }

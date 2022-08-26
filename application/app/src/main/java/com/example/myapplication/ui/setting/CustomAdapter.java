@@ -16,7 +16,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private Context context;
     private ArrayList<String> listSet;
 
-    //================[Click 이벤트 구현을 위한 코드]=============
     //onItemClickListener 인터페이스 선언
     public interface OnItemclickListener {
         void onItemclicked(int position, String data);
@@ -28,7 +27,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void setOnItemClickListener (OnItemclickListener listener) {
         itemclickListener = listener;
     }
-    //=======================================================
 
     //뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{

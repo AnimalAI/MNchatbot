@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.setting.SettingActivity;
@@ -23,16 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
     MainFragment mainFragment;
     ManuFragment manuFragment;
+
     ChatbotWeb chatbotWeb;
+    Fragment_diagnosis diagnosis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_blank);
+        setContentView(R.layout.fragment_main);
 
         mainFragment = new MainFragment();
         manuFragment = new ManuFragment();
         chatbotWeb = new ChatbotWeb();
+        diagnosis = new Fragment_diagnosis();
 
         //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.tab_3:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, diagnosis).commit();
                         return true;
                     case R.id.tab_4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
