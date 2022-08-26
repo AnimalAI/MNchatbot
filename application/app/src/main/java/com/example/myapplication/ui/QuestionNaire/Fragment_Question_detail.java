@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.mainPage;
+package com.example.myapplication.ui.QuestionNaire;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,8 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.mainPage.MainActivity;
 
-public class ManuFragment extends Fragment {
+public class Fragment_Question_detail extends Fragment {
 
     MainActivity mainActivity;
 
@@ -28,11 +29,11 @@ public class ManuFragment extends Fragment {
         mainActivity = null;
     }
 
-        @Nullable
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragement_example,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_diagnosis_detail,container,false);
         /*Button button4 = (Button)rootview.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
