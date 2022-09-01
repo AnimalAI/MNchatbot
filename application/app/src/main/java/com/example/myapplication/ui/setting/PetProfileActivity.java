@@ -16,15 +16,19 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PetProfileActivity extends SettingActivity {
+    private MaterialButtonToggleGroup Gendertoggle, Neuteringtoggle;
+    private MaterialButton man, woman, NeuteringYes, NeuteringNo;
     private TextView petAge;
     private EditText petBreed,petNickName;
-    private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnDelete;
+    private Button btnAge, btnSave, btnDelete;
 
     //서버 통신
     private String TOKEN = getToken();
@@ -44,14 +48,17 @@ public class PetProfileActivity extends SettingActivity {
 
         petNickName = findViewById(R.id.petNickname);
         petAge = findViewById(R.id.petAge);
-        petBreed = findViewById(R.id.petbreed);
+        petBreed = findViewById(R.id.petBreed);
         btnAge = findViewById(R.id.btnAge);
         btnSave = findViewById(R.id.btnSave);
         btnDelete = findViewById(R.id.btnDelete);
-        man = findViewById(R.id.man);
-        woman = findViewById(R.id.woman);
-        NeuteringYes = findViewById(R.id.Neuteringyes);
-        NeuteringNo = findViewById(R.id.Neuteringno);
+
+        Gendertoggle = findViewById(R.id.Gendertoggle);
+        Neuteringtoggle = findViewById(R.id.Neuteringtoggle);
+        man = Gendertoggle.findViewById(R.id.man);
+        woman = Gendertoggle.findViewById(R.id.woman);
+        NeuteringYes = Neuteringtoggle.findViewById(R.id.Neuteringyes);
+        NeuteringNo = Neuteringtoggle.findViewById(R.id.Neuteringno);
         
         //사용자가 초기 설정한 축종에 따라 사진 보여주기
 
@@ -135,23 +142,17 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 변경
     public void updatePetPost(){
         String Name = petNickName.getText().toString().trim();
-        String Age = petAge.getText().toString().trim();
-        //String Breed = petBreed.getText().toString().trim();
+        int Age = Integer.parseInt(petAge.getText().toString());
+        String Breed = petBreed.getText().toString().trim();
         String Gender = null;
         String Neutering = null;
-        if (man.isEnabled()) {
-            Gender = man.getText().toString();
-        } else if (woman.isEnabled()) {
-            Gender = woman.getText().toString();
-        }
+        if (man.isChecked()) { Gender = "MALE";
+        } else if (woman.isChecked()) { Gender = "FEMALE";}
 
-        if (NeuteringYes.isEnabled()) {
-            Neutering = NeuteringYes.getText().toString();
-        } else if (NeuteringNo.isEnabled()) {
-            Neutering = NeuteringNo.getText().toString();
-        }
+        if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
+        } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, Gender, Neutering);
+        PetinfoData petinfoData = new PetinfoData(Name, Age, Breed, Gender, Neutering);
 
         Call<ProfileResponse> call = profileAPI.updatePetPost(Age, petinfoData);
 
@@ -160,6 +161,7 @@ public class PetProfileActivity extends SettingActivity {
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getApplicationContext(),"변경되었습니다.", Toast.LENGTH_SHORT).show();
+                    PetProfileActivity.this.finish();
                 }
             }
 
@@ -200,11 +202,12 @@ public class PetProfileActivity extends SettingActivity {
     }
     public void callPetinfo(){
         String Name = petNickName.getText().toString().trim();
-        String Age = petAge.getText().toString().trim();
-        //String Breed = petBreed.getText().toString().trim();
-        //String Gender = null;
-        //String Neutering = "";
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, null, null);
+        int Age = Integer.parseInt(petAge.getText().toString());
+        String Breed = petBreed.getText().toString().trim();
+        String Gender = "";
+        String Neutering = "";
+
+        PetinfoData petinfoData = new PetinfoData(Name, Age, Breed, Gender, Neutering);
         Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
@@ -213,11 +216,15 @@ public class PetProfileActivity extends SettingActivity {
                 if (!response.equals(200)) {
                     //정보 받아오는 것에서 오류 발생
                     petNickName.setHint(response.body().getPetName());
-                    //petBreed.setText(response.body().getPetBreed());
-                    petAge.setText(response.body().getPetAge());
-                    /*if ((response.body().getPetGender()).equals("남")) {
+                    petBreed.setHint(response.body().getPetBreed());
+                    petAge.setText(String.valueOf(response.body().getPetAge()));
+                    if ((response.body().getPetGender()).equals("MALE")) {
+                        man.setChecked(true);
+                    } else { woman.setChecked(true); }
+                    if ((response.body().getPetNeutering()).equals("Neuter")) {
+                        NeuteringYes.setChecked(true);
+                    } else { NeuteringNo.setChecked(true); }
 
-                    }*/
                     Toast.makeText(getApplicationContext(),"설정되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }

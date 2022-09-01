@@ -33,7 +33,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_diagnosis,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_diagnosis,container,false);
         /*Button button3 = (Button)rootview.findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override

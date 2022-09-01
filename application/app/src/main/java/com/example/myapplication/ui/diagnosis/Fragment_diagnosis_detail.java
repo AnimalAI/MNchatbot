@@ -33,7 +33,7 @@ public class Fragment_diagnosis_detail extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_diagnosis_detail,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_diagnosis_detail,container,false);
         /*Button button4 = (Button)rootview.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override

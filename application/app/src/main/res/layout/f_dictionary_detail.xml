@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_default">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TableRow>
+                <TextView
+                    android:text="질병명"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_Name"
+                    android:text="췌장염"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:text="축종"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_Species"
+                    android:text="개, 고양이"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:text="정의"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_definition"
+                    android:text="췌장에 발생한 염증"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="원인"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_cause"
+                    android:text="영양성(고지단백혈증), 췌장의 창상 또는 허혈, 십이지장 반사, 약제나 독성물질, 췌장관 폐쇄, 고칼슘혈증, 감염인자-톡소플라스마증, 고양이 전염성 복막염(FIP)"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="발병기전"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_pathogenesis"
+                    android:text="정상적으로는 췌장에서 분비되는 효소에 의한 자가소화의 방어기작이 존재, 특정한 상황에서 이러한 방어기작이 작용을 하지 못함. 췌장에서 분비된 효소에 의해 국소적 또는 전신적으로 조직에 손상이 일어나고 키닌이나 프리라디칼, 보체성분과 같은 염증 매개인자들이 방출, 염증이 발생.
+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="발병 및 역학"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_epidemiology"
+                    android:text="기면, 침울, 식욕부진, 구토, 체중감소, 복통등이 나타남. 개와 고양이에서 발생, 미니어처 슈나우저와 미니어처 푸들, 코커스패니얼, 샴고양이에서 다발, 중간연령에서 노령의 개에서 급성 췌장염이 발생, 암컷에 다발"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="주요증상"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_symptom"
+                    android:text="거리감각불능, 거리감각 과대 및 과소, 구강점막의 건조, 구토, 기립불능, 다우너, 다뇨증, 다음, 많이 마심, 지나친 갈증, 다호흡, 빠른호흡(빈호흡), 과호흡, 단백뇨, 당뇨, 동공부동, 떨림, 전율, 오한, 머리 박치기, 모세혈관 재충만 시간 지연, 무기력, 침울, 졸림, 생기없음, 발열, 고열, 발작, 실신, 경련, 간질발작, 허탈, 방향 감각 상실, 기억 상실, 배변량 감소, 변비, 배변 안됨"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="진단"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_diagnosis"
+                    android:text="방사선 소견: 복부의 방사선 촬영시 우측 복부에 밀도가 증가된 연부조직이 관찰, 내부 장기의 모습이 뚜렷하지 않음, 십이지장 근위부에 가스 음영이 관찰됨, 흉부의 방사선 촬영시 경미한 흉막의 삼출이 보임.
+                    초음파 소견: 복부의 초음파 소견-균일하지 않은 단단하거나 낭성의 종괴가 관찰됨, 복막의 삼출과 함께 간외성 담도폐쇄가 보일 수 있음"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="치료"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_treatment"
+                    android:text="수액치료: Lactated ringer solution(LRS)과 같은 전해질 용액을 투여, 탈수를 보정하기 위해 4-6시간마다 적정한 양을 사용"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="예방"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_prevention"
+                    android:text="비만시 체중감소, 고지방 사료 급여를 피함"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="예후"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_prognosis"
+                    android:text="부종성의 췌장염시에는 치료만 잘 되면 예후가 좋음, 그러나 괴사성 췌장염은 예후가 좋지 않음"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="보호자에 대한 조언"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_advice"
+                    android:text="비만이 되지 않도록 운동을 시키고 지방 함량이 적은 사료를 급여하도록 함"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

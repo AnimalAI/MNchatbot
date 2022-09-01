@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailText"
             android:orientation="horizontal">
-            android:layout_below="@+id/signup"
 
             <EditText
                 android:id="@+id/editTextEmail"

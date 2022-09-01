@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
-import com.example.myapplication.ui.petSelect.RecyclerViewItem;
 
 import java.util.ArrayList;
 
@@ -66,7 +64,7 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
     @Override
     public diagnosisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_diagnosis_item, parent, false);
+                .inflate(R.layout.f_diagnosis_item, parent, false);
         diagnosisAdapter.ViewHolder viewHolder = new diagnosisAdapter.ViewHolder(view);
 
         return viewHolder;
