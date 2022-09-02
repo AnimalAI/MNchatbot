@@ -20,6 +20,8 @@ import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.ProfileResponse;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
 
@@ -28,11 +30,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddPetActivity extends AppCompatActivity {
+    private MaterialButtonToggleGroup Gendertoggle, Neuteringtoggle;
+    private MaterialButton man, woman, NeuteringYes, NeuteringNo;
     private String CATDOG;
     private ImageView petprofile;
     private TextView petAge;
     private EditText petBreed,petNickName;
-    private Button man, woman, NeuteringYes, NeuteringNo, btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
+    private Button btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
     //서버 통신
     private String TOKEN = getToken();
@@ -53,10 +57,13 @@ public class AddPetActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnAddPetCancel);
         selectCatButton = findViewById(R.id.selectCat);
         selectDogButton = findViewById(R.id.selectDog);
-        man = findViewById(R.id.man);
-        woman = findViewById(R.id.woman);
-        NeuteringYes = findViewById(R.id.Neuteringyes);
-        NeuteringNo = findViewById(R.id.Neuteringno);
+
+        Gendertoggle = findViewById(R.id.Gendertoggle);
+        Neuteringtoggle = findViewById(R.id.Neuteringtoggle);
+        man = Gendertoggle.findViewById(R.id.man);
+        woman = Gendertoggle.findViewById(R.id.woman);
+        NeuteringYes = Neuteringtoggle.findViewById(R.id.Neuteringyes);
+        NeuteringNo = Neuteringtoggle.findViewById(R.id.Neuteringno);
 
         petBreed = findViewById(R.id.petbreed);
         petNickName = findViewById(R.id.petNickname);
@@ -134,17 +141,17 @@ public class AddPetActivity extends AppCompatActivity {
     //반려동물 정보 설정
     public void getPetinfo(){
         String Name = petNickName.getText().toString().trim();
-        String Age = petAge.getText().toString().trim();
-        //String Breed = petBreed.getText().toString().trim();
+        int Age = Integer.parseInt(petAge.getText().toString());
+        String Breed = petBreed.getText().toString().trim();
         String Gender = null;
         String Neutering = null;
-        if (man.isEnabled()) { Gender = man.getText().toString();
-        } else if (woman.isEnabled()) { Gender = woman.getText().toString();}
+        if (man.isChecked()) { Gender = "MALE";
+        } else if (woman.isChecked()) { Gender = "FEMALE";}
 
-        if (NeuteringYes.isEnabled()) { Neutering = NeuteringYes.getText().toString();
-        } else if (NeuteringNo.isEnabled()) { Neutering = NeuteringNo.getText().toString(); }
+        if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
+        } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
-        PetinfoData petinfoData = new PetinfoData(Name, Age, null, Gender, Neutering);
+        PetinfoData petinfoData = new PetinfoData(Name, Age, Breed, Gender, Neutering);
         Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {

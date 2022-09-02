@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.Dictionary;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
-public class Fragment_Question_detail extends Fragment {
+public class Fragment_Dictionary_detail extends Fragment {
 
     MainActivity mainActivity;
 
@@ -33,7 +33,7 @@ public class Fragment_Question_detail extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_diagnosis_detail,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_dictionary_detail,container,false);
         /*Button button4 = (Button)rootview.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override

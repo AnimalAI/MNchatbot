@@ -1,6 +1,6 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.Dictionary;
 
-public class QuestionViewItem {
+public class DictionaryViewItem {
     private String DiseaseName;
     private String DiseaseDate;
 

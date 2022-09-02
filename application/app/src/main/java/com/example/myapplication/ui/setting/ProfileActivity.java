@@ -112,20 +112,19 @@ public class ProfileActivity extends SettingActivity {
     }
     public void calluserInfo(){
         String userID = ID.getText().toString().trim();
-        LoginRequest loginRequest = new LoginRequest(userID, null);
-        Call<LoginResponse> call = profileAPI.getLoginResponse(loginRequest);
+        UserinfoData userinfoData = new UserinfoData(userID, null);
+        Call<ProfileResponse> call = profileAPI.GetmemberEmail(userinfoData);
 
-        call.enqueue(new Callback<LoginResponse>() {
+        call.enqueue(new Callback<ProfileResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
-                    //정보 받아오는 것에서 오류 발생
                     ID.setText(response.body().getuserID());
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

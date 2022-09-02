@@ -8,10 +8,12 @@ import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.ProfileResponse;
+import com.example.myapplication.ui.setting.UserinfoData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -21,35 +23,57 @@ public interface ServiceAPI {
     @POST("/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
-    @POST("/enterEmailCode/join")
-    Call<JoinResponse> userJoin(@Body JoinData data);
-
-    @POST("/sendEmail")
-    Call<JoinResponse> sendEmail(@Body EmailValidationData data);
-
+    //회원가입, 이메일 중복 확인
     @POST("/validateDuplicateEmail")
     Call<JoinResponse> emailValidation(@Body EmailValidationData data);
 
-    @POST("/changePw") //정보 수정.. put으로 가능함!
-    Call<JoinResponse> changePw(@Body LoginRequest data);
+    //이메일
+    @POST("/sendEmailCode")
+    Call<JoinResponse> sendEmail(@Body EmailValidationData data);
 
-    @POST("/enterEmailCode/changePw")
+    //회원가입, 인증코드
+    @POST("/enterEmailCode/join")
+    Call<JoinResponse> userJoin(@Body JoinData data);
+
+    //비밀번호 변경, 인증코드
+    @POST("/enterEmailCode")
     Call<JoinResponse> enterEmailCode(@Body EmailCodeData data);
 
-    //반려동물 정보 등록, 초기 셋팅값
-    @POST("/PetSelect")
-    Call<ProfileResponse> getPetinfo(@Body PetinfoData petinfoData);
+    //비밀번호 변경
+    @POST("/member/changePw")
+    Call<JoinResponse> changePw(@Body LoginRequest data);
+
+    //회원 이메일(ID) 받아오는 api
+    @GET("/member/email")
+    Call<ProfileResponse> GetmemberEmail (@Body UserinfoData userinfoData);
 
     //회원 탈퇴
-    @DELETE("/Profile/{memberEmail}")
-    Call<ProfileResponse> deletePost(@Path("memberEmail")int id);
+    @DELETE("/member/delete/{memberEmail}")
+    Call<ProfileResponse> deletePost (@Path("memberEmail")int id);
 
-    //반려동물 정보 수정
+    //반려동물 정보 등록, 초기 셋팅값
+    @POST("/pet/add")
+    Call<ProfileResponse> getPetinfo(@Body PetinfoData petinfoData);
+
+    //======================
+    //>반려동물 목록 보여주기
+    @GET("/pet/{petSerial}")
+    Call<ProfileResponse> GetPetlist (@Body PetinfoData petinfoData);
+    
+    //>반려동물 정보 보여주기 < 초기 셋팅값
+    @GET("/pet/{petSerial}")
+    Call<ProfileResponse> GetPetinfo (@Body PetinfoData petinfoData);
+
+
+    //(수정 필요) 반려동물 정보 수정
     @PUT("/Profile/{petAge}")
-    Call<ProfileResponse> updatePetPost(@Path("petAge") String petAge,
+    Call<ProfileResponse> updatePetPost(@Path("petAge") int petAge,
                                         @Body PetinfoData petinfoData);
 
     //반려동물 삭제
     @DELETE("/Profile/{petName}")
     Call<ProfileResponse> deletePetPost(@Path("petName")int name);
+
+    /*@DELETE("pet/delete/{petSerial}")
+    Call<ProfileResponse> deletePost (@Path("petSerial")int Serial);*/
 }

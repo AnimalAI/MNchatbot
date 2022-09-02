@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.Dictionary;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,20 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.diagnosis.diagnosisAdapter;
-import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
 
-public class Fragment_Question extends Fragment {
+public class Fragment_Dictionary extends Fragment {
 
     MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
-    private ArrayList<QuestionViewItem> mList;
-    private ArrayList<QuestionViewItem> search_list;
-    private QuestionAdapter mAdapter, searchAdapter;
+    private ArrayList<DictionaryViewItem> mList;
+    private ArrayList<DictionaryViewItem> search_list;
+    private DictionaryAdapter mAdapter, searchAdapter;
     private EditText editText;
 
     @Override
@@ -48,7 +46,7 @@ public class Fragment_Question extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_question,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_dictionary,container,false);
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         editText = rootview.findViewById(R.id.editText);
         mList = new ArrayList<>();
@@ -58,15 +56,15 @@ public class Fragment_Question extends Fragment {
         addItem("췌장염", "2022.08.30");
         addItem("ccc", "2022.08.30");
 
-        mAdapter = new QuestionAdapter(mList);
+        mAdapter = new DictionaryAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
 
-        searchAdapter = new QuestionAdapter(search_list);
+        searchAdapter = new DictionaryAdapter(search_list);
 
-        mAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new DictionaryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(1);
+                mainActivity.onChangeFragment(6);
             }
         });
 
@@ -111,7 +109,7 @@ public class Fragment_Question extends Fragment {
     }
     // 리사이클러뷰에 데이터추가
     public void addItem(String DiseaseName, String Date){
-        QuestionViewItem item = new QuestionViewItem();
+        DictionaryViewItem item = new DictionaryViewItem();
         item.setDiseaseName(DiseaseName);
         item.setDiseaseDate(Date);
         mList.add(item);

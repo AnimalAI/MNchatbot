@@ -14,8 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
+import com.example.myapplication.ui.Dictionary.Fragment_Dictionary;
+import com.example.myapplication.ui.Dictionary.Fragment_Dictionary_detail;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
+import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
+import com.example.myapplication.ui.hospital.Fragment_hospital;
+import com.example.myapplication.ui.hospital.Fragment_hospital_detail;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.setting.SettingActivity;
@@ -28,18 +32,26 @@ public class MainActivity extends AppCompatActivity {
 
     ChatbotWeb chatbotWeb;
     Fragment_diagnosis diagnosis;
-    Fragment_Question questionNaire;
+    Fragment_diagnosis_detail diagnosis_detail;
+    Fragment_hospital hospital;
+    Fragment_hospital_detail hospital_detail;
+    Fragment_Dictionary dictionary;
+    Fragment_Dictionary_detail dictionary_detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main);
+        setContentView(R.layout.home_main);
 
         mainFragment = new MainFragment();
         manuFragment = new ManuFragment();
         chatbotWeb = new ChatbotWeb();
         diagnosis = new Fragment_diagnosis();
-        questionNaire = new Fragment_Question();
+        diagnosis_detail = new Fragment_diagnosis_detail();
+        hospital = new Fragment_hospital();
+        hospital_detail = new Fragment_hospital_detail();
+        dictionary = new Fragment_Dictionary();
+        dictionary_detail = new Fragment_Dictionary_detail();
 
         //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, diagnosis).commit();
                         return true;
                     case R.id.tab_4:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
                         return true;
                     case R.id.tab_5:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,questionNaire).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary).commit();
                         return true;
                 }
                 return false;
@@ -123,8 +135,11 @@ public class MainActivity extends AppCompatActivity {
     public void onChangeFragment(int index){
         if(index == 0){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
-        }else if(index ==1){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,manuFragment).commit();
+        }else if(index ==5){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
+        }
+        else if(index ==6){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary_detail).commit();
         }
     }
 }

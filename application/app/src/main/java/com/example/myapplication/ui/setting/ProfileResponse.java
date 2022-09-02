@@ -12,17 +12,25 @@ public class ProfileResponse {
     @SerializedName("data")
     private String data;
 
+    //회원 기본 정보
+    @SerializedName("memberEmail")
+    public String memberEmail;
+
     //반려동물 기본 정보
     @SerializedName("petName")
     private String petName;
     @SerializedName("petBreed")
     private String petBreed;
     @SerializedName("petAge")
-    private String petAge;
-    /*@SerializedName("petGender")
+    private int petAge;
+    @SerializedName("petGender")
     public String petGender;
     @SerializedName("petNeutering")
-    public String petNeutering;*/
+    public String petNeutering;
+
+    public String getuserID() {
+        return memberEmail;
+    }
 
     public String getPetName() {
         return petName;
@@ -30,10 +38,11 @@ public class ProfileResponse {
     public String getPetBreed() {
         return petBreed;
     }
-    public String getPetAge() {
+    public int getPetAge() {
         return petAge;
     }
-    //public String getPetGender() { return petGender;}
+    public String getPetGender() { return petGender;}
+    public String getPetNeutering() { return petNeutering;}
 
     public int getCode() {
         return code;

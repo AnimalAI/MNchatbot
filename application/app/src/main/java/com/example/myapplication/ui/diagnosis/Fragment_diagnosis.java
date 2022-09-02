@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.diagnosis;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ui.mainPage.MainActivity;
@@ -43,7 +41,7 @@ public class Fragment_diagnosis extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_diagnosis,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_diagnosis,container,false);
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
@@ -56,7 +54,7 @@ public class Fragment_diagnosis extends Fragment {
         mAdapter.setOnItemClickListener(new diagnosisAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(1);
+                mainActivity.onChangeFragment(5);
             }
         });
 

@@ -32,7 +32,7 @@ public class ManuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragement_example,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_example,container,false);
         /*Button button4 = (Button)rootview.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
