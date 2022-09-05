@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class PetinfoData {
 
-    /*식별번호
+    //식별번호
     @SerializedName("petSerial")
-    public int petSerial;
+    public Long petSerial;
 
     //축종
     @SerializedName("petSpecies")
-    public String petSpecies;*/
+    public String petSpecies;
 
     @SerializedName("petName")
     public String petName;
@@ -25,12 +25,12 @@ public class PetinfoData {
     @SerializedName("petGender")
     public String petGender;
 
-    @SerializedName("petNeutering")
+    @SerializedName("petNeutralization")
     public String petNeutering;
 
-    public PetinfoData(String petName, int petAge, String petBreed, String petGender, String petNeutering) {
-        //this.petSerial = petSerial;
-        //this.petSpecies = petSpecies;
+    public PetinfoData(Long petSerial, String petSpecies, String petName, int petAge, String petBreed, String petGender, String petNeutering) {
+        this.petSerial = petSerial;
+        this.petSpecies = petSpecies;
         this.petName = petName;
         this.petAge = petAge;
         this.petBreed = petBreed;

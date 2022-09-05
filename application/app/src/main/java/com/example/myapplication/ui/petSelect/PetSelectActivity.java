@@ -1,8 +1,10 @@
 package com.example.myapplication.ui.petSelect;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,16 +15,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.Home;
 import com.example.myapplication.ui.mainPage.MainActivity;
+import com.example.myapplication.ui.setting.PetinfoData;
+import com.example.myapplication.ui.setting.ProfileResponse;
+import com.example.myapplication.ui.setting.Response_DataList;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PetSelectActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ArrayList<RecyclerViewItem> mList;
     private RecyclerViewAdapter mRecyclerViewAdapter;
+    ProfileResponse dataList;
+    List<Response_DataList> petdata;
+
+    //서버 통신
+    private String TOKEN = getToken();
+    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    public String getToken() { return TOKEN; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +51,8 @@ public class PetSelectActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
 
-        // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("cat", "밤이");
+        //서버에 등록된 반려동물 목록 불러오기
+        callPetList();
 
         mRecyclerViewAdapter = new RecyclerViewAdapter(mList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
@@ -70,17 +89,51 @@ public class PetSelectActivity extends AppCompatActivity {
             if (intent !=null) {
                 String petName = intent.getStringExtra("petName");
                 String CATDOG = intent.getStringExtra("CATDOG");
-                addItem(CATDOG, petName);
+                addItem(petName, CATDOG, null);
                 mRecyclerViewAdapter.notifyDataSetChanged();
             }
         }
     }
 
     // 리사이클러뷰에 데이터추가
-    public void addItem(String imgName, String mainText){
+    public void addItem(String mainText, String imgName, Long petSerial){
         RecyclerViewItem item = new RecyclerViewItem();
         item.setImgName(imgName);
         item.setMainText(mainText);
         mList.add(item);
+    }
+
+    //등록한 반려동물 목록 보기
+    public void callPetList(){
+        petdata = new ArrayList<>();
+        Call<ProfileResponse> call = profileAPI.setPetlist();
+
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (!response.equals(200)) {
+                    dataList = response.body();
+                    petdata = dataList.data;
+                    for(int i=0; i< petdata.size(); i++) {
+                        String a = petdata.get(i).getPetName();
+                        String b = petdata.get(i).getpetSpecies();
+                        Long c = petdata.get(i).getpetSerial();
+                        addItem(a, b, c);
+                        mRecyclerViewAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PetSelectActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
     }
 }

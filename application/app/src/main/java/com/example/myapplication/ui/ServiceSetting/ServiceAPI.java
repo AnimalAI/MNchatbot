@@ -8,7 +8,10 @@ import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.ProfileResponse;
+import com.example.myapplication.ui.setting.Response_DataList;
 import com.example.myapplication.ui.setting.UserinfoData;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -51,18 +54,18 @@ public interface ServiceAPI {
     @DELETE("/member/delete/{memberEmail}")
     Call<ProfileResponse> deletePost (@Path("memberEmail")int id);
 
-    //반려동물 정보 등록, 초기 셋팅값
+    //반려동물 정보 등록
     @POST("/pet/add")
-    Call<ProfileResponse> getPetinfo(@Body PetinfoData petinfoData);
+    Call<ProfileResponse> setPetinfo(@Body PetinfoData petinfoData);
 
     //======================
-    //>반려동물 목록 보여주기
-    @GET("/pet/{petSerial}")
-    Call<ProfileResponse> GetPetlist (@Body PetinfoData petinfoData);
+    //반려동물 목록 보여주기
+    @GET("/pet/petList")
+    Call<ProfileResponse> setPetlist();
     
-    //>반려동물 정보 보여주기 < 초기 셋팅값
+    //반려동물 정보 보여주기, 초기 셋팅값
     @GET("/pet/{petSerial}")
-    Call<ProfileResponse> GetPetinfo (@Body PetinfoData petinfoData);
+    Call<ProfileResponse> getPetinfo(@Path("petSerial")Long Serial);
 
 
     //(수정 필요) 반려동물 정보 수정

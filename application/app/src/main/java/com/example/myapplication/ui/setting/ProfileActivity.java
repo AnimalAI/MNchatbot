@@ -40,7 +40,7 @@ public class ProfileActivity extends SettingActivity {
         logout = findViewById(R.id.logout);
         deleteinfo = findViewById(R.id.deleteinfo);
 
-        calluserInfo();
+        //calluserInfo();
 
         //비밀번호 변경
         pwchange.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class ProfileActivity extends SettingActivity {
             }
         });
     }
-    public void calluserInfo(){
+    /*public void calluserInfo(){
         String userID = ID.getText().toString().trim();
         UserinfoData userinfoData = new UserinfoData(userID, null);
         Call<ProfileResponse> call = profileAPI.GetmemberEmail(userinfoData);
@@ -135,5 +135,5 @@ public class ProfileActivity extends SettingActivity {
         });
 
 
-    }
+    }*/
 }

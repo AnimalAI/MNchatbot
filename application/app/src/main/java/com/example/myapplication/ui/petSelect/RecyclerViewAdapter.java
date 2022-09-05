@@ -76,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         RecyclerViewItem item = mList.get(position);
 
-        if(item.getImgName().equals("cat")) // 아이템의 이미지 이름이 cat이면 고양이 사진으로 설정
+        if(item.getImgName().equals("CAT")) // 아이템의 이미지 이름이 cat이면 고양이 사진으로 설정
             holder.imgView_item.setImageResource(R.drawable.cat);
         else
             holder.imgView_item.setImageResource(R.drawable.dog);

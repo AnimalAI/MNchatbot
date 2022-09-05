@@ -73,7 +73,7 @@ public class AddPetActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                getPetinfo();
+                setPetinfo();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener(){
@@ -126,20 +126,21 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 petprofile.setImageResource(R.drawable.dog2);
-                CATDOG = "dog";
+                CATDOG = "DOG";
             }
         });
         selectCatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petprofile.setImageResource(R.drawable.cat2);
-                CATDOG = "cat";
+                CATDOG = "CAT";
             }
         });
 
     }
     //반려동물 정보 설정
-    public void getPetinfo(){
+    public void setPetinfo(){
+        String Species = CATDOG;
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
         String Breed = petBreed.getText().toString().trim();
@@ -151,8 +152,8 @@ public class AddPetActivity extends AppCompatActivity {
         if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
-        PetinfoData petinfoData = new PetinfoData(Name, Age, Breed, Gender, Neutering);
-        Call<ProfileResponse> call = profileAPI.getPetinfo(petinfoData);
+        PetinfoData petinfoData = new PetinfoData(null, Species, Name, Age, Breed, Gender, Neutering);
+        Call<ProfileResponse> call = profileAPI.setPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
