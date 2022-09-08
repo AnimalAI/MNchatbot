@@ -6,12 +6,10 @@ import com.example.myapplication.ui.join.JoinData;
 import com.example.myapplication.ui.join.JoinResponse;
 import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
+import com.example.myapplication.ui.petSelect.petListResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.ProfileResponse;
-import com.example.myapplication.ui.setting.Response_DataList;
 import com.example.myapplication.ui.setting.UserinfoData;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -61,7 +59,7 @@ public interface ServiceAPI {
     //======================
     //반려동물 목록 보여주기
     @GET("/pet/petList")
-    Call<ProfileResponse> setPetlist();
+    Call<petListResponse> setPetlist();
     
     //반려동물 정보 보여주기, 초기 셋팅값
     @GET("/pet/{petSerial}")
@@ -74,8 +72,8 @@ public interface ServiceAPI {
                                         @Body PetinfoData petinfoData);
 
     //반려동물 삭제
-    @DELETE("/Profile/{petName}")
-    Call<ProfileResponse> deletePetPost(@Path("petName")int name);
+    @DELETE("/pet/delete/{petSerial}")
+    Call<ProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
 
     /*@DELETE("pet/delete/{petSerial}")
     Call<ProfileResponse> deletePost (@Path("petSerial")int Serial);*/

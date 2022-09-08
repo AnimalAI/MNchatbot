@@ -1,8 +1,10 @@
-package com.example.myapplication.ui.setting;
+package com.example.myapplication.ui.petSelect;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ProfileResponse {
+import java.util.List;
+
+public class petListResponse {
     @SerializedName("statusCode")
     private int code;
 
@@ -10,11 +12,7 @@ public class ProfileResponse {
     private String message;
 
     @SerializedName("data")
-    public Response_Data data;
-
-    //회원 기본 정보
-    @SerializedName("memberEmail")
-    public String memberEmail;
+    public List<Response_DataList> data;
 
     public int getCode() {
         return code;
@@ -26,6 +24,6 @@ public class ProfileResponse {
 
     @Override
     public String toString() {
-        return "ProfileResponse{" + "data=" + data + "}";
+        return "ProfileResponse{" + "data=" + data+ "}";
     }
 }

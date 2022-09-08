@@ -1,20 +1,34 @@
 package com.example.myapplication.ui.petSelect;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.setting.PetProfileActivity;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    private Context context;
+    private SharedPreferences preferences;
+    private ArrayList<RecyclerViewItem> mList;
+
+    public RecyclerViewAdapter(ArrayList<RecyclerViewItem> mList, Context context) {
+        this.mList = mList; this.context = context;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgView_item;
         TextView petNickName;
@@ -32,6 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (position != RecyclerView.NO_POSITION) {
                         if (onItemClickListener != null) {
                             onItemClickListener.onItemClick(position);
+                            RecyclerViewItem item = mList.get(position);
+                            Long Serial = item.getPetSerial();
+
+                            //간단한 data의 경우 사용. 앱 폴더 내 파일로 저장되는 형태.
+                            preferences = context.getSharedPreferences("petSerial", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putLong("Serial", Serial);
+                            editor.commit();
+                            Log.d("!", String.valueOf(preferences.getLong("Serial", 0)));
                         }
                     }
                 }
@@ -53,17 +76,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    private ArrayList<RecyclerViewItem> mList = null;
-
-    public RecyclerViewAdapter(ArrayList<RecyclerViewItem> mList) {
-        this.mList = mList;
-    }
-
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.pet_activity_recycler_item, parent, false);

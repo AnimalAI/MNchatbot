@@ -2,9 +2,9 @@ package com.example.myapplication.ui.petSelect;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,11 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.mainPage.Home;
 import com.example.myapplication.ui.mainPage.MainActivity;
-import com.example.myapplication.ui.setting.PetinfoData;
-import com.example.myapplication.ui.setting.ProfileResponse;
-import com.example.myapplication.ui.setting.Response_DataList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +28,17 @@ import retrofit2.Response;
 
 public class PetSelectActivity extends AppCompatActivity {
 
+    private Context context;
+
     private RecyclerView mRecyclerView;
     private ArrayList<RecyclerViewItem> mList;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    ProfileResponse dataList;
+    petListResponse dataList;
     List<Response_DataList> petdata;
 
     //서버 통신
     private String TOKEN = getToken();
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+    private ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
     public String getToken() { return TOKEN; }
 
     @Override
@@ -54,7 +52,7 @@ public class PetSelectActivity extends AppCompatActivity {
         //서버에 등록된 반려동물 목록 불러오기
         callPetList();
 
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mList);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(mList, context);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
@@ -100,17 +98,18 @@ public class PetSelectActivity extends AppCompatActivity {
         RecyclerViewItem item = new RecyclerViewItem();
         item.setImgName(imgName);
         item.setMainText(mainText);
+        item.setPetSerial(petSerial);
         mList.add(item);
     }
 
     //등록한 반려동물 목록 보기
     public void callPetList(){
         petdata = new ArrayList<>();
-        Call<ProfileResponse> call = profileAPI.setPetlist();
+        Call<petListResponse> call = petListAPI.setPetlist();
 
-        call.enqueue(new Callback<ProfileResponse>() {
+        call.enqueue(new Callback<petListResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
                 if (!response.equals(200)) {
                     dataList = response.body();
                     petdata = dataList.data;
@@ -126,7 +125,7 @@ public class PetSelectActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<petListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PetSelectActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

@@ -2,7 +2,7 @@ package com.example.myapplication.ui.setting;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Response_DataList {
+public class Response_Data {
     //반려동물
     @SerializedName("petSerial")
     private Long petSerial;

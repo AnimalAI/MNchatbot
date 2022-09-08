@@ -1,22 +1,32 @@
 package com.example.myapplication.ui.petSelect;
 
 public class RecyclerViewItem {
-    private String mImgName;
-    private String mMainText;
+    private String mpetSpecies;
+    private String mpetName;
+    private Long mpetSerial;
 
     public String getImgName() {
-        return mImgName;
+        return mpetSpecies;
     }
 
     public void setImgName(String imgName) {
-        this.mImgName = imgName;
+        this.mpetSpecies = imgName;
     }
 
     public String getMainText() {
-        return mMainText;
+        return mpetName;
     }
 
     public void setMainText(String mainText) {
-        this.mMainText = mainText;
+        this.mpetName = mainText;
     }
+
+    public Long getPetSerial() {
+        return mpetSerial;
+    }
+
+    public void setPetSerial(Long petSerial) {
+        this.mpetSerial = petSerial;
+    }
+
 }

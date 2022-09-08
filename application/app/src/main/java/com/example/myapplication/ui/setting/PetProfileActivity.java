@@ -1,8 +1,10 @@
 package com.example.myapplication.ui.setting;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +18,10 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.petSelect.AddPetActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
+import com.example.myapplication.ui.petSelect.RecyclerViewItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -35,9 +40,9 @@ public class PetProfileActivity extends SettingActivity {
     private TextView petAge;
     private EditText petBreed,petNickName;
     private Button btnAge, btnSave, btnDelete;
-    private Response_DataList petSerial;
-    ProfileResponse dataList;
-    List<Response_DataList> petdata;
+
+    private SharedPreferences preferences;
+    Response_Data petdata;
 
     //서버 통신
     private String TOKEN = getToken();
@@ -183,14 +188,22 @@ public class PetProfileActivity extends SettingActivity {
 
     //반려동물 정보 삭제
     private void PetProfileDelete() {
-        Call<ProfileResponse> call = profileAPI.deletePetPost(10); //이게 무슨 의미인지 잘 모르겠음. 그러나 작동은 됨.
+        preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
+        Long Serial = preferences.getLong("Serial", 0);
+        Call<ProfileResponse> call = profileAPI.deletePetPost(Serial);
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
+
+                    Log.d("*!", Serial.toString());
                     Intent intent = new Intent(PetProfileActivity.this, PetSelectActivity.class);
                     startActivity(intent);
                     PetProfileActivity.this.finish();
+                    /*RecyclerViewItem item = mList.get(Math.toIntExact(Serial));
+                    mList.remove(item);
+                    mRecyclerViewAdapter.notifyDataSetChanged();
+                    Log.d("~", mRecyclerViewAdapter.toString());*/
                 }
             }
             @Override
@@ -207,27 +220,28 @@ public class PetProfileActivity extends SettingActivity {
     
     //반려동물 정보 불러오기
     public void callPetinfo(){
-        petdata = new ArrayList<>();
-        Call<ProfileResponse> call = profileAPI.getPetinfo(1L);
+        preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
+        Long Serial = preferences.getLong("Serial", 0);
+        Log.d("!!", Serial.toString());
+        Call<ProfileResponse> call = profileAPI.getPetinfo(Serial);
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
-                    dataList = response.body();
-                    Log.d("~", dataList.toString());
-                    petdata = dataList.data;
+                    petdata = response.body().data;
+                    Log.d("petdataType", petdata.toString());
 
-                    CATDOG = petdata.get(0).getpetSpecies();
+                    CATDOG = petdata.getpetSpecies();
                     if (CATDOG.equals("CAT")) {petSpecies.setImageResource(R.drawable.cat2);}
                     else {petSpecies.setImageResource(R.drawable.dog2);}
-                    petNickName.setHint(petdata.get(0).getPetName());
-                    petBreed.setHint(petdata.get(0).getPetBreed());
-                    petAge.setText(String.valueOf(petdata.get(0).getPetAge()));
-                    if (petdata.get(0).getPetGender().equals("MALE")) {
+                    petNickName.setHint(petdata.getPetName());
+                    petBreed.setHint(petdata.getPetBreed());
+                    petAge.setText(String.valueOf(petdata.getPetAge()));
+                    if (petdata.getPetGender().equals("MALE")) {
                         man.setChecked(true);
                     } else { woman.setChecked(true); }
-                    if (petdata.get(0).getPetNeutering().equals("NEUTER")) {
+                    if (petdata.getPetNeutering().equals("NEUTER")) {
                         NeuteringYes.setChecked(true);
                     } else { NeuteringNo.setChecked(true); }
 
