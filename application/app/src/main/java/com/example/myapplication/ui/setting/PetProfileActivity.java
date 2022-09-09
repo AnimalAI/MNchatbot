@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.setting;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,15 +18,16 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.petSelect.AddPetActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
 import com.example.myapplication.ui.petSelect.RecyclerViewItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +41,9 @@ public class PetProfileActivity extends SettingActivity {
     private TextView petAge;
     private EditText petBreed,petNickName;
     private Button btnAge, btnSave, btnDelete;
+
+    private RecyclerViewAdapter mRecyclerViewAdapter = null;
+    private Context context;
 
     private SharedPreferences preferences;
     Response_Data petdata;
@@ -163,7 +167,8 @@ public class PetProfileActivity extends SettingActivity {
 
         PetinfoData petinfoData = new PetinfoData(Serial, Species, Name, Age, Breed, Gender, Neutering);
 
-        Call<ProfileResponse> call = profileAPI.updatePetPost(Age, petinfoData);
+        Call<ProfileResponse> call = profileAPI.EditPetPost();
+                //.updatePetPost(Age, petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
@@ -188,6 +193,7 @@ public class PetProfileActivity extends SettingActivity {
 
     //반려동물 정보 삭제
     private void PetProfileDelete() {
+        ArrayList List = new ArrayList();
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
         Long Serial = preferences.getLong("Serial", 0);
         Call<ProfileResponse> call = profileAPI.deletePetPost(Serial);
@@ -195,15 +201,29 @@ public class PetProfileActivity extends SettingActivity {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
+                    //펫 리스트 목록으로 받기
+                    String json = preferences.getString("key", null);
+                    if (json != null) {
+                        try {
+                            JSONArray a = new JSONArray(json);
+                            for (int i = 0; i < a.length(); i++) {
+                                String list = a.optString(i);
+                                List.add(list);
+                            }
+                            mRecyclerViewAdapter = new RecyclerViewAdapter(List, context);
+                            Intent intent = new Intent(PetProfileActivity.this, PetSelectActivity.class);
+                            String item = (String) List.get(Serial.intValue() -1);
+                            List.remove(item);
+                            mRecyclerViewAdapter.notifyDataSetChanged();
+                            Log.d("~", String.valueOf(item));
+                            startActivity(intent);
+                            PetProfileActivity.this.finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                    Log.d("*!", Serial.toString());
-                    Intent intent = new Intent(PetProfileActivity.this, PetSelectActivity.class);
-                    startActivity(intent);
-                    PetProfileActivity.this.finish();
-                    /*RecyclerViewItem item = mList.get(Math.toIntExact(Serial));
-                    mList.remove(item);
-                    mRecyclerViewAdapter.notifyDataSetChanged();
-                    Log.d("~", mRecyclerViewAdapter.toString());*/
+                    }
+
                 }
             }
             @Override

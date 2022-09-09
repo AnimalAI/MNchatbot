@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -67,14 +68,14 @@ public interface ServiceAPI {
 
 
     //(수정 필요) 반려동물 정보 수정
-    @PUT("/Profile/{petAge}")
+    @PATCH("/pet/changeInfo")
+    Call<ProfileResponse> EditPetPost();
+
+    /*@PUT("/Profile/{petAge}")
     Call<ProfileResponse> updatePetPost(@Path("petAge") int petAge,
-                                        @Body PetinfoData petinfoData);
+                                        @Body PetinfoData petinfoData);*/
 
     //반려동물 삭제
     @DELETE("/pet/delete/{petSerial}")
     Call<ProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
-
-    /*@DELETE("pet/delete/{petSerial}")
-    Call<ProfileResponse> deletePost (@Path("petSerial")int Serial);*/
 }

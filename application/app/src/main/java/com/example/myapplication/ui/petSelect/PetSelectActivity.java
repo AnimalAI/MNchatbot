@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -106,11 +107,12 @@ public class PetSelectActivity extends AppCompatActivity {
     public void callPetList(){
         petdata = new ArrayList<>();
         Call<petListResponse> call = petListAPI.setPetlist();
+        Log.d("petList", "hi");
 
         call.enqueue(new Callback<petListResponse>() {
             @Override
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.equals(200)) {
                     dataList = response.body();
                     petdata = dataList.data;
                     for(int i=0; i< petdata.size(); i++) {
@@ -120,7 +122,8 @@ public class PetSelectActivity extends AppCompatActivity {
                         addItem(a, b, c);
                         mRecyclerViewAdapter.notifyDataSetChanged();
                     }
-
+                    Log.d("petList", "200");
+                } else {Log.d("petList", "404");
                 }
             }
 

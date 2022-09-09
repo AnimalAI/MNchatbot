@@ -80,38 +80,6 @@ public class Fragment_hospital extends Fragment {
             }
         });
 
-        /* editText 리스터 작성
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String searchText = editText.getText().toString();
-                search_list.clear();
-
-                if (searchText.equals("")) {
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    // 검색 단어를 포함하는지 확인
-                    for (int a = 0; a < mList.size(); a++) {
-                        if (mList.get(a).getDiseaseName().toLowerCase().contains(searchText.toLowerCase())) {
-                            search_list.add(mList.get(a));
-                        }
-                        mRecyclerView.setAdapter(searchAdapter);
-                    }
-                }
-            }
-        });*/
-
-
         //스피너
         City1_Adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.city1, android.R.layout.simple_spinner_item);

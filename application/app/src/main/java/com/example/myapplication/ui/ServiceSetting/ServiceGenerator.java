@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String BASE_URL = "https://12b969e5-87a6-4fca-a942-178ea253fdbc.mock.pstmn.io";
+    public static final String BASE_URL = "http://43.200.87.239:8080";
     //aws 서버 : http://43.200.87.239:8080
     //옌 post 서버 : https://12b969e5-87a6-4fca-a942-178ea253fdbc.mock.pstmn.io
     //주현 서버 : https://7919ceb2-3999-4ed8-8bcc-16baaf4e62d4.mock.pstmn.io

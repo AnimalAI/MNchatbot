@@ -18,7 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.setting.PetProfileActivity;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Context context;
@@ -50,9 +54,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             Long Serial = item.getPetSerial();
 
                             //간단한 data의 경우 사용. 앱 폴더 내 파일로 저장되는 형태.
+                            JSONArray a = new JSONArray();
                             preferences = context.getSharedPreferences("petSerial", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putLong("Serial", Serial);
+                            //펫 리스트(arraylist), string화 하여 넘기기
+                            for (int i = 0; i < mList.size(); i++) {
+                                a.put(mList.get(i));
+                            }
+                            if (!mList.isEmpty()) {
+                                editor.putString("key", a.toString());
+                            } else {
+                                editor.putString("key", null);
+                            }
                             editor.commit();
                             Log.d("!", String.valueOf(preferences.getLong("Serial", 0)));
                         }
