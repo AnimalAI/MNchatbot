@@ -56,7 +56,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="아"
+                    android:text="희망 일자"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="30dp">
                 <TextView
-                    android:text="예방"
+                    android:text="희망 시간"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:layout_width="match_parent"
@@ -99,7 +99,53 @@
             </TableRow>
             <TableRow android:layout_marginTop="30dp">
                 <TextView
-                    android:text="예후"
+                    android:text="예상 비용안내 여부"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:text="비만시 체중감소, 고지방 사료 급여를 피함"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="병원 내원 사유"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:text="비만시 체중감소, 고지방 사료 급여를 피함"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="상담 참고 이미지"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:layout_width="match_parent"
