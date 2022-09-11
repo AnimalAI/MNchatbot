@@ -1,10 +1,13 @@
 package com.example.myapplication.ui.login;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -33,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_email, login_password;
     private Button login_button, join_button;
     private LoginFormState LoginFormState = new LoginFormState();
+
+    private SharedPreferences preferences;
 
     //서버 통신
     private String TOKEN = getToken();
@@ -140,6 +145,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 //받은 코드 저장
                 int statusCode = result.getStatusCode();
+                preferences = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                String token = response.headers().value(3);
+                editor.putString("TOKEN", token);
+                editor.commit();
+                Log.d("Token", token);
 
                 if (statusCode==200) {
                     String userID = login_email.getText().toString();

@@ -6,17 +6,17 @@
     android:background="@drawable/background_setting">
 
     <ImageView
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="95dp"
         android:id="@+id/pic"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_gravity="center"
         android:src="@drawable/user"/>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:stretchColumns="*">
         <TableRow>
             <TextView

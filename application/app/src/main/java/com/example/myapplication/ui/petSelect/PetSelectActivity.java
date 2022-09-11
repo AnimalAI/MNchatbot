@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,10 +38,16 @@ public class PetSelectActivity extends AppCompatActivity {
     petListResponse dataList;
     List<Response_DataList> petdata;
 
+    private SharedPreferences preferences;
     //서버 통신
-    private String TOKEN = getToken();
-    private ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-    public String getToken() { return TOKEN; }
+    //private String TOKEN = getToken();
+    //private ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
+
+    /*public String getToken() {
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        return token;
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class PetSelectActivity extends AppCompatActivity {
         mList = new ArrayList<>();
 
         //서버에 등록된 반려동물 목록 불러오기
+        addItem("a", "CAT", null);
         callPetList();
 
         mRecyclerViewAdapter = new RecyclerViewAdapter(mList, context);
@@ -106,12 +114,17 @@ public class PetSelectActivity extends AppCompatActivity {
     //등록한 반려동물 목록 보기
     public void callPetList(){
         petdata = new ArrayList<>();
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
         Call<petListResponse> call = petListAPI.setPetlist();
         Log.d("petList", "hi");
 
         call.enqueue(new Callback<petListResponse>() {
             @Override
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
+                Log.d("petList", "hiiiiii");
                 if (response.equals(200)) {
                     dataList = response.body();
                     petdata = dataList.data;

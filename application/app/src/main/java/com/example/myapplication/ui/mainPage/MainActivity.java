@@ -123,13 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        homePage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void onChangeFragment(int index){
@@ -139,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
         }
         else if(index ==6){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary_detail).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital_detail).commit();
         }
     }
 }
