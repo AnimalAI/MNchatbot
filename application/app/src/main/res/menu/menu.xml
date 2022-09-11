@@ -11,7 +11,7 @@
         android:id="@+id/tab_chatbot"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/icon_app"
+        android:icon="@drawable/nav_1"
         android:title="챗봇" />
     <item
         android:id="@+id/tab_2"

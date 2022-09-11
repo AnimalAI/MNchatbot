@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 
-public class NewActivity extends Home {
+public class NewActivity extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
