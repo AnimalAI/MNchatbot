@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,11 +40,7 @@ public class AddPetActivity extends AppCompatActivity {
     private Button btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
     //서버 통신
-    private String TOKEN = getToken();
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-    public String getToken() {
-        return TOKEN;
-    }
+    private SharedPreferences preferences;
 
 
     @Override
@@ -140,6 +137,10 @@ public class AddPetActivity extends AppCompatActivity {
     }
     //반려동물 정보 설정
     public void setPetinfo(){
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI petAddAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
         String Species = CATDOG;
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
@@ -153,7 +154,7 @@ public class AddPetActivity extends AppCompatActivity {
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
         PetinfoData petinfoData = new PetinfoData(null, Species, Name, Age, Breed, Gender, Neutering);
-        Call<ProfileResponse> call = profileAPI.setPetinfo(petinfoData);
+        Call<ProfileResponse> call = petAddAPI.setPetinfo(petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
