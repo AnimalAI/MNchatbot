@@ -238,7 +238,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
             android:id="@+id/btn_send"
-            android:text="병원에 정보 보내기"
+            android:text="병원 예약 신청"
             android:textColor="@color/purple"
             android:textSize="25dp"
             android:backgroundTint="@color/white"

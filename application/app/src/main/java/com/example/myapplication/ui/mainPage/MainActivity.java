@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Button homePage = (Button) findViewById(R.id.drawer_button_home);
         ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
+        TextView drawerLogo = findViewById(R.id.toolbar_logo);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -93,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
 
         // 툴바 드로어 버튼 눌렀을 때 동작
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+
+        //로고 클릭하면 홈화면으로 이동.
+        drawerLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+            }
+        });
         drawerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
