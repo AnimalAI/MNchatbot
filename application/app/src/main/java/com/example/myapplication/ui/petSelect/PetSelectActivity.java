@@ -58,7 +58,6 @@ public class PetSelectActivity extends AppCompatActivity {
         mList = new ArrayList<>();
 
         //서버에 등록된 반려동물 목록 불러오기
-        addItem("a", "CAT", null);
         callPetList();
 
         mRecyclerViewAdapter = new RecyclerViewAdapter(mList, context);
@@ -124,8 +123,7 @@ public class PetSelectActivity extends AppCompatActivity {
         call.enqueue(new Callback<petListResponse>() {
             @Override
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
-                Log.d("petList", "hiiiiii");
-                if (response.equals(200)) {
+                if (!response.equals(200)) {
                     dataList = response.body();
                     petdata = dataList.data;
                     for(int i=0; i< petdata.size(); i++) {
@@ -136,7 +134,7 @@ public class PetSelectActivity extends AppCompatActivity {
                         mRecyclerViewAdapter.notifyDataSetChanged();
                     }
                     Log.d("petList", "200");
-                } else {Log.d("petList", "404");
+                } else if (!response.equals(404)) {Log.d("petList", "404");
                 }
             }
 
