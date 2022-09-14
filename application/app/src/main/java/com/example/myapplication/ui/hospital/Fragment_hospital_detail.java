@@ -12,9 +12,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,10 +35,10 @@ public class Fragment_hospital_detail extends Fragment {
     private Spinner spn_quesionNaire;
     private ImageView datePicker, camera;
     private TextView Tdate, Ttime;
-    private Button timePicker, send;
+    private Button timePicker, send, backTolist;
+    private RadioGroup radioGroup;
 
     DatePickerDialog datePickerDialog;
-    TimePickerDialog timePickerDialog;
     Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -65,6 +68,8 @@ public class Fragment_hospital_detail extends Fragment {
         reason = rootview.findViewById(R.id.h_reson);
         camera = rootview.findViewById(R.id.btn_img);
         send = rootview.findViewById(R.id.btn_send);
+        backTolist = rootview.findViewById(R.id.btn_backTolist);
+        radioGroup =rootview.findViewById(R.id.h_radioGroup);
 
 
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +94,27 @@ public class Fragment_hospital_detail extends Fragment {
             @Override
             public void onClick(View view) {
                 showTimePicker();
+            }
+        });
 
-                /*timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        Ttime.setText(String.format("%02d:%02d", hour, minute));
-                    }
-                }, pHour, pMinutes, false);
-                timePickerDialog.show();*/
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checked) {
+                switch (checked) {
+                    case R.id.h_radioYes:
+                        Toast.makeText(getActivity(), "예!!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.h_radioNo:
+                        Toast.makeText(getActivity(), "아니오!!", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -105,6 +123,12 @@ public class Fragment_hospital_detail extends Fragment {
             public void onClick(View view) {
                 Name.getText();
                 Number.getText();
+            }
+        });
+        backTolist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.onChangeFragment(5);
             }
         });
 

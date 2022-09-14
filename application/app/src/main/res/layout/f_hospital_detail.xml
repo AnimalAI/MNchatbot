@@ -234,15 +234,34 @@
             android:textSize="15dp"
             android:textColor="@color/white"/>
 
-        <Button
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:id="@+id/btn_send"
-            android:text="병원 예약 신청"
-            android:textColor="@color/purple"
-            android:textSize="25dp"
-            android:backgroundTint="@color/white"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="wrap_content">
+            <TableRow>
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:id="@+id/btn_backTolist"
+                    android:text="목록으로 이동"
+                    android:layout_weight="1"
+                    android:textColor="@color/purple"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+                <Button
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:id="@+id/btn_send"
+                    android:text="병원 예약 신청"
+                    android:textColor="@color/purple"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 </ScrollView>

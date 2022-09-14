@@ -28,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    MainFragment mainFragment;
+    HomeTutor homeTutor;
     ManuFragment manuFragment;
 
     ChatbotWeb chatbotWeb;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
 
-        mainFragment = new MainFragment();
+        homeTutor = new HomeTutor();
         manuFragment = new ManuFragment();
         chatbotWeb = new ChatbotWeb();
         diagnosis = new Fragment_diagnosis();
@@ -61,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
         // 버튼 선언
         Button loginPage = (Button) findViewById(R.id.drawer_button_login);
         Button petPage = (Button) findViewById(R.id.drawer_button_pet);
-        Button homePage = (Button) findViewById(R.id.drawer_button_home);
         ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
         TextView drawerLogo = findViewById(R.id.toolbar_logo);
+
+        onChangeFragment(0);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,chatbotWeb).commit();
                         return true;
                     case R.id.tab_2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
                         return true;
 
                     case R.id.tab_3:
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
             }
         });
         drawerBtn.setOnClickListener(new View.OnClickListener(){
@@ -137,11 +138,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onChangeFragment(int index){
         if(index == 0){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
         }else if(index ==5){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
+        }else if(index ==6){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
         }
-        else if(index ==6){
+        else if(index ==7){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital_detail).commit();
         }
     }
