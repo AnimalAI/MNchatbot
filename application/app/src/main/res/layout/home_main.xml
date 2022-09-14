@@ -90,7 +90,7 @@
 
         <Button
             android:backgroundTint="@color/lightYellow"
-            android:textColor="@color/darkbrown"
+            android:textColor="@color/purple"
             android:id="@+id/drawer_button_login"
             android:layout_width="150dp"
             android:layout_height="75dp"
@@ -103,14 +103,6 @@
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:text="펫 선택"
-            />
-        <Button
-            android:backgroundTint="@color/white"
-            android:textColor="@color/darkbrown"
-            android:id="@+id/drawer_button_home"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:text="메인화면"
             />
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
