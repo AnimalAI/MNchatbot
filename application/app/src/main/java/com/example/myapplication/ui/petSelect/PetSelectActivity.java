@@ -39,15 +39,6 @@ public class PetSelectActivity extends AppCompatActivity {
     List<Response_DataList> petdata;
 
     private SharedPreferences preferences;
-    //서버 통신
-    //private String TOKEN = getToken();
-    //private ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-
-    /*public String getToken() {
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        return token;
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +104,7 @@ public class PetSelectActivity extends AppCompatActivity {
     //등록한 반려동물 목록 보기
     public void callPetList(){
         petdata = new ArrayList<>();
+        //서버 통신
         preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = preferences.getString("TOKEN", null);
         ServiceAPI petListAPI = ServiceGenerator.createService(ServiceAPI.class, token);

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -26,9 +27,9 @@ public class Fragment_Dictionary extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ArrayList<DictionaryViewItem> mList;
-    private ArrayList<DictionaryViewItem> search_list;
-    private DictionaryAdapter mAdapter, searchAdapter;
+    private DictionaryAdapter mAdapter;
     private EditText editText;
+    private Button btnDictionary;
 
     @Override
     public void onAttach(Context context) {
@@ -49,8 +50,9 @@ public class Fragment_Dictionary extends Fragment {
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_dictionary,container,false);
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         editText = rootview.findViewById(R.id.editText);
+        btnDictionary = rootview.findViewById(R.id.btnDictionary);
+
         mList = new ArrayList<>();
-        search_list = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
         addItem("심장 사상충", "2022.08.25");
         addItem("췌장염", "2022.08.30");
@@ -59,43 +61,10 @@ public class Fragment_Dictionary extends Fragment {
         mAdapter = new DictionaryAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
 
-        searchAdapter = new DictionaryAdapter(search_list);
-
         mAdapter.setOnItemClickListener(new DictionaryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
                 mainActivity.onChangeFragment(6);
-            }
-        });
-
-        // editText 리스터 작성
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String searchText = editText.getText().toString();
-                search_list.clear();
-
-                if (searchText.equals("")) {
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    // 검색 단어를 포함하는지 확인
-                    for (int a = 0; a < mList.size(); a++) {
-                        if (mList.get(a).getDiseaseName().toLowerCase().contains(searchText.toLowerCase())) {
-                            search_list.add(mList.get(a));
-                        }
-                        mRecyclerView.setAdapter(searchAdapter);
-                    }
-                }
             }
         });
 

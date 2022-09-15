@@ -24,7 +24,7 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/nav_3"
-        android:title="예측진단" />
+        android:title="예상진단" />
     <item
         android:id="@+id/tab_4"
         app:showAsAction="ifRoom"

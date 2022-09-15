@@ -65,20 +65,37 @@
             android:textSize="18dp"
             android:textColor="@color/white"/>
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_location"
-            android:text="영업시간 : "
+            android:text="이메일 : "
             android:textSize="18dp"
             android:textColor="@color/white"/>
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_location"
-            android:layout_toRightOf="@+id/tv_time"
-            android:text="평일 10:00~22:00, 주말 12:00~15:00"
+            android:layout_toRightOf="@+id/tv_email"
+            android:text="123@naver.com"
+            android:textSize="18dp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_email"
+            android:text="분야 : "
+            android:textSize="18dp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_email"
+            android:layout_toRightOf="@+id/tv_field"
+            android:text="개 내분비질환 전문"
             android:textSize="18dp"
             android:textColor="@color/white"/>
 

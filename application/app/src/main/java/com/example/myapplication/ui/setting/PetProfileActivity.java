@@ -152,7 +152,8 @@ public class PetProfileActivity extends SettingActivity {
 
     //반려동물 정보 변경
     public void updatePetPost(){
-        Long Serial = null;
+        preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
+        Long Serial = preferences.getLong("Serial", 0);
         String Species = "";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
@@ -167,7 +168,7 @@ public class PetProfileActivity extends SettingActivity {
 
         PetinfoData petinfoData = new PetinfoData(Serial, Species, Name, Age, Breed, Gender, Neutering);
 
-        Call<ProfileResponse> call = profileAPI.EditPetPost();
+        Call<ProfileResponse> call = profileAPI.EditPetPost(petinfoData);
                 //.updatePetPost(Age, petinfoData);
 
         call.enqueue(new Callback<ProfileResponse>() {
