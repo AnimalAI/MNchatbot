@@ -3,6 +3,7 @@ package com.example.myapplication.ui.hospital;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView HospitalName, HospitalNumber, location, time;
+        TextView HospitalName, HospitalNumber, location, email, field, tv_field;
+        Button btnHospital;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -23,9 +25,13 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
             HospitalName = itemView.findViewById(R.id.HospitalName);
             HospitalNumber = itemView.findViewById(R.id.HospitalNumber);
             location = itemView.findViewById(R.id.location);
-            time = itemView.findViewById(R.id.time);
+            email = itemView.findViewById(R.id.email);
+            field = itemView.findViewById(R.id.field);
+            tv_field = itemView.findViewById(R.id.tv_field);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            btnHospital = itemView.findViewById(R.id.btnHospital);
+
+            btnHospital.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -34,21 +40,6 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
                             onItemClickListener.onItemClick(position);
                         }
                     }
-                }
-            });
-
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        if (onLongItemClickListener != null) {
-                            onLongItemClickListener.onLongItemClick(position);
-                            return true;
-                        }
-                    }
-                    return false;
                 }
             });
         }
@@ -79,6 +70,11 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
 
         holder.HospitalName.setText(item.getHospitalName());
         holder.HospitalNumber.setText(item.getHospitalNumber());
+        holder.location.setText(item.getlocation());
+        holder.email.setText(item.getemail());
+        holder.field.setText(item.getfield());
+        /*if (item.getfield().equals("")) { holder.tv_field.setVisibility(View.INVISIBLE); }
+        else {holder.field.setText(item.getfield());}*/
     }
 
     @Override
@@ -95,17 +91,6 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
 
     public void setOnItemClickListener(hospitalAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
-    }
-
-
-    public interface OnLongItemClickListener {
-        void onLongItemClick(int pos);
-    }
-
-    private hospitalAdapter.OnLongItemClickListener onLongItemClickListener = null;
-
-    public void setOnLongItemClickListener(hospitalAdapter.OnLongItemClickListener listener) {
-        this.onLongItemClickListener = listener;
     }
 
 }

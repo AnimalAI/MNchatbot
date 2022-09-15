@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.ServiceSetting;
 
+import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
 import com.example.myapplication.ui.join.JoinData;
@@ -69,7 +70,7 @@ public interface ServiceAPI {
 
     //(수정 필요) 반려동물 정보 수정
     @PATCH("/pet/changeInfo")
-    Call<ProfileResponse> EditPetPost();
+    Call<ProfileResponse> EditPetPost(@Body PetinfoData petinfoData);
 
     /*@PUT("/Profile/{petAge}")
     Call<ProfileResponse> updatePetPost(@Path("petAge") int petAge,
@@ -78,4 +79,8 @@ public interface ServiceAPI {
     //반려동물 삭제
     @DELETE("/pet/delete/{petSerial}")
     Call<ProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
+
+    //동물병원 목록 보여주기
+    @GET("/hospital")
+    Call<hospitalListResponse> Allhosplist();
 }

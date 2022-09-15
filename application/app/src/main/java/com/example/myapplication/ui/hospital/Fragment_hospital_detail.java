@@ -1,9 +1,19 @@
 package com.example.myapplication.ui.hospital;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +36,9 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class Fragment_hospital_detail extends Fragment {
@@ -37,6 +50,11 @@ public class Fragment_hospital_detail extends Fragment {
     private TextView Tdate, Ttime;
     private Button timePicker, send, backTolist;
     private RadioGroup radioGroup;
+
+    private int check = 0;
+    private static final int PICK_FROM_CAMERA = 0;
+    private static final int PICK_FROM_ALBUM = 1;
+    private static final int CROP_FROM_IMAGE = 2;
 
     DatePickerDialog datePickerDialog;
     Calendar calendar = Calendar.getInstance();
@@ -102,9 +120,11 @@ public class Fragment_hospital_detail extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checked) {
                 switch (checked) {
                     case R.id.h_radioYes:
+                        check = 1;
                         Toast.makeText(getActivity(), "예!!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.h_radioNo:
+                        check = 2;
                         Toast.makeText(getActivity(), "아니오!!", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -114,7 +134,32 @@ public class Fragment_hospital_detail extends Fragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TakePhoto();
+                    }
+                };
+                DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TakeAlbum();
+                    }
+                };
 
+                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("업로드할 이미지 선택")
+                        .setPositiveButton("사진촬영", cameraListener)
+                        .setNegativeButton("앨범선택", albumListener)
+                        .setNeutralButton("취소", cancelListener)
+                        .show();
             }
         });
 
@@ -131,10 +176,6 @@ public class Fragment_hospital_detail extends Fragment {
                 mainActivity.onChangeFragment(5);
             }
         });
-
-
-
-
 
         return rootview;
     }
@@ -157,5 +198,99 @@ public class Fragment_hospital_detail extends Fragment {
         timePickerDialog.setTitle("희망 시간대");
         timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         timePickerDialog.show();
+    }
+
+    // 카메라 촬영 후 이미지 가져오기
+    public void TakePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // 임시로 사용할 파일의 경로를 생성
+        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        //mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
+
+        //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+        startActivityForResult(intent, PICK_FROM_CAMERA);
+    }
+    // 앨범에서 이미지 가져오기
+    public void TakeAlbum() {
+
+        // 앨범 호출
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+    @Override
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode != RESULT_OK) { return; }
+        switch(requestCode) {
+            case PICK_FROM_ALBUM:
+            {
+                //mImageCaptureUri = data.getData();
+                //Log.d("AAI",mImageCaptureUri.getPath().toString());
+            }
+            case PICK_FROM_CAMERA:
+            {
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                //intent.setDataAndType(mImageCaptureUri, "image/*");
+
+                // CROP할 이미지를 200*200 크기로 저장
+                intent.putExtra("outputX", 200); // CROP한 이미지의 x축 크기
+                intent.putExtra("outputY", 200); // CROP한 이미지의 y축 크기
+                intent.putExtra("aspectX", 1); // CROP 박스의 X축 비율
+                intent.putExtra("aspectY", 1); // CROP 박스의 Y축 비율
+                intent.putExtra("scale", true);
+                intent.putExtra("return-data", true);
+                startActivityForResult(intent, CROP_FROM_IMAGE); // CROP_FROM_CAMERA case문 이동
+                break;
+            }
+
+            case CROP_FROM_IMAGE:
+            {
+                if(resultCode != RESULT_OK) { return;}
+                final Bundle extras = data.getExtras();
+
+                // CROP된 이미지를 저장하기 위한 FILE 경로
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+
+                        "/AAI/"+System.currentTimeMillis()+".jpg";
+                if(extras != null) {
+                    Bitmap photo = extras.getParcelable("data"); // CROP된 BITMAP
+                    camera.setImageBitmap(photo); // 레이아웃의 이미지칸에 CROP된 BITMAP을 보여줌
+                    storeCropImage(photo, filePath); // CROP된 이미지를 외부저장소, 앨범에 저장한다.
+                    //absoultePath = filePath;
+                    break;
+                }
+
+                // 임시 파일 삭제
+                //File f = new File(mImageCaptureUri.getPath());
+
+                /*if(f.exists()) {
+                    f.delete();
+                }*/
+            }
+        }
+
+    }
+    private void storeCropImage(Bitmap bitmap, String filePath) {
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SmartWheel";
+        File directory_SmartWheel = new File(dirPath);
+        if(!directory_SmartWheel.exists()) // SmartWheel 디렉터리에 폴더가 없다면 (새로 이미지를 저장할 경우에 속한다.)
+            directory_SmartWheel.mkdir();
+
+        File copyFile = new File(filePath);
+        BufferedOutputStream out = null;
+
+        try {
+            copyFile.createNewFile();
+            out = new BufferedOutputStream(new FileOutputStream(copyFile));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            //sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
