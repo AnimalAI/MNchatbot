@@ -197,13 +197,75 @@ public class Fragment_hospital extends Fragment {
         });
     }
     public void setCity2() {
-        if (City1Name.equals("강원도")) {
-            City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
-                    R.array.강원도, R.layout.row_spinner);
-        }
-        else if (City1Name.equals("경기도")) {
-            City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
-                    R.array.경기도, R.layout.row_spinner);
+        switch (City1Name) {
+            case "강원도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.강원도, R.layout.row_spinner);
+                break;
+            case "경기도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.경기도, R.layout.row_spinner);
+                break;
+            case "경상남도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.경상남도, R.layout.row_spinner);
+                break;
+            case "경상북도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.경상북도, R.layout.row_spinner);
+                break;
+            case "광주광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.광주광역시, R.layout.row_spinner);
+                break;
+            case "대구광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.대구광역시, R.layout.row_spinner);
+                break;
+            case "대전광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.대전광역시, R.layout.row_spinner);
+                break;
+            case "부산광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.부산광역시, R.layout.row_spinner);
+                break;
+            case "서울특별시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.서울특별시, R.layout.row_spinner);
+                break;
+            case "세종특별자치시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.세종특별자치시, R.layout.row_spinner);
+                break;
+            case "울산광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.울산광역시, R.layout.row_spinner);
+                break;
+            case "인천광역시" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.인천광역시, R.layout.row_spinner);
+                break;
+            case "전라남도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.전라남도, R.layout.row_spinner);
+                break;
+            case "전라북도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.전라북도, R.layout.row_spinner);
+                break;
+            case "제주특별자치도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.제주특별자치도, R.layout.row_spinner);
+                break;
+            case "충청남도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.충청남도, R.layout.row_spinner);
+                break;
+            case "충청북도" :
+                City2_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.충청북도, R.layout.row_spinner);
+                break;
         }
         City2_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         City2.setAdapter(City2_Adapter);
