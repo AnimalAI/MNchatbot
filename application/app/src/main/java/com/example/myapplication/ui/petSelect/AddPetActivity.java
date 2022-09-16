@@ -20,11 +20,9 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.setting.PetinfoData;
-import com.example.myapplication.ui.setting.ProfileResponse;
+import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -154,11 +152,11 @@ public class AddPetActivity extends AppCompatActivity {
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
         PetinfoData petinfoData = new PetinfoData(null, Species, Name, Age, Breed, Gender, Neutering);
-        Call<ProfileResponse> call = petAddAPI.setPetinfo(petinfoData);
+        Call<PetProfileResponse> call = petAddAPI.setPetinfo(petinfoData);
 
-        call.enqueue(new Callback<ProfileResponse>() {
+        call.enqueue(new Callback<PetProfileResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
@@ -170,7 +168,7 @@ public class AddPetActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddPetActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

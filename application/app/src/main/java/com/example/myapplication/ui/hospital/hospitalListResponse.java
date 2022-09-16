@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.hospital;
 
-import com.example.myapplication.ui.petSelect.Response_DataList;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class hospitalListResponse {
     private String message;
 
     @SerializedName("data")
-    public List<Response_hDataList> data;
+    public List<HospDataList> data;
 
     public int getCode() {
         return code;
@@ -27,4 +26,39 @@ public class hospitalListResponse {
     public String toString() {
         return "ProfileResponse{" + "data=" + data+ "}";
     }
+
+    public class HospDataList {
+        @SerializedName("totalHospName")
+        private String totalHospName;
+        @SerializedName("totalHospAddress")
+        private String totalHospAddress;
+        @SerializedName("totalHospEmail")
+        private String totalHospEmail;
+        @SerializedName("totalHospTel")
+        private String totalHospTel;
+        @SerializedName("totalHospField")
+        private String totalHospField;
+        @SerializedName("totalHospType")
+        private String totalHospType;
+
+        public String getHospType() {
+            return totalHospType;
+        }
+        public String getHospName() {
+            return totalHospName;
+        }
+        public String getHospAddress() {
+            return totalHospAddress;
+        }
+        public String getHospEmail() {
+            return totalHospEmail;
+        }
+        public String getHospTel() {
+            return totalHospTel;
+        }
+        public String getHospField() {
+            return totalHospField;
+        }
+    }
+
 }

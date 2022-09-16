@@ -20,7 +20,6 @@ import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
-import com.example.myapplication.ui.petSelect.RecyclerViewItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -46,7 +45,7 @@ public class PetProfileActivity extends SettingActivity {
     private Context context;
 
     private SharedPreferences preferences;
-    Response_Data petdata;
+    PetProfileResponse.PetDataObject petdata;
 
     //서버 통신
     private String TOKEN = getToken();
@@ -168,12 +167,12 @@ public class PetProfileActivity extends SettingActivity {
 
         PetinfoData petinfoData = new PetinfoData(Serial, Species, Name, Age, Breed, Gender, Neutering);
 
-        Call<ProfileResponse> call = profileAPI.EditPetPost(petinfoData);
+        Call<PetProfileResponse> call = profileAPI.EditPetPost(petinfoData);
                 //.updatePetPost(Age, petinfoData);
 
-        call.enqueue(new Callback<ProfileResponse>() {
+        call.enqueue(new Callback<PetProfileResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getApplicationContext(),"변경되었습니다.", Toast.LENGTH_SHORT).show();
                     PetProfileActivity.this.finish();
@@ -181,7 +180,7 @@ public class PetProfileActivity extends SettingActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PetProfileActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -197,10 +196,10 @@ public class PetProfileActivity extends SettingActivity {
         ArrayList List = new ArrayList();
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
         Long Serial = preferences.getLong("Serial", 0);
-        Call<ProfileResponse> call = profileAPI.deletePetPost(Serial);
-        call.enqueue(new Callback<ProfileResponse>() {
+        Call<PetProfileResponse> call = profileAPI.deletePetPost(Serial);
+        call.enqueue(new Callback<PetProfileResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     //펫 리스트 목록으로 받기
                     String json = preferences.getString("key", null);
@@ -228,7 +227,7 @@ public class PetProfileActivity extends SettingActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PetProfileActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -244,11 +243,11 @@ public class PetProfileActivity extends SettingActivity {
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
         Long Serial = preferences.getLong("Serial", 0);
         Log.d("!!", Serial.toString());
-        Call<ProfileResponse> call = profileAPI.getPetinfo(Serial);
+        Call<PetProfileResponse> call = profileAPI.getPetinfo(Serial);
 
-        call.enqueue(new Callback<ProfileResponse>() {
+        call.enqueue(new Callback<PetProfileResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     petdata = response.body().data;
                     Log.d("petdataType", petdata.toString());
@@ -271,7 +270,7 @@ public class PetProfileActivity extends SettingActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PetProfileActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

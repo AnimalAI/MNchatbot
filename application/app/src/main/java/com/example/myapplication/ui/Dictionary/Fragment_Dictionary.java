@@ -1,9 +1,12 @@
 package com.example.myapplication.ui.Dictionary;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +20,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_Dictionary extends Fragment {
 
@@ -30,6 +41,10 @@ public class Fragment_Dictionary extends Fragment {
     private DictionaryAdapter mAdapter;
     private EditText editText;
     private Button btnDictionary;
+    private Context context;
+
+    List<dsListResponse.DsDataList> DsSearchdata;
+    private SharedPreferences preferences;
 
     @Override
     public void onAttach(Context context) {
@@ -54,17 +69,21 @@ public class Fragment_Dictionary extends Fragment {
 
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("심장 사상충", "2022.08.25");
-        addItem("췌장염", "2022.08.30");
-        addItem("ccc", "2022.08.30");
 
-        mAdapter = new DictionaryAdapter(mList);
+        mAdapter = new DictionaryAdapter(mList, context);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new DictionaryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(6);
+                mainActivity.onChangeFragment(8);
+            }
+        });
+
+        btnDictionary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDsinfo();
             }
         });
 
@@ -77,12 +96,50 @@ public class Fragment_Dictionary extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String DiseaseName, String Date){
+    public void addItem(String DiseaseName, String DiseaseId){
         DictionaryViewItem item = new DictionaryViewItem();
         item.setDiseaseName(DiseaseName);
-        item.setDiseaseDate(Date);
+        item.setDiseaseId(DiseaseId);
         mList.add(item);
     }
 
+    public void callDsinfo() {}
 
+    //검색 정보 불러오기
+    public void getDsinfo(){
+        DsSearchdata = new ArrayList<>();
+        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI DsSearchListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        String dsName = editText.getText().toString();
+
+        Call<dsListResponse> call = DsSearchListAPI.getDsinfo(dsName);
+
+        call.enqueue(new Callback<dsListResponse>() {
+            @Override
+            public void onResponse(Call<dsListResponse> call, Response<dsListResponse> response) {
+                if (!response.equals(200)) {
+                    DsSearchdata = response.body().data;
+                    for(int i=0; i< DsSearchdata.size(); i++) {
+                        String Name = DsSearchdata.get(i).getdiseaseName();
+                        String ID = DsSearchdata.get(i).getdiseaseId();
+                        addItem(Name, ID);
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                } else if (!response.equals(404)) {Log.d("DsSearchList", "404");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<dsListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
 }

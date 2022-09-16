@@ -143,9 +143,11 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
         }else if(index ==6){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
-        }
-        else if(index ==7){
+        }else if(index ==7){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital_detail).commit();
+        }
+        else if(index ==8){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary_detail).commit();
         }
     }
 }
