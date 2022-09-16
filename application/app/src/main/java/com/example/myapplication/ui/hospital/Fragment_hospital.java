@@ -1,15 +1,11 @@
 package com.example.myapplication.ui.hospital;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.widget.ArrayAdapter.createFromResource;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,9 +26,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
-import com.example.myapplication.ui.petSelect.Response_DataList;
-import com.example.myapplication.ui.petSelect.petListResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +48,7 @@ public class Fragment_hospital extends Fragment {
     private String City1Name, City2Name;
 
     hospitalListResponse dataList;
-    List<Response_hDataList> hospdata;
+    List<hospitalListResponse.HospDataList> hospdata;
     private SharedPreferences preferences;
 
     @Override

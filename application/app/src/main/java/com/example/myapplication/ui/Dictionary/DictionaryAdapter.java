@@ -1,5 +1,10 @@
 package com.example.myapplication.ui.Dictionary;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,57 +19,53 @@ import java.util.ArrayList;
 
 public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.ViewHolder> {
 
-public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView diseaseName, diseaseDate;
+    private SharedPreferences preferences;
+    private Context context;
+    private ArrayList<DictionaryViewItem> mList;
 
-    public ViewHolder(@NonNull View itemView) {
-        super(itemView);
+    public DictionaryAdapter(ArrayList<DictionaryViewItem> mList, Context context) {
+        this.mList = mList; this.context = context;
+    }
 
-        diseaseName = itemView.findViewById(R.id.diseaseName);
-        diseaseDate = itemView.findViewById(R.id.diseaseDate);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+    TextView diseaseName;
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(position);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            diseaseName = itemView.findViewById(R.id.diseaseName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClick(position);
+                            DictionaryViewItem item = mList.get(position);
+                            String dsId = item.getDiseaseId();
+                            Log.d("dsId", item.getDiseaseId());
+
+                            preferences = context.getSharedPreferences("dsId", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("dsId", dsId);
+                            editor.commit();
+                        }
                     }
                 }
-            }
-        });
-
-
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    if (onLongItemClickListener != null) {
-                        onLongItemClickListener.onLongItemClick(position);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+            });
+        }
     }
-}
 
-    //ArrayList
-    private ArrayList<DictionaryViewItem> mList = null;
-
-    public DictionaryAdapter(ArrayList<DictionaryViewItem> mList) {
-        this.mList = mList;
-    }
 
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull
     @Override
     public DictionaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.f_dictionary_item, parent, false);
+        context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.f_dictionary_item, parent, false);
         DictionaryAdapter.ViewHolder viewHolder = new DictionaryAdapter.ViewHolder(view);
 
         return viewHolder;
@@ -76,7 +77,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         DictionaryViewItem item = mList.get(position);
 
         holder.diseaseName.setText(item.getDiseaseName());
-        holder.diseaseDate.setText(item.getDiseaseDate());
     }
 
     @Override
@@ -85,25 +85,13 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
 // 리사이클러 뷰 클릭 이벤트를 위한 코드
-public interface OnItemClickListener {
-    void onItemClick(int pos);
-}
-
+    public interface OnItemClickListener {
+        void onItemClick(int pos);
+    }
     private DictionaryAdapter.OnItemClickListener onItemClickListener = null;
 
     public void setOnItemClickListener(DictionaryAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
-    }
-
-
-public interface OnLongItemClickListener {
-    void onLongItemClick(int pos);
-}
-
-    private DictionaryAdapter.OnLongItemClickListener onLongItemClickListener = null;
-
-    public void setOnLongItemClickListener(DictionaryAdapter.OnLongItemClickListener listener) {
-        this.onLongItemClickListener = listener;
     }
 
 }

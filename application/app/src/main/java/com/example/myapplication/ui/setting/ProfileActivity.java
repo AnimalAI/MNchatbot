@@ -3,6 +3,7 @@ package com.example.myapplication.ui.setting;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,8 +13,6 @@ import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.login.LoginActivity;
-import com.example.myapplication.ui.login.LoginRequest;
-import com.example.myapplication.ui.login.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,13 +21,7 @@ import retrofit2.Response;
 public class ProfileActivity extends SettingActivity {
     private Intent intent;
     private TextView ID, pwchange, logout, deleteinfo;
-
-    //서버 통신
-    private String TOKEN = getToken();
-    private ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-    public String getToken() {
-        return TOKEN;
-    }
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +33,7 @@ public class ProfileActivity extends SettingActivity {
         logout = findViewById(R.id.logout);
         deleteinfo = findViewById(R.id.deleteinfo);
 
-        //calluserInfo();
+        calluserInfo();
 
         //비밀번호 변경
         pwchange.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +81,14 @@ public class ProfileActivity extends SettingActivity {
     
     //회원 탈퇴
     private void ProfileDelete() {
-        Call<ProfileResponse> call = profileAPI.deletePost(10); //이게 무슨 의미인지 잘 모르겠음. 그러나 작동은 됨.
-        call.enqueue(new Callback<ProfileResponse>() {
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<PetProfileResponse> call = profileAPI.deletePost(10); //이게 무슨 의미인지 잘 모르겠음. 그러나 작동은 됨.
+        call.enqueue(new Callback<PetProfileResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -100,7 +97,7 @@ public class ProfileActivity extends SettingActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -110,16 +107,17 @@ public class ProfileActivity extends SettingActivity {
             }
         });
     }
-    /*public void calluserInfo(){
-        String userID = ID.getText().toString().trim();
-        UserinfoData userinfoData = new UserinfoData(userID, null);
-        Call<ProfileResponse> call = profileAPI.GetmemberEmail(userinfoData);
+    public void calluserInfo(){
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        Call<ProfileResponse> call = profileAPI.GetmemberEmail();
 
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {
-                    ID.setText(response.body().getuserID());
+                    ID.setText(response.body().memberEmail);
                 }
             }
 
@@ -135,5 +133,5 @@ public class ProfileActivity extends SettingActivity {
         });
 
 
-    }*/
+    }
 }

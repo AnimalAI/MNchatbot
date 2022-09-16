@@ -36,7 +36,7 @@ public class PetSelectActivity extends AppCompatActivity {
     private ArrayList<RecyclerViewItem> mList;
     private RecyclerViewAdapter mRecyclerViewAdapter;
     petListResponse dataList;
-    List<Response_DataList> petdata;
+    List<petListResponse.PetDataList> petdata;
 
     private SharedPreferences preferences;
 

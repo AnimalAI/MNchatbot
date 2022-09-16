@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.ServiceSetting;
 
+import com.example.myapplication.ui.Dictionary.DsResponse;
+import com.example.myapplication.ui.Dictionary.dsListResponse;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -9,8 +11,8 @@ import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
 import com.example.myapplication.ui.petSelect.petListResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
+import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.example.myapplication.ui.setting.ProfileResponse;
-import com.example.myapplication.ui.setting.UserinfoData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,7 +20,6 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ServiceAPI {
@@ -48,15 +49,15 @@ public interface ServiceAPI {
 
     //회원 이메일(ID) 받아오는 api
     @GET("/member/email")
-    Call<ProfileResponse> GetmemberEmail (@Body UserinfoData userinfoData);
+    Call<ProfileResponse> GetmemberEmail();
 
-    //회원 탈퇴
+    //회원 탈퇴 >> 코드 수정 필요 / userinfo 파일 삭제여부
     @DELETE("/member/delete/{memberEmail}")
-    Call<ProfileResponse> deletePost (@Path("memberEmail")int id);
+    Call<PetProfileResponse> deletePost (@Path("memberEmail")int id);
 
     //반려동물 정보 등록
     @POST("/pet/add")
-    Call<ProfileResponse> setPetinfo(@Body PetinfoData petinfoData);
+    Call<PetProfileResponse> setPetinfo(@Body PetinfoData petinfoData);
 
     //======================
     //반려동물 목록 보여주기
@@ -65,12 +66,11 @@ public interface ServiceAPI {
     
     //반려동물 정보 보여주기, 초기 셋팅값
     @GET("/pet/{petSerial}")
-    Call<ProfileResponse> getPetinfo(@Path("petSerial")Long Serial);
-
+    Call<PetProfileResponse> getPetinfo(@Path("petSerial")Long Serial);
 
     //(수정 필요) 반려동물 정보 수정
     @PATCH("/pet/changeInfo")
-    Call<ProfileResponse> EditPetPost(@Body PetinfoData petinfoData);
+    Call<PetProfileResponse> EditPetPost(@Body PetinfoData petinfoData);
 
     /*@PUT("/Profile/{petAge}")
     Call<ProfileResponse> updatePetPost(@Path("petAge") int petAge,
@@ -78,9 +78,23 @@ public interface ServiceAPI {
 
     //반려동물 삭제
     @DELETE("/pet/delete/{petSerial}")
-    Call<ProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
+    Call<PetProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
 
-    //동물병원 목록 보여주기
+    //======================
+    //질병백과 목록 보여주기
+    //@GET("/disease")
+    //Call<hospitalListResponse> Allhosplist();
+
+    //질병백과 검색 결과
+   @GET("/disease/dsList/{dsName}")
+   Call<dsListResponse> getDsinfo(@Path("dsName")String dsName);
+
+    //질병백과 검색 결과 내용
+    @GET("/disease/{dsId}")
+    Call<DsResponse> getDsSearchinfo(@Path("dsId")String dsId);
+
+    //======================
+    //연계병원 목록 보여주기
     @GET("/hospital")
     Call<hospitalListResponse> Allhosplist();
 }
