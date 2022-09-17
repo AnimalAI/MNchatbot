@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,17 +24,22 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
     private Context context;
     private ArrayList<DictionaryViewItem> mList;
 
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+
     public DictionaryAdapter(ArrayList<DictionaryViewItem> mList, Context context) {
         this.mList = mList; this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
     TextView diseaseName;
+    ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             diseaseName = itemView.findViewById(R.id.diseaseName);
+            progressBar = itemView.findViewById(R.id.progressBar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,10 +71,16 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
         context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.f_dictionary_item, parent, false);
-        DictionaryAdapter.ViewHolder viewHolder = new DictionaryAdapter.ViewHolder(view);
+        if (viewType == VIEW_TYPE_ITEM) {
+            View view = inflater.inflate(R.layout.f_dictionary_item, parent, false);
+            DictionaryAdapter.ViewHolder viewHolder = new DictionaryAdapter.ViewHolder(view);
+            return viewHolder;
+        } else {
+            View view = inflater.inflate(R.layout.loading_row, parent, false);
+            DictionaryAdapter.ViewHolder viewHolder = new DictionaryAdapter.ViewHolder(view);
+            return viewHolder;
+        }
 
-        return viewHolder;
     }
 
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시

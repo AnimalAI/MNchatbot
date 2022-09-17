@@ -1,11 +1,13 @@
 package com.example.myapplication.ui.Dictionary;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,8 @@ public class Fragment_Dictionary extends Fragment {
     List<dsListResponse.DsDataList> DsSearchdata;
     private SharedPreferences preferences;
 
+    private boolean isLoading = false;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -80,6 +84,22 @@ public class Fragment_Dictionary extends Fragment {
             }
         });
 
+        //리사이클러뷰 페이징처리
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    Log.d(TAG, "last Position...");
+                    loadMore();
+                    isLoading = true;
+                }
+            }
+        });
+
+
         btnDictionary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +115,32 @@ public class Fragment_Dictionary extends Fragment {
         mRecyclerView.setLayoutManager(manger);
         return rootview;
     }
+    private void loadMore() {
+        addItem(null, null);
+        mAdapter.notifyItemInserted(mList.size() - 1);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mList.remove(mList.size() - 1);
+                int scrollPosition = mList.size();
+                mAdapter.notifyItemRemoved(scrollPosition);
+                int currentSize = scrollPosition;
+                int nextLimit = currentSize + 10;
+
+                while (currentSize - 1 < nextLimit) {
+                    //mList.add();
+                    Log.d("어! 닿았다", "ㅇㅇ");
+                    currentSize++;
+                }
+
+                mAdapter.notifyDataSetChanged();
+                isLoading = false;
+            }
+        }, 2000);
+    }
+
     // 리사이클러뷰에 데이터추가
     public void addItem(String DiseaseName, String DiseaseId){
         DictionaryViewItem item = new DictionaryViewItem();

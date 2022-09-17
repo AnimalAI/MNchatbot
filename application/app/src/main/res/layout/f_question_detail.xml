@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_default">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TableRow>
+                <TextView
+                    android:text="문진표 제목"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/q_Name"
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:hint="20자 내외로 입력해주세요."
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </TableRow>
+            <TableRow android:layout_marginTop="20dp">
+                <TextView
+                    android:text="작성일자"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/h_Name"
+                    android:hint="22.09.11"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:backgroundTint="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:text="작성시간"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/h_num"
+                    android:hint="15:09"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:backgroundTint="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="내원 사유"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/q_reson"
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:hint="130자 내외로 입력해주세요."
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="150"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="기저질환"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <Spinner
+                    android:id="@+id/spn_questionNaire"
+                    android:layout_gravity="center"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="복용 중인 약"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/q_medichine"
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:hint="130자 내외로 입력해주세요."
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="150"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="약 섭취 후 과민반응"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <RadioGroup
+                android:id="@+id/q_radioGroup"
+                android:layout_marginTop="10dp"
+                android:background="#1AFFFFFF"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/q_radioYes"
+                    android:text="있음"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+                <RadioButton
+                    android:id="@+id/q_radioNo"
+                    android:text="없음"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+            </RadioGroup>
+            <TableRow>
+                <EditText
+                    android:id="@+id/q_radioYes_reason"
+                    android:background="#1AFFFFFF"
+                    android:visibility="visible"
+                    android:padding="20dp"
+                    android:hint="약 이름을 적어주세요 :)"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="수술, 마취 이력"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <RadioGroup
+                android:id="@+id/h_radioGroup"
+                android:layout_marginTop="10dp"
+                android:background="#1AFFFFFF"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/h_radioYes"
+                    android:text="있음"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+                <RadioButton
+                    android:id="@+id/h_radioNo"
+                    android:text="없음"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+            </RadioGroup>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="과도한 운동 여부"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_marginTop="10dp"
+                android:background="#1AFFFFFF"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:id="@+id/radioYes"
+                    android:text="최근에 한 적 있음"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+                <RadioButton
+                    android:id="@+id/radioNo"
+                    android:text="최근에 한 적 없음"
+                    android:layout_marginLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"/>
+            </RadioGroup>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="기타 특이 사항"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/h_reson"
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:hint="130자 내외로 입력해주세요."
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="150"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:layout_marginBottom="20dp"/>
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:id="@+id/btn_backTolist"
+                    android:text="취소"
+                    android:layout_weight="1"
+                    android:textColor="@color/purple"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+                <Button
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:id="@+id/btn_send"
+                    android:text="저장"
+                    android:textColor="@color/purple"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>
