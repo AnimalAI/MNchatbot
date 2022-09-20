@@ -17,6 +17,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Dictionary.Fragment_Dictionary;
 import com.example.myapplication.ui.Dictionary.Fragment_Dictionary_detail;
+import com.example.myapplication.ui.Dictionary.LoadMoreActivity;
+import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
+import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
 import com.example.myapplication.ui.hospital.Fragment_hospital;
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     Fragment_hospital_detail hospital_detail;
     Fragment_Dictionary dictionary;
     Fragment_Dictionary_detail dictionary_detail;
+    Fragment_Question question;
+    Fragment_Question_detail question_detail;
+
+    LoadMoreActivity loadMoreActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         hospital_detail = new Fragment_hospital_detail();
         dictionary = new Fragment_Dictionary();
         dictionary_detail = new Fragment_Dictionary_detail();
+        question = new Fragment_Question();
+        question_detail = new Fragment_Question_detail();
+
+        loadMoreActivity = new LoadMoreActivity();
 
         //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,chatbotWeb).commit();
                         return true;
                     case R.id.tab_2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, question).commit();
                         return true;
 
                     case R.id.tab_3:
@@ -87,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
                         return true;
                     case R.id.tab_5:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, loadMoreActivity).commit();
                         return true;
                 }
                 return false;
@@ -145,9 +156,10 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
         }else if(index ==7){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital_detail).commit();
-        }
-        else if(index ==8){
+        }else if(index ==8){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary_detail).commit();
+        }else if(index ==9){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,question_detail).commit();
         }
     }
 }
