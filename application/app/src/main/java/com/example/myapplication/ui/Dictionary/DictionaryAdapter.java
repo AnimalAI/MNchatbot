@@ -88,7 +88,24 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Vi
     public void onBindViewHolder(@NonNull DictionaryAdapter.ViewHolder holder, int position) {
         DictionaryViewItem item = mList.get(position);
 
-        holder.diseaseName.setText(item.getDiseaseName());
+        switch (getItemViewType(position)) {
+            case VIEW_TYPE_ITEM:
+                ViewHolder viewHolder = holder;
+                holder.diseaseName.setText(item.getDiseaseName());
+                break;
+            case VIEW_TYPE_LOADING:
+                LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
+                holder.progressBar.drawableHotspotChanged(50, 50);
+                break;
+        }
+    }
+    private class LoadingViewHolder extends ViewHolder {
+        ProgressBar mProgressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mProgressBar = itemView.findViewById(R.id.progressBar);
+        }
     }
 
     @Override
