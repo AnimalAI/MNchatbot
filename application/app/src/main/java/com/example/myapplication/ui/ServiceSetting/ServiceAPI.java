@@ -2,6 +2,8 @@ package com.example.myapplication.ui.ServiceSetting;
 
 import com.example.myapplication.ui.Dictionary.DsResponse;
 import com.example.myapplication.ui.Dictionary.dsListResponse;
+import com.example.myapplication.ui.QuestionNaire.QnResponse;
+import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -97,4 +99,9 @@ public interface ServiceAPI {
     //연계병원 목록 보여주기
     @GET("/hospital")
     Call<hospitalListResponse> Allhosplist();
+
+    //======================
+    //문진표 작성
+    @POST("/Question/add")
+    Call<QnResponse> setQuestion(@Body Question questionNaire);
 }

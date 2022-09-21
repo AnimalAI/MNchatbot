@@ -17,13 +17,13 @@ import java.util.ArrayList;
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView diseaseName, diseaseDate;
+        TextView QuestionName, QuestionDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            diseaseName = itemView.findViewById(R.id.diseaseName);
-            diseaseDate = itemView.findViewById(R.id.diseaseDate);
+            QuestionName = itemView.findViewById(R.id.QuestionName);
+            QuestionDate = itemView.findViewById(R.id.QuestionDate);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,9 +55,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     }
 
     //ArrayList
-    private ArrayList<diagnosisViewItem> mList = null;
+    private ArrayList<QuestionViewItem> mList = null;
 
-    public QuestionAdapter(ArrayList<diagnosisViewItem> mList) {
+    public QuestionAdapter(ArrayList<QuestionViewItem> mList) {
         this.mList = mList;
     }
 
@@ -66,7 +66,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     @Override
     public QuestionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.f_diagnosis_item, parent, false);
+                .inflate(R.layout.f_question_item, parent, false);
         QuestionAdapter.ViewHolder viewHolder = new QuestionAdapter.ViewHolder(view);
 
         return viewHolder;
@@ -75,10 +75,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull QuestionAdapter.ViewHolder holder, int position) {
-        diagnosisViewItem item = mList.get(position);
+        QuestionViewItem item = mList.get(position);
 
-        holder.diseaseName.setText(item.getDiseaseName());
-        holder.diseaseDate.setText(item.getDiseaseDate());
+        holder.QuestionName.setText(item.getQuestionName());
+        holder.QuestionDate.setText(item.getQuestionDate());
     }
 
     @Override

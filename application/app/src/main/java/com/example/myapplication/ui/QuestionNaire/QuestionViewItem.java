@@ -1,22 +1,22 @@
 package com.example.myapplication.ui.QuestionNaire;
 
 public class QuestionViewItem {
-    private String DiseaseName;
-    private String DiseaseDate;
+    private String QuestionName;
+    private String QuestionDate;
 
-    public String getDiseaseName() {
-        return DiseaseName;
+    public String getQuestionName() {
+        return QuestionName;
     }
 
-    public void setDiseaseName(String Name) {
-        this.DiseaseName = Name;
+    public void setQuestionName(String Name) {
+        this.QuestionName = Name;
     }
 
-    public String getDiseaseDate() {
-        return DiseaseDate;
+    public String getQuestionDate() {
+        return QuestionDate;
     }
 
-    public void setDiseaseDate(String Time) {
-        this.DiseaseDate = Time;
+    public void setQuestionDate(String Date) {
+        this.QuestionDate = Date;
     }
 }
