@@ -48,7 +48,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/h_Name"
+                    android:id="@+id/q_Date"
                     android:hint="22.09.11"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -69,7 +69,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/h_num"
+                    android:id="@+id/q_time"
                     android:hint="15:09"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -166,14 +166,14 @@
                 <TextView android:text=" " android:layout_weight="8"></TextView>
             </TableRow>
             <RadioGroup
-                android:id="@+id/q_radioGroup"
+                android:id="@+id/q_radioGroup1"
                 android:layout_marginTop="10dp"
                 android:background="#1AFFFFFF"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <RadioButton
-                    android:id="@+id/q_radioYes"
+                    android:id="@+id/q_radioYes1"
                     android:text="있음"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                     android:textColor="@color/white"
                     android:buttonTint="@color/white"/>
                 <RadioButton
-                    android:id="@+id/q_radioNo"
+                    android:id="@+id/q_radioNo1"
                     android:text="없음"
                     android:layout_marginLeft="40dp"
                     android:layout_width="wrap_content"
@@ -218,14 +218,14 @@
                 <TextView android:text=" " android:layout_weight="8"></TextView>
             </TableRow>
             <RadioGroup
-                android:id="@+id/h_radioGroup"
+                android:id="@+id/q_radioGroup2"
                 android:layout_marginTop="10dp"
                 android:background="#1AFFFFFF"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <RadioButton
-                    android:id="@+id/h_radioYes"
+                    android:id="@+id/q_radioYes2"
                     android:text="있음"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
                     android:textColor="@color/white"
                     android:buttonTint="@color/white"/>
                 <RadioButton
-                    android:id="@+id/h_radioNo"
+                    android:id="@+id/q_radioNo2"
                     android:text="없음"
                     android:layout_marginLeft="40dp"
                     android:layout_width="wrap_content"
@@ -255,14 +255,14 @@
                 <TextView android:text=" " android:layout_weight="8"></TextView>
             </TableRow>
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/q_radioGroup3"
                 android:layout_marginTop="10dp"
                 android:background="#1AFFFFFF"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <RadioButton
-                    android:id="@+id/radioYes"
+                    android:id="@+id/q_radioYes3"
                     android:text="최근에 한 적 있음"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -271,7 +271,7 @@
                     android:textColor="@color/white"
                     android:buttonTint="@color/white"/>
                 <RadioButton
-                    android:id="@+id/radioNo"
+                    android:id="@+id/q_radioNo3"
                     android:text="최근에 한 적 없음"
                     android:layout_marginLeft="40dp"
                     android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <EditText
-                    android:id="@+id/h_reson"
+                    android:id="@+id/q_etc"
                     android:background="#1AFFFFFF"
                     android:padding="20dp"
                     android:hint="130자 내외로 입력해주세요."
@@ -315,7 +315,7 @@
                 <Button
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="40dp"
-                    android:id="@+id/btn_backTolist"
+                    android:id="@+id/btn_back"
                     android:text="취소"
                     android:layout_weight="1"
                     android:textColor="@color/purple"
@@ -327,7 +327,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="40dp"
-                    android:id="@+id/btn_send"
+                    android:id="@+id/btn_save"
                     android:text="저장"
                     android:textColor="@color/purple"
                     android:textSize="20dp"

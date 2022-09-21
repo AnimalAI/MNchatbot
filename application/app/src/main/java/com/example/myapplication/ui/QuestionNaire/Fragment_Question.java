@@ -25,8 +25,8 @@ public class Fragment_Question extends Fragment {
     MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
-    private ArrayList<diagnosisViewItem> mList;
-    private diagnosisAdapter mAdapter;
+    private ArrayList<QuestionViewItem> mList;
+    private QuestionAdapter mAdapter;
     private FloatingActionButton btnAdd;
 
     @Override
@@ -51,13 +51,13 @@ public class Fragment_Question extends Fragment {
 
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("고관절 이형성증", "2022.08.25");
-        addItem("췌장염", "2022.08.25");
+        addItem("구토증상보임", "2022.08.25");
+        addItem("설사함", "2022.08.30");
 
-        mAdapter = new diagnosisAdapter(mList);
+        mAdapter = new QuestionAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new diagnosisAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
                 mainActivity.onChangeFragment(9);
@@ -79,10 +79,10 @@ public class Fragment_Question extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String DiseaseName, String Date){
-        diagnosisViewItem item = new diagnosisViewItem();
-        item.setDiseaseName(DiseaseName);
-        item.setDiseaseDate(Date);
+    public void addItem(String QuestionName, String Date){
+        QuestionViewItem item = new QuestionViewItem();
+        item.setQuestionName(QuestionName);
+        item.setQuestionDate(Date);
         mList.add(item);
     }
 

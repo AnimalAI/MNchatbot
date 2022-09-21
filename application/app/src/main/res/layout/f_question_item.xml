@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:text="문진표1"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
