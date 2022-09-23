@@ -1,17 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:text="질병명은 이렇고요."
+    android:orientation="vertical"
+    android:background="@drawable/background_default">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="보호자에 대한 조언은 이렇습니다."
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TableRow>
+                <TextView
+                    android:text="질병명"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_Name"
+                    android:text="췌장염"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:text="축종"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_Species"
+                    android:text="개, 고양이"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:text="정의"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/ds_definition"
+                    android:text="췌장에 발생한 염증"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="원인"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_cause"
+                    android:text="영양성(고지단백혈증), 췌장의 창상 또는 허혈, 십이지장 반사, 약제나 독성물질, 췌장관 폐쇄, 고칼슘혈증, 감염인자-톡소플라스마증, 고양이 전염성 복막염(FIP)"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+            </TableRow>
+            <TableRow android:layout_marginTop="30dp">
+                <TextView
+                    android:text="보호자에 대한 조언"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+                <TextView android:text=" " android:layout_weight="8"></TextView>
+            </TableRow>
+            <TableRow android:layout_marginTop="10dp">
+                <TextView
+                    android:background="#1AFFFFFF"
+                    android:padding="20dp"
+                    android:id="@+id/ds_advice"
+                    android:text="비만이 되지 않도록 운동을 시키고 지방 함량이 적은 사료를 급여하도록 함"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+            </TableRow>
+            <TableRow android:background="#1AFFFFFF">
+                <TextView
+                    android:id="@+id/more9"
+                    android:text="더보기"
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="15dp"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

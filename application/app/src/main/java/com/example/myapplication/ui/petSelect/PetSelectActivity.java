@@ -126,7 +126,19 @@ public class PetSelectActivity extends AppCompatActivity {
                         mRecyclerViewAdapter.notifyDataSetChanged();
                     }
                     Log.d("petList", "200");
-                } else if (!response.equals(404)) {Log.d("petList", "404");
+                    /*
+                    if (petdata.size() == 0) { addItem(null, null, null);
+                        mRecyclerViewAdapter.notifyDataSetChanged(); }
+                    else{
+                        for(int i=0; i< petdata.size(); i++) {
+                            String a = petdata.get(i).getPetName();
+                            String b = petdata.get(i).getpetSpecies();
+                            Long c = petdata.get(i).getpetSerial();
+                            addItem(a, b, c);
+                            mRecyclerViewAdapter.notifyDataSetChanged();
+                        }
+                        Log.d("petList", "200");
+                    }*/
                 }
             }
 
