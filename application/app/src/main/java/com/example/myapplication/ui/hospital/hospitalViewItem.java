@@ -1,7 +1,14 @@
 package com.example.myapplication.ui.hospital;
 
 public class hospitalViewItem {
-    private String HospitalName, HospitalNumber, location, email, field;
+    private String HospitalType, HospitalName, HospitalNumber, location, email, field;
+
+    public String getHospitalType() {
+        return HospitalType;
+    }
+    public void setHospitalType(String Type) {
+        this.HospitalType = Type;
+    }
 
     public String getHospitalName() {
         return HospitalName;

@@ -41,11 +41,10 @@ public class Fragment_hospital extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<hospitalViewItem> mList;
     private hospitalAdapter mAdapter;
-    private EditText editText;
     private Spinner City1, City2;
     private ArrayAdapter City1_Adapter, City2_Adapter;
     private Button btn_city;
-    private String City1Name, City2Name;
+    private String City1Name, City2Name, type;
 
     hospitalListResponse dataList;
     List<hospitalListResponse.HospDataList> hospdata;
@@ -69,7 +68,6 @@ public class Fragment_hospital extends Fragment {
 
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_hospital,container,false);
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
-        editText = rootview.findViewById(R.id.editText);
         City1 = rootview.findViewById(R.id.spn_city1);
         City2 = rootview.findViewById(R.id.spn_city2);
         btn_city = rootview.findViewById(R.id.btn_city);
@@ -94,7 +92,7 @@ public class Fragment_hospital extends Fragment {
         btn_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                call_totalList();
             }
         });
 
@@ -148,21 +146,23 @@ public class Fragment_hospital extends Fragment {
     }
     //모든 연계병원 보기
     public void call_totalList(){
+        String region = City1Name;
+        String city = City2Name;
         hospdata = new ArrayList<>();
         preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = preferences.getString("TOKEN", null);
         ServiceAPI hospListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
-        Call<hospitalListResponse> call = hospListAPI.Allhosplist();
+        Call<hospitalListResponse> call = hospListAPI.Allhosplist(region, city);
 
         call.enqueue(new Callback<hospitalListResponse>() {
             @Override
             public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
                 if (!response.equals(200)) {
+                    Log.d("hospList", "200");
                     dataList = response.body();
                     hospdata = dataList.data;
                     for(int i=0; i< hospdata.size(); i++) {
-                        String o = hospdata.get(i).getHospType();
                         String a = hospdata.get(i).getHospName();
                         String b = hospdata.get(i).getHospTel();
                         String c = hospdata.get(i).getHospAddress();

@@ -14,14 +14,6 @@ public class hospitalListResponse {
     @SerializedName("data")
     public List<HospDataList> data;
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
     @Override
     public String toString() {
         return "ProfileResponse{" + "data=" + data+ "}";

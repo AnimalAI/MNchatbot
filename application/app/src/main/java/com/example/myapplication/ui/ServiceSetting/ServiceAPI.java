@@ -4,6 +4,7 @@ import com.example.myapplication.ui.Dictionary.DsResponse;
 import com.example.myapplication.ui.Dictionary.dsListResponse;
 import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
+import com.example.myapplication.ui.hospital.ApplyData;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -88,8 +89,8 @@ public interface ServiceAPI {
     //Call<hospitalListResponse> Allhosplist();
 
     //질병백과 검색 결과
-   @GET("/disease/dsList/{dsName}")
-   Call<dsListResponse> getDsinfo(@Path("dsName")String dsName);
+    @GET("/disease/dsList/{dsName}")
+    Call<dsListResponse> getDsinfo(@Path("dsName")String dsName);
 
     //질병백과 검색 결과 내용
     @GET("/disease/{dsId}")
@@ -97,8 +98,12 @@ public interface ServiceAPI {
 
     //======================
     //연계병원 목록 보여주기
-    @GET("/hospital")
-    Call<hospitalListResponse> Allhosplist();
+    @GET("/hospital/{region}/{city}")
+    Call<hospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
+
+    //연계병원 상담신청
+    @POST("/hospital/apply")
+    Call<hospitalListResponse> apply(@Body ApplyData applyData);
 
     //======================
     //문진표 작성
