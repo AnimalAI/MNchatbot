@@ -60,7 +60,7 @@ public class Fragment_hospital_detail extends Fragment {
     //서버 통신
     private SharedPreferences preferences;
 
-    private EditText Name, Number, reason;
+    private EditText Name, Number, Reason;
     private Spinner spn_quesionNaire;
     private ImageView datePicker, camera;
     private TextView Tdate, Ttime;
@@ -99,7 +99,7 @@ public class Fragment_hospital_detail extends Fragment {
         timePicker = rootview.findViewById(R.id.btn_TimePicker);
         Tdate = rootview.findViewById(R.id.h_date);
         Ttime = rootview.findViewById(R.id.h_time);
-        reason = rootview.findViewById(R.id.h_reson);
+        Reason = rootview.findViewById(R.id.h_reson);
         camera = rootview.findViewById(R.id.btn_img);
         send = rootview.findViewById(R.id.btn_send);
         backTolist = rootview.findViewById(R.id.btn_backTolist);
@@ -197,11 +197,22 @@ public class Fragment_hospital_detail extends Fragment {
     
     //상담신청 정보 보내는 메소드
     public void sendData() {
+        String name = Name.getText().toString();
+        String number = Number.getText().toString();
+        String spinner = spn_quesionNaire.getSelectedItem().toString();
+        String date = Tdate.toString();
+        String time = Ttime.toString();
+        String bill = ""; //check 값이 1이면~ 해도 되고, 아니면 해당 값을 그냥 넘겨도 됨.
+        if (check == 1) {
+        }else { }
+
+        String reason = Reason.getText().toString();
+
         preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = preferences.getString("TOKEN", null);
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
-        ApplyData applyData = new ApplyData(null, null, null, null, null, null, null);
+        ApplyData applyData = new ApplyData(name, number, spinner, date, time, bill, reason);
         Call<hospitalListResponse> call = SendAPI.apply(applyData);
 
         call.enqueue(new Callback<hospitalListResponse>() {
