@@ -73,8 +73,8 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
         holder.location.setText(item.getlocation());
         holder.email.setText(item.getemail());
         holder.field.setText(item.getfield());
-        /*if (item.getfield().equals("")) { holder.tv_field.setVisibility(View.INVISIBLE); }
-        else {holder.field.setText(item.getfield());}*/
+        if (item.getHospitalType().equals("NOPARTNER")) { holder.btnHospital.setVisibility(View.INVISIBLE); }
+        else {holder.btnHospital.setVisibility(View.INVISIBLE);}
     }
 
     @Override

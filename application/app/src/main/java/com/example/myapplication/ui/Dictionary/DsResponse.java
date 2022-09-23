@@ -14,10 +14,6 @@ public class DsResponse {
     @SerializedName("data")
     public DsData data;
 
-    public int getCode() {
-        return code;
-    }
-
     public String getMessage() {
         return message;
     }

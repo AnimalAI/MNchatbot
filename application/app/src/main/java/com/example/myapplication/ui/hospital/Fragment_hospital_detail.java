@@ -1,13 +1,16 @@
 package com.example.myapplication.ui.hospital;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,16 +37,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
+import com.example.myapplication.ui.petSelect.AddPetActivity;
+import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.example.myapplication.ui.setting.PetProfileResponse;
+import com.example.myapplication.ui.setting.PetinfoData;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Fragment_hospital_detail extends Fragment {
 
     MainActivity mainActivity;
+    //서버 통신
+    private SharedPreferences preferences;
+
     private EditText Name, Number, reason;
     private Spinner spn_quesionNaire;
     private ImageView datePicker, camera;
@@ -166,8 +182,7 @@ public class Fragment_hospital_detail extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Name.getText();
-                Number.getText();
+                sendData();
             }
         });
         backTolist.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +193,39 @@ public class Fragment_hospital_detail extends Fragment {
         });
 
         return rootview;
+    }
+    
+    //상담신청 정보 보내는 메소드
+    public void sendData() {
+        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        ApplyData applyData = new ApplyData(null, null, null, null, null, null, null);
+        Call<hospitalListResponse> call = SendAPI.apply(applyData);
+
+        call.enqueue(new Callback<hospitalListResponse>() {
+            @Override
+            public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
+                if (!response.equals(200)) {
+                    Toast.makeText(getActivity(),"신청되었습니다.", Toast.LENGTH_SHORT).show();
+                    mainActivity.onChangeFragment(5);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<hospitalListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+
+        Name.getText();
+        Number.getText();
     }
 
     public void showTimePicker() {
