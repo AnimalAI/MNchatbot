@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,6 +105,8 @@ public class Fragment_hospital_detail extends Fragment {
         send = rootview.findViewById(R.id.btn_send);
         backTolist = rootview.findViewById(R.id.btn_backTolist);
         radioGroup =rootview.findViewById(R.id.h_radioGroup);
+
+        Number.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
 
         datePicker.setOnClickListener(new View.OnClickListener() {
