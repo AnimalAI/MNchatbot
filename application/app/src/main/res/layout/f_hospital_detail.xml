@@ -44,7 +44,8 @@
                     android:textColor="@color/white"/>
                 <EditText
                     android:id="@+id/h_num"
-                    android:hint="010 - 0000 - 0000"
+                    android:hint="010-0000-0000"
+                    android:inputType="phone"
                     android:layout_weight="8"
                     android:gravity="center"
                     android:layout_width="0dp"

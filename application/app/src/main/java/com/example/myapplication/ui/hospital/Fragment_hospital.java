@@ -27,6 +27,7 @@ import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +75,6 @@ public class Fragment_hospital extends Fragment {
 
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("모모병원", "02-111-2222", "서울람람", "1@naver.com", "개 순환기계질환 전문");
-        addItem("김가네병원", "02-222-3333", "부산람람", "2@naver.com", null);
-        addItem("동물사랑병원", "02-333-4444", "강릉람람", "3@naver.com", null);
 
         mAdapter = new hospitalAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
@@ -135,8 +133,9 @@ public class Fragment_hospital extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String HospitalName, String HospitalNum, String location, String email, String field){
+    public void addItem(String HospType, String HospitalName, String HospitalNum, String location, String email, String field){
         hospitalViewItem item = new hospitalViewItem();
+        item.setHospitalType(HospType);
         item.setHospitalName(HospitalName);
         item.setHospitalNumber(HospitalNum);
         item.setlocation(location);
@@ -159,17 +158,16 @@ public class Fragment_hospital extends Fragment {
             @Override
             public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
                 if (!response.equals(200)) {
-                    Log.d("hospList", "200");
                     dataList = response.body();
                     hospdata = dataList.data;
-                    for(int i=0; i< hospdata.size(); i++) {
-                        String a = hospdata.get(i).getHospName();
-                        String b = hospdata.get(i).getHospTel();
-                        String c = hospdata.get(i).getHospAddress();
-                        String d = hospdata.get(i).getHospEmail();
-                        String e = hospdata.get(i).getHospField();
-                        addItem(a, b, c, d, e);
-                        mAdapter.notifyDataSetChanged();
+                    if (mList.size() == 0){
+                        callCities();
+                    } else if (mList.size() > 0) {
+                        for (int q = 0; q<= mList.size(); q++) {
+                            mList.clear();
+                            mAdapter.notifyDataSetChanged();
+                            callCities();
+                        }
                     }
                     Log.d("hospList", "200");
                 } else if (!response.equals(404)) {Log.d("hospList", "404");
@@ -186,6 +184,20 @@ public class Fragment_hospital extends Fragment {
                         .show();
             }
         });
+    }
+    //조건 필터에 맞는 도시 불러오는 반복문
+    public void callCities() {
+        for(int i=0; i< hospdata.size(); i++) {
+            type = hospdata.get(i).getHospType();
+            String a = hospdata.get(i).getHospName();
+            String b = hospdata.get(i).getHospTel();
+            String c = hospdata.get(i).getHospAddress();
+            String d = hospdata.get(i).getHospEmail();
+            String e = hospdata.get(i).getHospField();
+            addItem(type, a, b, c, d, e);
+            mAdapter.notifyDataSetChanged();
+            Log.d("hospList3", "200");
+        }
     }
     public void setCity2() {
         switch (City1Name) {
