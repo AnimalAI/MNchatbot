@@ -78,7 +78,7 @@ public class Fragment_Dictionary_detail extends Fragment {
         callDsSearchinfo();
         return rootview;
     }
-    //페이징 처리
+    //더보기
     public static boolean isEllipsize(TextView textView, TextView moreTextView){
         boolean result = false;
         Layout layout = textView.getLayout();
