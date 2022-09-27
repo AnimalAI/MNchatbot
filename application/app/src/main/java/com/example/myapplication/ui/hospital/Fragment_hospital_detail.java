@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -49,8 +50,13 @@ import com.example.myapplication.ui.setting.PetinfoData;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,7 +74,8 @@ public class Fragment_hospital_detail extends Fragment {
     private Button timePicker, send, backTolist;
     private RadioGroup radioGroup;
 
-    private int check = 0;
+    boolean check;
+    //private int check = 0;
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -139,16 +146,27 @@ public class Fragment_hospital_detail extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checked) {
                 switch (checked) {
                     case R.id.h_radioYes:
-                        check = 1;
+                        check = true;
                         Toast.makeText(getActivity(), "예!!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.h_radioNo:
-                        check = 2;
+                        check = false;
                         Toast.makeText(getActivity(), "아니오!!", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         });
+
+        List<String> spnArray = new ArrayList<>();
+
+        for (int i=0; i<20; i++) {
+            spnArray.add("구토 증세");
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.row_spinner, spnArray);
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        spn_quesionNaire.setAdapter(adapter);
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +203,8 @@ public class Fragment_hospital_detail extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData();
+
+                //sendData(File);
             }
         });
         backTolist.setOnClickListener(new View.OnClickListener() {
@@ -199,14 +218,14 @@ public class Fragment_hospital_detail extends Fragment {
     }
     
     //상담신청 정보 보내는 메소드
-    public void sendData() {
+    public void sendData(File imageFile) {
         String name = Name.getText().toString();
         String number = Number.getText().toString();
         String spinner = spn_quesionNaire.getSelectedItem().toString();
         String date = Tdate.toString();
         String time = Ttime.toString();
         String bill = ""; //check 값이 1이면~ 해도 되고, 아니면 해당 값을 그냥 넘겨도 됨.
-        if (check == 1) {
+        if (check) {
         }else { }
 
         String reason = Reason.getText().toString();
@@ -216,7 +235,12 @@ public class Fragment_hospital_detail extends Fragment {
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
         ApplyData applyData = new ApplyData(name, number, spinner, date, time, bill, reason);
-        Call<hospitalListResponse> call = SendAPI.apply(applyData);
+
+        //RequestBody 내용
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", imageFile.getName(), requestFile);
+
+        Call<hospitalListResponse> call = SendAPI.apply(applyData, body);
 
         call.enqueue(new Callback<hospitalListResponse>() {
             @Override
@@ -237,9 +261,6 @@ public class Fragment_hospital_detail extends Fragment {
                         .show();
             }
         });
-
-        Name.getText();
-        Number.getText();
     }
 
     public void showTimePicker() {
