@@ -20,33 +20,43 @@ public class hospitalListResponse {
     }
 
     public class HospDataList {
-        @SerializedName("totalHospName")
-        private String totalHospName;
-        @SerializedName("totalHospAddress")
-        private String totalHospAddress;
+        @SerializedName("hospSerial")
+        private String hospSerial;
+
+        @SerializedName("hospName")
+        private String hospName;
+        @SerializedName("hospAddress")
+        private String hospAddress;
+
         @SerializedName("totalHospEmail")
         private String totalHospEmail;
-        @SerializedName("totalHospTel")
-        private String totalHospTel;
+
+        @SerializedName("hospTel")
+        private String hospTel;
+
         @SerializedName("totalHospField")
         private String totalHospField;
-        @SerializedName("totalHospType")
-        private String totalHospType;
+        @SerializedName("hospType")
+        private String hospType;
 
+        public String getHospSerial() {
+            return hospSerial;
+        }
         public String getHospType() {
-            return totalHospType;
+            return hospType;
         }
         public String getHospName() {
-            return totalHospName;
+            return hospName;
         }
         public String getHospAddress() {
-            return totalHospAddress;
+            return hospAddress;
         }
+
         public String getHospEmail() {
             return totalHospEmail;
         }
         public String getHospTel() {
-            return totalHospTel;
+            return hospTel;
         }
         public String getHospField() {
             return totalHospField;

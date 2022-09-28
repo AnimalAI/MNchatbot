@@ -65,7 +65,7 @@ public class Fragment_hospital_detail extends Fragment {
 
     MainActivity mainActivity;
     //서버 통신
-    private SharedPreferences preferences;
+    private SharedPreferences pre1, pre2, pre3, pre4;
 
     private EditText Name, Number, Reason;
     private Spinner spn_quesionNaire;
@@ -221,20 +221,21 @@ public class Fragment_hospital_detail extends Fragment {
     public void sendData(File imageFile) {
         String name = Name.getText().toString();
         String number = Number.getText().toString();
-        String spinner = spn_quesionNaire.getSelectedItem().toString();
+        
+        //스피너 sharedPreference로 불러와야함.
+
         String date = Tdate.toString();
         String time = Ttime.toString();
-        String bill = ""; //check 값이 1이면~ 해도 되고, 아니면 해당 값을 그냥 넘겨도 됨.
-        if (check) {
-        }else { }
-
+        boolean bill = check;
         String reason = Reason.getText().toString();
 
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        pre1 = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre1.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("petSerial", MODE_PRIVATE);
+        int Serial = pre2.getInt("Serial", 0);
 
-        ApplyData applyData = new ApplyData(name, number, spinner, date, time, bill, reason);
+        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ApplyData applyData = new ApplyData(Serial, 0, 0, name, number, date, time, bill, reason);
 
         //RequestBody 내용
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);

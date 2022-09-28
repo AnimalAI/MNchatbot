@@ -12,6 +12,7 @@ import com.example.myapplication.ui.join.JoinData;
 import com.example.myapplication.ui.join.JoinResponse;
 import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
+import com.example.myapplication.ui.petSelect.Petinfo;
 import com.example.myapplication.ui.petSelect.petListResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.PetProfileResponse;
@@ -63,7 +64,7 @@ public interface ServiceAPI {
 
     //반려동물 정보 등록
     @POST("/pet/add")
-    Call<PetProfileResponse> setPetinfo(@Body PetinfoData petinfoData);
+    Call<PetProfileResponse> setPetinfo(@Body Petinfo petinfo);
 
     //======================
     //반려동물 목록 보여주기
@@ -72,7 +73,7 @@ public interface ServiceAPI {
     
     //반려동물 정보 보여주기, 초기 셋팅값
     @GET("/pet/{petSerial}")
-    Call<PetProfileResponse> getPetinfo(@Path("petSerial")Long Serial);
+    Call<PetProfileResponse> getPetinfo(@Path("petSerial")int Serial);
 
     //(수정 필요) 반려동물 정보 수정
     @PATCH("/pet/changeInfo")
@@ -84,7 +85,7 @@ public interface ServiceAPI {
 
     //반려동물 삭제
     @DELETE("/pet/delete/{petSerial}")
-    Call<PetProfileResponse> deletePetPost(@Path("petSerial")Long Serial);
+    Call<PetProfileResponse> deletePetPost(@Path("petSerial")int Serial);
 
     //======================
     //질병백과 목록 보여주기
