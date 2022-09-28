@@ -152,7 +152,7 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 변경
     public void updatePetPost(){
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
-        Long Serial = preferences.getLong("Serial", 0);
+        int Serial = preferences.getInt("Serial", 0);
         String Species = "";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
@@ -195,7 +195,7 @@ public class PetProfileActivity extends SettingActivity {
     private void PetProfileDelete() {
         ArrayList List = new ArrayList();
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
-        Long Serial = preferences.getLong("Serial", 0);
+        int Serial = preferences.getInt("Serial", 0);
         Call<PetProfileResponse> call = profileAPI.deletePetPost(Serial);
         call.enqueue(new Callback<PetProfileResponse>() {
             @Override
@@ -212,7 +212,7 @@ public class PetProfileActivity extends SettingActivity {
                             }
                             mRecyclerViewAdapter = new RecyclerViewAdapter(List, context);
                             Intent intent = new Intent(PetProfileActivity.this, PetSelectActivity.class);
-                            String item = (String) List.get(Serial.intValue() -1);
+                            String item = (String) List.get(Serial -1);
                             List.remove(item);
                             mRecyclerViewAdapter.notifyDataSetChanged();
                             Log.d("~", String.valueOf(item));
@@ -241,8 +241,8 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 불러오기
     public void callPetinfo(){
         preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
-        Long Serial = preferences.getLong("Serial", 0);
-        Log.d("!!", Serial.toString());
+        int Serial = preferences.getInt("Serial", 0);
+        Log.d("!!", String.valueOf(Serial));
         Call<PetProfileResponse> call = profileAPI.getPetinfo(Serial);
 
         call.enqueue(new Callback<PetProfileResponse>() {

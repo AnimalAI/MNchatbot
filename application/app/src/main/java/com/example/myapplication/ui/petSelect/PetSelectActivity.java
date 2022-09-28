@@ -86,14 +86,14 @@ public class PetSelectActivity extends AppCompatActivity {
             if (intent !=null) {
                 String petName = intent.getStringExtra("petName");
                 String CATDOG = intent.getStringExtra("CATDOG");
-                addItem(petName, CATDOG, null);
+                addItem(petName, CATDOG, 0);
                 mRecyclerViewAdapter.notifyDataSetChanged();
             }
         }
     }
 
     // 리사이클러뷰에 데이터추가
-    public void addItem(String mainText, String imgName, Long petSerial){
+    public void addItem(String mainText, String imgName, int petSerial){
         RecyclerViewItem item = new RecyclerViewItem();
         item.setImgName(imgName);
         item.setMainText(mainText);
@@ -121,7 +121,7 @@ public class PetSelectActivity extends AppCompatActivity {
                     for(int i=0; i< petdata.size(); i++) {
                         String a = petdata.get(i).getPetName();
                         String b = petdata.get(i).getpetSpecies();
-                        Long c = petdata.get(i).getpetSerial();
+                        int c = petdata.get(i).getpetSerial();
                         addItem(a, b, c);
                         mRecyclerViewAdapter.notifyDataSetChanged();
                     }

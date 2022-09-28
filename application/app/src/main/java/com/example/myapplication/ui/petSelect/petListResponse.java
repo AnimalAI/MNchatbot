@@ -30,13 +30,13 @@ public class petListResponse {
     public class PetDataList {
         //반려동물
         @SerializedName("petSerial")
-        private Long petSerial;
+        private int petSerial;
         @SerializedName("petSpecies")
         private String petSpecies;
         @SerializedName("petName")
         private String petName;
 
-        public Long getpetSerial() {
+        public int getpetSerial() {
             return petSerial;
         }
         public String getpetSpecies() {

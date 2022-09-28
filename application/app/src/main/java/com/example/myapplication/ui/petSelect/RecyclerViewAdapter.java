@@ -51,14 +51,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         if (onItemClickListener != null) {
                             onItemClickListener.onItemClick(position);
                             RecyclerViewItem item = mList.get(position);
-                            Long Serial = item.getPetSerial();
-                            Log.d("Serial", Serial.toString());
+                            int Serial = item.getPetSerial();
+                            Log.d("Serial", String.valueOf(Serial));
 
                             //간단한 data의 경우 사용. 앱 폴더 내 파일로 저장되는 형태.
                             JSONArray a = new JSONArray();
                             preferences = context.getSharedPreferences("petSerial", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
-                            editor.putLong("Serial", Serial);
+                            editor.putInt("Serial", Serial);
                             //펫 리스트(arraylist), string화 하여 넘기기
                             for (int i = 0; i < mList.size(); i++) {
                                 a.put(mList.get(i));

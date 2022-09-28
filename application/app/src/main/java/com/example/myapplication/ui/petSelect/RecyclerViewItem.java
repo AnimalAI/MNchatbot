@@ -3,7 +3,7 @@ package com.example.myapplication.ui.petSelect;
 public class RecyclerViewItem {
     private String mpetSpecies;
     private String mpetName;
-    private Long mpetSerial;
+    private int mpetSerial;
 
     public String getImgName() {
         return mpetSpecies;
@@ -21,11 +21,11 @@ public class RecyclerViewItem {
         this.mpetName = mainText;
     }
 
-    public Long getPetSerial() {
+    public int getPetSerial() {
         return mpetSerial;
     }
 
-    public void setPetSerial(Long petSerial) {
+    public void setPetSerial(int petSerial) {
         this.mpetSerial = petSerial;
     }
 

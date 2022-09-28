@@ -1,13 +1,8 @@
-package com.example.myapplication.ui.setting;
+package com.example.myapplication.ui.petSelect;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PetinfoData {
-
-    //식별번호
-    @SerializedName("petSerial")
-    public int petSerial;
-
+public class Petinfo {
     //축종
     @SerializedName("petSpecies")
     public String petSpecies;
@@ -28,8 +23,7 @@ public class PetinfoData {
     @SerializedName("petNeutralization")
     public String petNeutering;
 
-    public PetinfoData(int petSerial, String petSpecies, String petName, int petAge, String petBreed, String petGender, String petNeutering) {
-        this.petSerial = petSerial;
+    public Petinfo(String petSpecies, String petName, int petAge, String petBreed, String petGender, String petNeutering) {
         this.petSpecies = petSpecies;
         this.petName = petName;
         this.petAge = petAge;

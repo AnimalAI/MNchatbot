@@ -28,7 +28,7 @@ public class PetProfileResponse {
     public class PetDataObject {
         //반려동물
         @SerializedName("petSerial")
-        private Long petSerial;
+        private int petSerial;
         @SerializedName("petSpecies")
         private String petSpecies;
         @SerializedName("petName")
@@ -42,7 +42,7 @@ public class PetProfileResponse {
         @SerializedName("petNeutralization")
         private String petNeutering;
 
-        public Long getpetSerial() {
+        public int getpetSerial() {
             return petSerial;
         }
         public String getpetSpecies() {
