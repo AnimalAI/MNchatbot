@@ -52,13 +52,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             onItemClickListener.onItemClick(position);
                             RecyclerViewItem item = mList.get(position);
                             int Serial = item.getPetSerial();
-                            Log.d("Serial", String.valueOf(Serial));
+                            Log.d("petSerial", String.valueOf(Serial));
 
                             //간단한 data의 경우 사용. 앱 폴더 내 파일로 저장되는 형태.
                             JSONArray a = new JSONArray();
-                            preferences = context.getSharedPreferences("petSerial", Context.MODE_PRIVATE);
+                            preferences = context.getSharedPreferences("Serial", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
-                            editor.putInt("Serial", Serial);
+                            editor.putInt("petSerial", Serial);
                             //펫 리스트(arraylist), string화 하여 넘기기
                             for (int i = 0; i < mList.size(); i++) {
                                 a.put(mList.get(i));
@@ -69,7 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 editor.putString("key", null);
                             }
                             editor.commit();
-                            Log.d("!", String.valueOf(preferences.getLong("Serial", 0)));
+                            Log.d("!", String.valueOf(preferences.getInt("petSerial", 0)));
                         }
                     }
                 }

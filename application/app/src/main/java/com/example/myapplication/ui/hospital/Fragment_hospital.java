@@ -76,7 +76,7 @@ public class Fragment_hospital extends Fragment {
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
 
-        mAdapter = new hospitalAdapter(mList);
+        mAdapter = new hospitalAdapter(mList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -133,8 +133,9 @@ public class Fragment_hospital extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String HospType, String HospitalName, String HospitalNum, String location, String email, String field){
+    public void addItem(int HospSerial, String HospType, String HospitalName, String HospitalNum, String location, String email, String field){
         hospitalViewItem item = new hospitalViewItem();
+        item.setHospitalSerial(HospSerial);
         item.setHospitalType(HospType);
         item.setHospitalName(HospitalName);
         item.setHospitalNumber(HospitalNum);
@@ -188,13 +189,14 @@ public class Fragment_hospital extends Fragment {
     //조건 필터에 맞는 도시 불러오는 반복문
     public void callCities() {
         for(int i=0; i< hospdata.size(); i++) {
+            int hospSerial = hospdata.get(i).getHospSerial();
             type = hospdata.get(i).getHospType();
             String a = hospdata.get(i).getHospName();
             String b = hospdata.get(i).getHospTel();
             String c = hospdata.get(i).getHospAddress();
             String d = hospdata.get(i).getHospEmail();
             String e = hospdata.get(i).getHospField();
-            addItem(type, a, b, c, d, e);
+            addItem(hospSerial, type, a, b, c, d, e);
             mAdapter.notifyDataSetChanged();
             Log.d("hospList3", "200");
         }
