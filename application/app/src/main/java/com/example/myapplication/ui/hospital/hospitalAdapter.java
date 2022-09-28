@@ -1,5 +1,10 @@
 package com.example.myapplication.ui.hospital;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,13 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 
 public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHolder> {
+    private Context context;
+    private SharedPreferences preferences;
+
+    public hospitalAdapter(ArrayList<hospitalViewItem> mList, Context context) {
+        this.mList = mList;
+        this.context = context;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView HospitalName, HospitalNumber, location, email, field, tv_field;
@@ -38,6 +50,15 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
                     if (position != RecyclerView.NO_POSITION) {
                         if (onItemClickListener != null) {
                             onItemClickListener.onItemClick(position);
+                            hospitalViewItem item = mList.get(position);
+                            int hospSerial = item.getHospitalSerial();
+                            Log.d("hospSerial", String.valueOf(hospSerial));
+
+                            preferences = context.getSharedPreferences("Serial", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putInt("hospSerial", hospSerial);
+                            editor.commit();
+                            Log.d("저장된 hospSerial", String.valueOf(preferences.getInt("hospSerial", 0)));
                         }
                     }
                 }
@@ -47,10 +68,6 @@ public class hospitalAdapter extends RecyclerView.Adapter<hospitalAdapter.ViewHo
 
     //ArrayList
     private ArrayList<hospitalViewItem> mList = null;
-
-    public hospitalAdapter(ArrayList<hospitalViewItem> mList) {
-        this.mList = mList;
-    }
 
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull

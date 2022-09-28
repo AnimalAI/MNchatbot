@@ -117,28 +117,18 @@ public class PetSelectActivity extends AppCompatActivity {
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
                 if (!response.equals(200)) {
                     dataList = response.body();
-                    petdata = dataList.data;
-                    for(int i=0; i< petdata.size(); i++) {
-                        String a = petdata.get(i).getPetName();
-                        String b = petdata.get(i).getpetSpecies();
-                        int c = petdata.get(i).getpetSerial();
-                        addItem(a, b, c);
-                        mRecyclerViewAdapter.notifyDataSetChanged();
-                    }
-                    Log.d("petList", "200");
-                    /*
-                    if (petdata.size() == 0) { addItem(null, null, null);
-                        mRecyclerViewAdapter.notifyDataSetChanged(); }
+                    if (dataList == null ) { mRecyclerViewAdapter.notifyDataSetChanged(); }
                     else{
+                        petdata = dataList.data;
                         for(int i=0; i< petdata.size(); i++) {
                             String a = petdata.get(i).getPetName();
                             String b = petdata.get(i).getpetSpecies();
-                            Long c = petdata.get(i).getpetSerial();
+                            int c = petdata.get(i).getpetSerial();
                             addItem(a, b, c);
                             mRecyclerViewAdapter.notifyDataSetChanged();
                         }
                         Log.d("petList", "200");
-                    }*/
+                    }
                 }
             }
 

@@ -2,6 +2,10 @@ package com.example.myapplication.ui.hospital;
 
 public class hospitalViewItem {
     private String HospitalType, HospitalName, HospitalNumber, location, email, field;
+    private int HospitalSerial;
+
+    public int getHospitalSerial() {return HospitalSerial;}
+    public void setHospitalSerial(int hospSerial) {this.HospitalSerial = hospSerial;}
 
     public String getHospitalType() {
         return HospitalType;

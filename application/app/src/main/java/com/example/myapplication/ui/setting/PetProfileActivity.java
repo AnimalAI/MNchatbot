@@ -194,8 +194,8 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 삭제
     private void PetProfileDelete() {
         ArrayList List = new ArrayList();
-        preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
-        int Serial = preferences.getInt("Serial", 0);
+        preferences = getSharedPreferences("Serial", MODE_PRIVATE);
+        int Serial = preferences.getInt("petSerial", 0);
         Call<PetProfileResponse> call = profileAPI.deletePetPost(Serial);
         call.enqueue(new Callback<PetProfileResponse>() {
             @Override
