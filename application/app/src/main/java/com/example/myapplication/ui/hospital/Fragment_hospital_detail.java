@@ -43,10 +43,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
-import com.example.myapplication.ui.petSelect.AddPetActivity;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
-import com.example.myapplication.ui.setting.PetProfileResponse;
-import com.example.myapplication.ui.setting.PetinfoData;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -77,7 +73,9 @@ public class Fragment_hospital_detail extends Fragment {
 
     boolean check;
     private Uri mImageCaptureUri;
-    private String absoultePath;
+    private String absoultePath, url;
+
+    File directory_AAI;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -130,8 +128,13 @@ public class Fragment_hospital_detail extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         month = month +1;
-                        String date = year + "-" + month + "-" + day;
-                        Tdate.setText(date);
+                        if(month < 10) {
+                            String date = year + "-" + 0 + month + "-" + day;
+                            Tdate.setText(date);}
+                        else {
+                            String date = year + "-" + month + "-" + day;
+                            Tdate.setText(date);}
+                        Log.d("날짜", Tdate.getText().toString());
                     }
                 }, pYear, pMonth, pDay);
                 datePickerDialog.show();
@@ -150,11 +153,9 @@ public class Fragment_hospital_detail extends Fragment {
                 switch (checked) {
                     case R.id.h_radioYes:
                         check = true;
-                        Toast.makeText(getActivity(), "예!!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.h_radioNo:
                         check = false;
-                        Toast.makeText(getActivity(), "아니오!!", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -207,7 +208,7 @@ public class Fragment_hospital_detail extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //sendData(File);
+                sendData();
             }
         });
         backTolist.setOnClickListener(new View.OnClickListener() {
@@ -221,31 +222,32 @@ public class Fragment_hospital_detail extends Fragment {
     }
     
     //상담신청 정보 보내는 메소드
-    public void sendData(File imageFile) {
+    public void sendData() {
         String name = Name.getText().toString();
         String number = Number.getText().toString();
         
         //스피너 sharedPreference로 불러와야함.
 
-        String date = Tdate.toString();
-        String time = Ttime.toString();
+        String date = Tdate.getText().toString();
+        String time = Ttime.getText().toString();
         boolean bill = check;
         String reason = Reason.getText().toString();
+        String Image = url;
 
         pre1 = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = pre1.getString("TOKEN", null);
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
         int Serial = pre2.getInt("petSerial", 0);
-        int hospSerial = pre3.getInt("hospSerial", 0);
+        int hospSerial = pre2.getInt("hospSerial", 0);
 
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        ApplyData applyData = new ApplyData(Serial, 0, hospSerial, name, number, date, time, bill, reason);
+        ApplyData applyData = new ApplyData(Serial, 0, hospSerial, name, number, date, time, bill, reason, Image);
 
-        //RequestBody 내용
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), imageFile);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", imageFile.getName(), requestFile);
+        //RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
+        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
 
-        Call<hospitalListResponse> call = SendAPI.apply(applyData, body);
+        Call<hospitalListResponse> call = SendAPI.apply(applyData);
 
         call.enqueue(new Callback<hospitalListResponse>() {
             @Override
@@ -279,6 +281,7 @@ public class Fragment_hospital_detail extends Fragment {
                     calendar.set(Calendar.HOUR, hourOfDay);
                     calendar.set(Calendar.MINUTE, minute);
                     Ttime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    Log.d("시간", Ttime.getText().toString());
                 }
             }
         };
@@ -295,7 +298,7 @@ public class Fragment_hospital_detail extends Fragment {
         StrictMode.setVmPolicy(builder.build());
 
         // 임시로 사용할 파일의 경로를 생성
-        String url = "tmp_" + System.currentTimeMillis() + ".jpg";
+        url = "tmp_" + System.currentTimeMillis() + ".jpg";
         mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
 
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
@@ -341,7 +344,7 @@ public class Fragment_hospital_detail extends Fragment {
                 Log.d("크롭~", "성공");
                 if(resultCode != RESULT_OK) { return;}
                 final Bundle extras = data.getExtras();
-                // CROP된 이미지를 저장하기 위한 FILE 경로
+                // CROP된 이미지를 저장하기 위한 FILE 경로 >> Provider의 문제?
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+
                         "/AAI/"+System.currentTimeMillis()+".jpg";
                 if(extras != null) {
@@ -364,7 +367,7 @@ public class Fragment_hospital_detail extends Fragment {
     }
     private void storeCropImage(Bitmap bitmap, String filePath) {
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/AAI";
-        File directory_AAI = new File(dirPath);
+        directory_AAI = new File(dirPath);
         if(!directory_AAI.exists()) // AAI 디렉터리에 폴더가 없다면 (새로 이미지를 저장할 경우에 속한다.)
             directory_AAI.mkdirs(); //디렉토리 새로 만드는 메소드
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,7 +85,7 @@ public class Fragment_Dictionary extends Fragment {
             }
         });
 
-        //리사이클러뷰 페이징처리
+        /*리사이클러뷰 페이징처리
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -97,7 +98,7 @@ public class Fragment_Dictionary extends Fragment {
                     isLoading = true;
                 }
             }
-        });
+        });*/
 
 
         btnDictionary.setOnClickListener(new View.OnClickListener() {
@@ -166,12 +167,15 @@ public class Fragment_Dictionary extends Fragment {
             public void onResponse(Call<dsListResponse> call, Response<dsListResponse> response) {
                 if (!response.equals(200)) {
                     DsSearchdata = response.body().data;
-                    for(int i=0; i< DsSearchdata.size(); i++) {
-                        String Name = DsSearchdata.get(i).getdiseaseName();
-                        String ID = DsSearchdata.get(i).getdiseaseId();
-                        addItem(Name, ID);
-                        mAdapter.notifyDataSetChanged();
-                    }
+                    if (DsSearchdata == null) {
+                        Toast.makeText(getActivity(), "정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for(int i=0; i< DsSearchdata.size(); i++) {
+                            String Name = DsSearchdata.get(i).getdiseaseName();
+                            String ID = DsSearchdata.get(i).getdiseaseId();
+                            addItem(Name, ID);
+                            mAdapter.notifyDataSetChanged();
+                        }}
 
                 } else if (!response.equals(404)) {Log.d("DsSearchList", "404");
                 }

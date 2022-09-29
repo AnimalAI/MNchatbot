@@ -26,8 +26,10 @@ public class ApplyData {
     public boolean h_bill;
     @SerializedName("apptReason")
     public String h_reson;
+    @SerializedName("apptImage")
+    public String h_Image;
 
-    public ApplyData(int petSerial, int medicalSerial, int partnerSerial, String h_Name, String h_num, String h_date, String h_time, boolean h_bill, String h_reson) {
+    public ApplyData(int petSerial, int medicalSerial, int partnerSerial, String h_Name, String h_num, String h_date, String h_time, boolean h_bill, String h_reson, String h_Image) {
         this.petSerial = petSerial;
         this.medicalSerial = medicalSerial;
         this.partnerSerial = partnerSerial;
@@ -38,6 +40,7 @@ public class ApplyData {
         this.h_time = h_time;
         this.h_bill = h_bill;
         this.h_reson = h_reson;
+        this.h_Image = h_Image;
 
     }
 }

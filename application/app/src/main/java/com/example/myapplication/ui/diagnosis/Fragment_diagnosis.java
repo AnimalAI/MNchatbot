@@ -54,7 +54,7 @@ public class Fragment_diagnosis extends Fragment {
         mAdapter.setOnItemClickListener(new diagnosisAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(5);
+                mainActivity.onChangeFragment(6);
             }
         });
 
