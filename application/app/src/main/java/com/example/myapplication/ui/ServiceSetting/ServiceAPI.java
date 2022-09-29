@@ -106,7 +106,7 @@ public interface ServiceAPI {
     Call<hospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
 
     //연계병원 상담신청
-    //@Multipart @Part MultipartBody.Part Image
+    //@Multipart , @Part MultipartBody.Part Image
     @POST("/hospital/apply")
     Call<hospitalListResponse> apply(@Body ApplyData applyData);
 

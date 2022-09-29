@@ -3,7 +3,6 @@ package com.example.myapplication.ui.hospital;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -26,9 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,12 +67,15 @@ public class Fragment_hospital_detail extends Fragment {
     private TextView Tdate, Ttime;
     private Button timePicker, send, backTolist;
     private RadioGroup radioGroup;
-
     boolean check;
+    
+    //이미지 크롭
     private Uri mImageCaptureUri;
     private String absoultePath, url;
 
+    //임의 추가
     File directory_AAI;
+    MultipartBody.Part body;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -241,11 +241,17 @@ public class Fragment_hospital_detail extends Fragment {
         int hospSerial = pre2.getInt("hospSerial", 0);
 
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        ApplyData applyData = new ApplyData(Serial, 0, hospSerial, name, number, date, time, bill, reason, Image);
+        ApplyData applyData = new ApplyData(Serial, 6, hospSerial, name, number, date, time, bill, reason, null);
 
-        //RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
+        /*RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
-        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
+        File IImage = directory_AAI;
+        if (IImage == null) {body = null;}
+        else {
+            body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
+        }
+
+        MultipartBody.Part bbody = body;*/
 
         Call<hospitalListResponse> call = SendAPI.apply(applyData);
 
