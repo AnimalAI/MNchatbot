@@ -80,29 +80,29 @@
     </RelativeLayout>
 
     <!-- Drawer -->
-    <LinearLayout
-        android:id="@+id/drawer_mednu"
-        android:layout_width="300dp"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_navigation"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="@drawable/background_detail"
+        app:headerLayout="@layout/home_drawer"
+        app:menu="@menu/drawer_menu"
+        app:itemTextColor="@color/white"/>
 
-        <Button
-            android:backgroundTint="@color/lightYellow"
-            android:textColor="@color/purple"
+        <!--<Button
             android:id="@+id/drawer_button_login"
             android:layout_width="150dp"
             android:layout_height="75dp"
-            android:text="로그아웃"
-            />
-        <Button
             android:backgroundTint="@color/lightYellow"
-            android:textColor="@color/darkbrown"
+            android:text="로그아웃"
+            android:textColor="@color/purple" />
+
+        <Button
             android:id="@+id/drawer_button_pet"
             android:layout_width="150dp"
             android:layout_height="75dp"
+            android:backgroundTint="@color/lightYellow"
             android:text="펫 선택"
-            />
-    </LinearLayout>
+            android:textColor="@color/darkbrown" />-->
 </androidx.drawerlayout.widget.DrawerLayout>

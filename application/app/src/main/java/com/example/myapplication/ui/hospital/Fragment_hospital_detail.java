@@ -72,7 +72,7 @@ public class Fragment_hospital_detail extends Fragment {
     
     //이미지 크롭
     private Uri mImageCaptureUri;
-    private String absoultePath, url;
+    private String absoultePath, url, Ddate, Dtime;
 
     //임의 추가
     File directory_AAI;
@@ -130,11 +130,17 @@ public class Fragment_hospital_detail extends Fragment {
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         month = month +1;
                         if(month < 10) {
-                            String date = year + "-" + 0 + month + "-" + day;
-                            Tdate.setText(date);}
+                            Ddate = year + "-" + 0 + month + "-" + day;
+                            if (day <10) {
+                                Ddate = year + "-" + 0 + month + "-" + 0 + day;
+                            }
+                            Tdate.setText(Ddate);}
                         else {
-                            String date = year + "-" + month + "-" + day;
-                            Tdate.setText(date);}
+                            Ddate = year + "-" + month + "-" + day;
+                            if (day <10) {
+                                Ddate = year + "-" + month + "-" + 0 + day;
+                            }
+                            Tdate.setText(Ddate);}
                         Log.d("날짜", Tdate.getText().toString());
                     }
                 }, pYear, pMonth, pDay);
@@ -229,8 +235,8 @@ public class Fragment_hospital_detail extends Fragment {
         
         //스피너 sharedPreference로 불러와야함.
 
-        String date = Tdate.getText().toString();
-        String time = Ttime.getText().toString();
+        String date = Ddate;
+        String time = Dtime;
         boolean bill = check;
         String reason = Reason.getText().toString();
         String Image = url;
