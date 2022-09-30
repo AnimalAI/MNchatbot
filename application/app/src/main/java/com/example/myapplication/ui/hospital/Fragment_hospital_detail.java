@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -250,10 +251,42 @@ public class Fragment_hospital_detail extends Fragment {
         else {
             body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
         }
-
         MultipartBody.Part bbody = body;*/
 
-        Call<hospitalListResponse> call = SendAPI.apply(applyData);
+        //Call<hospitalListResponse> call = SendAPI.apply(applyData);
+
+        RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Serial));
+        RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(6));
+        RequestBody partnerSerial = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(hospSerial));
+        RequestBody apptMemberName = RequestBody.create(MediaType.parse("text/plain"), name);
+        RequestBody apptMemberTel = RequestBody.create(MediaType.parse("text/plain"),number);
+        RequestBody apptDate = RequestBody.create(MediaType.parse("text/plain"),date);
+        RequestBody apptTime = RequestBody.create(MediaType.parse("text/plain"), time);
+        RequestBody apptBill = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(bill));
+        RequestBody apptReason = RequestBody.create(MediaType.parse("text/plain"), reason);
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("petSerial", petSerial);
+        map.put("medicalSerial", medicalSerial);
+        map.put("partnerSerial", partnerSerial);
+        map.put("apptMemberName", apptMemberName);
+        map.put("apptMemberTel", apptMemberTel);
+        map.put("apptDate", apptDate);
+        map.put("apptTime", apptTime);
+        map.put("apptBill", apptBill);
+        map.put("apptReason", apptReason);
+
+        //Uri 타입 파일 경로가지는 requestBody 객체 생성
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
+        File IImage = directory_AAI;
+        //requestBody로 Multipart.Part 객체 생성
+        if (IImage == null) {body = null;}
+        else {
+            body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
+        }
+        MultipartBody.Part bbody = body;
+
+        Call<hospitalListResponse> call = SendAPI.apply(bbody, map);
 
         call.enqueue(new Callback<hospitalListResponse>() {
             @Override
