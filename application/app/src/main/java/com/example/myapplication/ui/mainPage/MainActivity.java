@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // 버튼 선언
-        Button loginPage = (Button) findViewById(R.id.drawer_button_login);
-        Button petPage = (Button) findViewById(R.id.drawer_button_pet);
+        //Button loginPage = (Button) findViewById(R.id.drawer_button_login);
+        //Button petPage = (Button) findViewById(R.id.drawer_button_pet);
         ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
         TextView drawerLogo = findViewById(R.id.toolbar_logo);
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // (상세) 드로어 버튼 클릭 시의 화면 이동 구현
+        /* (상세) 드로어 버튼 클릭 시의 화면 이동 구현
         loginPage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), PetSelectActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     public void onChangeFragment(int index){
