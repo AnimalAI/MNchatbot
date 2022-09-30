@@ -325,8 +325,9 @@ public class Fragment_hospital_detail extends Fragment {
                 if (view.isShown()) {
                     calendar.set(Calendar.HOUR, hourOfDay);
                     calendar.set(Calendar.MINUTE, minute);
-                    Ttime.setText(String.format("%02d:%02d", hourOfDay, minute));
-                    Log.d("시간", Ttime.getText().toString());
+                    Dtime = String.format("%02d:%02d", hourOfDay, minute);
+                    Ttime.setText(Dtime);
+                    Log.d("시간", Dtime);
                 }
             }
         };
