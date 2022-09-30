@@ -18,7 +18,10 @@ import com.example.myapplication.ui.setting.PetinfoData;
 import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.example.myapplication.ui.setting.ProfileResponse;
 
+import java.util.HashMap;
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -27,6 +30,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 public interface ServiceAPI {
@@ -105,10 +109,14 @@ public interface ServiceAPI {
     @GET("/hospital/{region}/{city}")
     Call<hospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
 
-    //연계병원 상담신청
-    //@Multipart , @Part MultipartBody.Part Image
+    /*연계병원 상담신청
     @POST("/hospital/apply")
-    Call<hospitalListResponse> apply(@Body ApplyData applyData);
+    Call<hospitalListResponse> apply(@Body ApplyData applyData);*/
+
+    @Multipart
+    @POST("/hospital/apply")
+    Call<hospitalListResponse> apply(@Part MultipartBody.Part postImg,
+                                     @PartMap HashMap<String, RequestBody> data);
 
     //======================
     //문진표 작성
