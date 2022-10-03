@@ -43,7 +43,7 @@ public class Fragment_Question_detail extends Fragment {
     private TextView q_Date, q_time;
     private Spinner spn_Disease;
     private ArrayAdapter Disease_Adapter;
-    private String DiseaseName;
+    private String DiseaseName, etc;
     private RadioGroup q_radioGroup1, q_radioGroup2, q_radioGroup3;
     private boolean radio1, radio2, radio3;
     private Button btn_back, btn_save;
@@ -150,7 +150,6 @@ public class Fragment_Question_detail extends Fragment {
             @Override
             public void onClick(View view) {
                 addQuestion();
-                mainActivity.onChangeFragment(2);
             }
         });
 
@@ -188,7 +187,10 @@ public class Fragment_Question_detail extends Fragment {
         boolean Radio2 = radio2;
         boolean Radio3 = radio3;
         String Qmedichine = q_medichine.getText().toString();
-        String Qetc = q_etc.getText().toString();
+        String Qetc = null; etc = q_etc.getText().toString();
+        if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
+        else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
+
 
 
         ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
@@ -200,6 +202,7 @@ public class Fragment_Question_detail extends Fragment {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
                 Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                mainActivity.onChangeFragment(2);
             }
 
             @Override
