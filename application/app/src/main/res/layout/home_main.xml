@@ -88,21 +88,8 @@
         android:background="@color/warmBlue"
         app:headerLayout="@layout/home_drawer"
         app:menu="@menu/drawer_menu"
-        app:itemTextColor="@color/white"/>
+        app:itemTextColor="@color/white"
+        app:itemVerticalPadding="20dp"
+        />
 
-        <!--<Button
-            android:id="@+id/drawer_button_login"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:backgroundTint="@color/lightYellow"
-            android:text="로그아웃"
-            android:textColor="@color/purple" />
-
-        <Button
-            android:id="@+id/drawer_button_pet"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:backgroundTint="@color/lightYellow"
-            android:text="펫 선택"
-            android:textColor="@color/darkbrown" />-->
 </androidx.drawerlayout.widget.DrawerLayout>

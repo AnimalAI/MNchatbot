@@ -298,4 +298,11 @@
         <item>청주시</item>
         <item>충주시</item>
     </string-array>
+
+    <string-array name="기저질환">
+        <item>내분비질환</item>
+        <item>피부질환</item>
+        <item>근골격계질환</item>
+        <item>순환기질환</item>
+    </string-array>
 </resources>
