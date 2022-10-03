@@ -6,21 +6,33 @@
     android:layout_height="wrap_content"
     android:background="@color/warmBlue"
     android:layout_marginTop="100dp"
-    android:layout_marginBottom="50dp"
+    android:layout_marginBottom="20dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:contentDescription="멍냥챗봇 로고"
+        app:srcCompat="@drawable/img_customize3" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/warmBlue"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
     <ImageView
-        android:id="@+id/userImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:contentDescription="사용자 이미지"
+        android:contentDescription="동물 발바닥이미지"
         app:srcCompat="@drawable/img_customize2" />
     <TextView
         android:id="@+id/petName"
@@ -35,5 +47,6 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </LinearLayout>

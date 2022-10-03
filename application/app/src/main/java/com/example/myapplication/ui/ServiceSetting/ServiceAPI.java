@@ -120,6 +120,6 @@ public interface ServiceAPI {
 
     //======================
     //문진표 작성
-    @POST("/Question/add")
+    @POST("/medicalForm/add")
     Call<QnResponse> setQuestion(@Body Question questionNaire);
 }

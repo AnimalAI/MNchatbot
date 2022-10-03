@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.example.myapplication.ui.Dictionary.Fragment_Dictionary_detail;
 import com.example.myapplication.ui.Dictionary.LoadMoreActivity;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
+import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
 import com.example.myapplication.ui.hospital.Fragment_hospital;
@@ -28,6 +30,7 @@ import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         onChangeFragment(0);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        NavigationView Navigation = findViewById(R.id.drawer_navigation);
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -130,6 +134,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                onOptionsItemSelected(item);
+                return false;
+            }
+        });
+
+
         /* (상세) 드로어 버튼 클릭 시의 화면 이동 구현
         loginPage.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -149,6 +162,14 @@ public class MainActivity extends AppCompatActivity {
     public void onChangeFragment(int index){
         if(index == 0){
             getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
+        }else if(index ==1){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
+        }else if(index ==2){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,question).commit();
+        }else if(index ==3){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
+        }else if(index ==4){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
         }else if(index ==5){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
         }else if(index ==6){
@@ -160,5 +181,21 @@ public class MainActivity extends AppCompatActivity {
         }else if(index ==9){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,question_detail).commit();
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.petSelect:
+                Intent intent2 = new Intent(getApplicationContext(), PetSelectActivity.class);
+                startActivity(intent2);
+            case R.id.showHistory:
+                Toast.makeText(this, "상담 신청 내역이 없습니다.", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 }

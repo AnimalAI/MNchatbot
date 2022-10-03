@@ -8,10 +8,16 @@
             android:title="로그아웃"
             />
         <item
-            android:id="@+id/setting"
+            android:id="@+id/petSelect"
             android:icon="@drawable/ic_launcher_foreground"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:title="펫 선택"
+            />
+        <item
+            android:id="@+id/showHistory"
+            android:icon="@drawable/ic_launcher_foreground"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:title="상담 신청 내역"
             />
     </group>
 </menu>

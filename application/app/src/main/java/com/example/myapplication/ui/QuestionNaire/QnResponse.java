@@ -20,47 +20,43 @@ public class QnResponse {
     }
 
     public class QnData {
-        @SerializedName("QnName")
+        @SerializedName("petSerial")
+        private int petSerial;
+
+        @SerializedName("medicalFormName")
         private String QnName;
-        @SerializedName("QnDate")
+        @SerializedName("medicalFormDate")
         private String QnDate;
-        @SerializedName("QnTime")
+        @SerializedName("medicalFormTime")
         private String QnTime;
-        @SerializedName("QnReason")
+
+        @SerializedName("medicalFormQ1")
         private String QnReason;
-        @SerializedName("QnMedichine")
-        private String QnMedichine;
+        @SerializedName("medicalFormQ2")
+        private String QnDisease;
+        @SerializedName("medicalFormQ3")
+        private boolean QnMedichine;
+        @SerializedName("medicalFormQ4")
+        private String QnMedichine2;
 
-        @SerializedName("dsEpidemiology")
-        private String dsEpidemiology;
-        @SerializedName("dsSymptom")
-        private String dsSymptom;
-        @SerializedName("dsDiagnosis")
-        private String dsDiagnosis;
-        @SerializedName("dsTreatment")
-        private String dsTreatment;
-        @SerializedName("dsPrevention")
-        private String dsPrevention;
-        @SerializedName("dsPrognosis")
-        private String dsPrognosis;
-
-        @SerializedName("QnEtc")
+        @SerializedName("medicalFormQ5")
+        private boolean QnSurgery;
+        @SerializedName("medicalFormQ6")
+        private boolean QnExercise;
+        @SerializedName("medicalFormQ7")
         private String QnEtc;
 
         public String getQnName() { return QnName; }
         public String getQnDate() { return QnDate; }
         public String getQnTime() { return QnTime; }
+
         public String getQnReason() { return QnReason;}
-        public String getQnMedichine() { return QnMedichine;}
+        public String getQnDisease() { return QnDisease;}
+        public boolean getQnMedichine() { return QnMedichine;}
+        public String getQnMedichine2() { return QnMedichine2;}
 
-        public String getdsEpidemiology() { return dsEpidemiology; }
-        public String getdsSymptom() { return dsSymptom; }
-        public String getdsDiagnosis() { return dsDiagnosis; }
-        public String getdsTreatment() { return dsTreatment;}
-        public String getdsPrevention() { return dsPrevention;}
-        public String getdsPrognosis() { return dsPrognosis;}
-
+        public boolean getQnSurgery() { return QnSurgery;}
+        public boolean getQnExercise() { return QnExercise;}
         public String getQnEtc() { return QnEtc;}
-
     }
 }

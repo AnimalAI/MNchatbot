@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,12 +41,15 @@ public class Fragment_Question_detail extends Fragment {
     MainActivity mainActivity;
     private EditText q_Name, q_reason, q_medichine, q_etc;
     private TextView q_Date, q_time;
-    private Spinner spn_questionNaire;
+    private Spinner spn_Disease;
+    private ArrayAdapter Disease_Adapter;
+    private String DiseaseName;
     private RadioGroup q_radioGroup1, q_radioGroup2, q_radioGroup3;
-    private RadioButton q_radioYes1, q_radioNo1, q_radioYes2, q_radioNo2, q_radioYes3, q_radioNo3;
+    private boolean radio1, radio2, radio3;
     private Button btn_back, btn_save;
+    DateTime date;
 
-    private SharedPreferences preferences;
+    private SharedPreferences pre, pre2;
 
     @Override
     public void onAttach(Context context) {
@@ -68,29 +74,83 @@ public class Fragment_Question_detail extends Fragment {
         q_etc = rootview.findViewById(R.id.q_etc);
         q_Date = rootview.findViewById(R.id.q_Date);
         q_time = rootview.findViewById(R.id.q_time);
-        spn_questionNaire = rootview.findViewById(R.id.spn_questionNaire);
+        spn_Disease = rootview.findViewById(R.id.spn_Disease);
         q_radioGroup1 = rootview.findViewById(R.id.q_radioGroup1);
         q_radioGroup2 = rootview.findViewById(R.id.q_radioGroup2);
         q_radioGroup3 = rootview.findViewById(R.id.q_radioGroup3);
-        q_radioYes1 = rootview.findViewById(R.id.q_radioYes1);
-        q_radioYes2 = rootview.findViewById(R.id.q_radioYes2);
-        q_radioYes3 = rootview.findViewById(R.id.q_radioYes3);
-        q_radioNo1 = rootview.findViewById(R.id.q_radioNo1);
-        q_radioNo2 = rootview.findViewById(R.id.q_radioNo2);
-        q_radioNo3 = rootview.findViewById(R.id.q_radioNo3);
         btn_back = rootview.findViewById(R.id.btn_back);
         btn_save = rootview.findViewById(R.id.btn_save);
 
 
-
-        DateTime date = new DateTime();
+        date = new DateTime();
         q_Date.setText(date.getDate());
         q_time.setText(date.getTime());
+
+        Disease_Adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.기저질환, R.layout.row_spinner);
+        Disease_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_Disease.setAdapter(Disease_Adapter);
+
+        spn_Disease.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                DiseaseName = Disease_Adapter.getItem(i).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        q_radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.q_radioYes1:
+                        radio1 = true;
+                        q_medichine.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.q_radioNo1:
+                        radio1 = false;
+                        q_medichine.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
+
+        q_radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.q_radioYes2:
+                        radio2 = true;
+                        break;
+                    case R.id.q_radioNo2:
+                        radio2 = false;
+                        break;
+                }
+            }
+        });
+        q_radioGroup3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.q_radioYes3:
+                        radio3 = true;
+                        break;
+                    case R.id.q_radioNo3:
+                        radio3 = false;
+                        break;
+                }
+            }
+        });
+
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addQuestion();
+                mainActivity.onChangeFragment(2);
             }
         });
 
@@ -102,7 +162,7 @@ public class Fragment_Question_detail extends Fragment {
         Date date = new Date(now);
 
         public String getDate() {
-            SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String getDate = sdf.format(date);
             return getDate;
         }
@@ -115,16 +175,31 @@ public class Fragment_Question_detail extends Fragment {
     }
 
     public void addQuestion() {
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        String Qname = q_Name.getText().toString();
+        String Date = date.getDate();
+        String Time = date.getTime();
+        String Qreason = q_reason.getText().toString();
+        String Disease = DiseaseName;
+        boolean Radio1 = radio1;
+        boolean Radio2 = radio2;
+        boolean Radio3 = radio3;
+        String Qmedichine = q_medichine.getText().toString();
+        String Qetc = q_etc.getText().toString();
+
+
         ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
-        Question questionNaire = new Question(null, null, null, null, null, null);
+        Question questionNaire = new Question(petSerial, Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
         Call<QnResponse> call = QuestionAPI.setQuestion(questionNaire);
         call.enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
+                Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
