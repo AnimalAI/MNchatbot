@@ -41,8 +41,8 @@ public class ChatbotWeb extends Fragment {
         webView.setWebViewClient(new WebViewClient());  // 새 창 띄우기 않기
         webView.setWebChromeClient(new WebChromeClient());
 
-        webView.getSettings().setLoadWithOverviewMode(true);  // WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
-        webView.getSettings().setUseWideViewPort(true);  // wide viewport 설정 - setLoadWithOverviewMode 와 같이 써야함
+        webView.getSettings().setLoadWithOverviewMode(false);  // WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
+        webView.getSettings().setUseWideViewPort(false);  // wide viewport 설정 - setLoadWithOverviewMode 와 같이 써야함
 
         webView.getSettings().setSupportZoom(false);  // 줌 설정 여부
         webView.getSettings().setBuiltInZoomControls(false);  // 줌 확대/축소 버튼 여부
@@ -55,7 +55,7 @@ public class ChatbotWeb extends Fragment {
         webView.getSettings().setDomStorageEnabled(true);  // 로컬 스토리지 (localStorage) 사용여부
 
         //웹 뷰 호출
-        webView.loadUrl("http://www.naver.com");
+        webView.loadUrl("http://43.200.87.239:8000");
 
         return rootview;
     }
