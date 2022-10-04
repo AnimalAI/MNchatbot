@@ -1,10 +1,16 @@
 package com.example.myapplication.ui.QuestionNaire;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +19,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.diagnosis.diagnosisAdapter;
 import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 import com.example.myapplication.ui.mainPage.MainActivity;
+import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Fragment_Question extends Fragment {
 
@@ -28,6 +42,9 @@ public class Fragment_Question extends Fragment {
     private ArrayList<QuestionViewItem> mList;
     private QuestionAdapter mAdapter;
     private FloatingActionButton btnAdd;
+
+    List<qnListResponse.QnDataList> Qndata;
+    private SharedPreferences pre, pre2;
 
     @Override
     public void onAttach(Context context) {
@@ -50,17 +67,28 @@ public class Fragment_Question extends Fragment {
         btnAdd = rootview.findViewById(R.id.btnAdd);
 
         mList = new ArrayList<>();
-        // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("구토증상보임", "2022.08.25");
-        addItem("설사함", "2022.08.30");
 
-        mAdapter = new QuestionAdapter(mList);
+        mAdapter = new QuestionAdapter(mList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
+
+        getQuestion();
 
         mAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(9);
+                mainActivity.onChangeFragment(10);
+            }
+        });
+        mAdapter.setOnLongItemClickListener(new QuestionAdapter.OnLongItemClickListener() {
+            @Override
+            public void onLongItemClick(int pos) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("문진표 삭제")
+                        .setMessage("정말로 삭제하시겠습니까?")
+                        .setPositiveButton("아니오", null)
+                        .setNegativeButton("예", null)
+                        .create()
+                        .show();
             }
         });
 
@@ -79,12 +107,55 @@ public class Fragment_Question extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String QuestionName, String Date){
+    public void addItem(int MedicalSerial, String QuestionName, String Date){
         QuestionViewItem item = new QuestionViewItem();
+        item.setMedicalSerial(MedicalSerial);
         item.setQuestionName(QuestionName);
         item.setQuestionDate(Date);
         mList.add(item);
     }
 
+    public void getQuestion() {
+        Qndata = new ArrayList<>();
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<qnListResponse> call = QnListAPI.getQnList(petSerial);
+        call.enqueue(new Callback<qnListResponse>() {
+            @Override
+            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+                if (!response.equals(200)) {
+                    Qndata = response.body().data;
+                    if (Qndata == null) {
+                    } else {
+                        for(int i=0; i< Qndata.size(); i++) {
+                            int mSerial = Qndata.get(i).getMedicalFormSerial();
+                            String Name = Qndata.get(i).getQnName();
+                            String ID = Qndata.get(i).getQnDate();
+                            addItem(mSerial, Name, ID);
+                            mAdapter.notifyDataSetChanged();
+                        }}
+
+                } else if (!response.equals(404)) {Log.d("QnList", "404");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<qnListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+
+
+    }
 
 }

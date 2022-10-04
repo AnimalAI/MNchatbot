@@ -20,9 +20,6 @@ public class QnResponse {
     }
 
     public class QnData {
-        @SerializedName("petSerial")
-        private int petSerial;
-
         @SerializedName("medicalFormName")
         private String QnName;
         @SerializedName("medicalFormDate")

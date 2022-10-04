@@ -21,6 +21,7 @@ import com.example.myapplication.ui.Dictionary.Fragment_Dictionary_detail;
 import com.example.myapplication.ui.Dictionary.LoadMoreActivity;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
+import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail2;
 import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment_Dictionary_detail dictionary_detail;
     Fragment_Question question;
     Fragment_Question_detail question_detail;
+    Fragment_Question_detail2 question_detail2;
 
     LoadMoreActivity loadMoreActivity;
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         dictionary_detail = new Fragment_Dictionary_detail();
         question = new Fragment_Question();
         question_detail = new Fragment_Question_detail();
+        question_detail2 = new Fragment_Question_detail2();
 
         loadMoreActivity = new LoadMoreActivity();
 
@@ -163,16 +166,17 @@ public class MainActivity extends AppCompatActivity {
         if(index == 0){
             getSupportFragmentManager().beginTransaction().replace(R.id.container, homeTutor).commit();
         }else if(index ==1){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,chatbotWeb).commit();
         }else if(index ==2){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,question).commit();
         }else if(index ==3){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis).commit();
         }else if(index ==4){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
         }else if(index ==5){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
-        }else if(index ==6){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary).commit();
+        }
+        else if(index ==6){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,diagnosis_detail).commit();
         }else if(index ==7){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital_detail).commit();
@@ -180,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container,dictionary_detail).commit();
         }else if(index ==9){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,question_detail).commit();
+        }else if(index ==10){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,question_detail2).commit();
         }
     }
 
