@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,8 +36,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.QuestionNaire.QuestionViewItem;
+import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
@@ -60,7 +64,12 @@ public class Fragment_hospital_detail extends Fragment {
 
     MainActivity mainActivity;
     //서버 통신
-    private SharedPreferences pre1, pre2, pre3, pre4;
+    private SharedPreferences pre, pre2;
+
+    List<String> spnArray = new ArrayList<>();
+    List<qnListResponse.QnDataList> Qndata;
+    ArrayAdapter<String> adapter;
+    int mSerial;
 
     private EditText Name, Number, Reason;
     private Spinner spn_quesionNaire;
@@ -168,16 +177,26 @@ public class Fragment_hospital_detail extends Fragment {
             }
         });
 
-        List<String> spnArray = new ArrayList<>();
-
-        for (int i=0; i<20; i++) {
-            spnArray.add("구토 증세");
-        }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.row_spinner, spnArray);
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        callQuestion();
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.row_spinner, spnArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_quesionNaire.setAdapter(adapter);
+        spn_quesionNaire.setSelection(0);
+
+
+        spn_quesionNaire.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("spn", String.valueOf(mSerial));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,11 +240,53 @@ public class Fragment_hospital_detail extends Fragment {
         backTolist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.onChangeFragment(5);
+                mainActivity.onChangeFragment(4);
             }
         });
 
         return rootview;
+    }
+    public void callQuestion() {
+        Qndata = new ArrayList<>();
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<qnListResponse> call = QnListAPI.getQnList(petSerial);
+        call.enqueue(new Callback<qnListResponse>() {
+            @Override
+            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+                if (!response.equals(200)) {
+                    Qndata = response.body().data;
+                    if (Qndata == null) {
+                    } else {
+                        for(int i=0; i< Qndata.size(); i++) {
+                            mSerial = Qndata.get(i).getMedicalFormSerial();
+                            String Name = Qndata.get(i).getQnName();
+                            String ID = Qndata.get(i).getQnDate();
+                            spnArray.add(Name);
+                            adapter.notifyDataSetChanged();
+                        }}
+
+                } else if (!response.equals(404)) {Log.d("QnList", "404");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<qnListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+
+
     }
     
     //상담신청 정보 보내는 메소드
@@ -234,6 +295,7 @@ public class Fragment_hospital_detail extends Fragment {
         String number = Number.getText().toString();
         
         //스피너 sharedPreference로 불러와야함.
+        int mediSerial = mSerial;
 
         String date = Ddate;
         String time = Dtime;
@@ -241,8 +303,8 @@ public class Fragment_hospital_detail extends Fragment {
         String reason = Reason.getText().toString();
         String Image = url;
 
-        pre1 = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre1.getString("TOKEN", null);
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
         int Serial = pre2.getInt("petSerial", 0);
         int hospSerial = pre2.getInt("hospSerial", 0);
@@ -262,7 +324,7 @@ public class Fragment_hospital_detail extends Fragment {
         //Call<hospitalListResponse> call = SendAPI.apply(applyData);
 
         RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Serial));
-        RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(6));
+        RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mediSerial));
         RequestBody partnerSerial = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(hospSerial));
         RequestBody apptMemberName = RequestBody.create(MediaType.parse("text/plain"), name);
         RequestBody apptMemberTel = RequestBody.create(MediaType.parse("text/plain"),number);

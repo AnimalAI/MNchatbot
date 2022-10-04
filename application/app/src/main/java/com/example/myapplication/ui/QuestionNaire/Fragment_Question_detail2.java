@@ -207,6 +207,7 @@ public class Fragment_Question_detail2 extends Fragment {
                     Qndata = response.body().data;
                     q_Name.setText(Qndata.getQnName());
                     q_Date.setText(Qndata.getQnDate().substring(0, 10));
+                    Log.d("날짜", Qndata.getQnDate());
                     q_time.setText(Qndata.getQnTime().substring(0, 5));
                     q_reason.setText(Qndata.getQnReason());
                     switch (Qndata.getQnDisease()) {
@@ -230,7 +231,7 @@ public class Fragment_Question_detail2 extends Fragment {
                         q_radioGroup1.check(R.id.q_radioYes1);
                         q_medichine.setVisibility(View.VISIBLE);
                         q_medichine.setText(Qndata.getQnMedichine2());
-                    } else if (Qndata.getQnMedichine() == false){q_radioGroup2.check(R.id.q_radioNo1);}
+                    } else if (Qndata.getQnMedichine() == false){q_radioGroup1.check(R.id.q_radioNo1);}
                     if (Qndata.getQnSurgery()) {q_radioGroup2.check(R.id.q_radioYes2);}
                     else if (Qndata.getQnSurgery() == false) {q_radioGroup2.check(R.id.q_radioNo2);}
                     if (Qndata.getQnExercise()) {q_radioGroup3.check(R.id.q_radioYes3);}

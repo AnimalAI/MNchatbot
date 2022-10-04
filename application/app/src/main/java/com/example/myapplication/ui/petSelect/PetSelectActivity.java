@@ -117,7 +117,7 @@ public class PetSelectActivity extends AppCompatActivity {
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
                 if (!response.equals(200)) {
                     dataList = response.body();
-                    if (dataList == null ) { mRecyclerViewAdapter.notifyDataSetChanged(); }
+                    if (dataList == null ) { Toast.makeText(PetSelectActivity.this, "펫 등록 해주세요 :)", Toast.LENGTH_SHORT).show(); }
                     else{
                         petdata = dataList.data;
                         for(int i=0; i< petdata.size(); i++) {
