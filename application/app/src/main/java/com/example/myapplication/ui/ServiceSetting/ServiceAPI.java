@@ -4,6 +4,7 @@ import com.example.myapplication.ui.Dictionary.DsResponse;
 import com.example.myapplication.ui.Dictionary.dsListResponse;
 import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
+import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.hospital.ApplyData;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
@@ -122,4 +123,11 @@ public interface ServiceAPI {
     //문진표 작성
     @POST("/medicalForm/add")
     Call<QnResponse> setQuestion(@Body Question questionNaire);
+
+
+    @GET("/medicalForm/medicalFormList/{petSerial}")
+    Call<qnListResponse> getQnList(@Path("petSerial")int Serial);
+
+    @GET("/medicalForm/{medicalFormSerial}")
+    Call<QnResponse> getQuestion(@Path("medicalFormSerial")int mSerial);
 }

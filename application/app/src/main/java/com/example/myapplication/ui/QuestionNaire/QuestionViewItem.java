@@ -1,8 +1,17 @@
 package com.example.myapplication.ui.QuestionNaire;
 
 public class QuestionViewItem {
+    private int MedicalSerial;
     private String QuestionName;
     private String QuestionDate;
+
+    public int getMedicalSerial() {
+        return MedicalSerial;
+    }
+
+    public void setMedicalSerial(int medicalSerial) {
+        this.MedicalSerial = medicalSerial;
+    }
 
     public String getQuestionName() {
         return QuestionName;

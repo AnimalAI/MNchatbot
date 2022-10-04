@@ -2,6 +2,7 @@ package com.example.myapplication.ui.Dictionary;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -141,7 +142,12 @@ public class Fragment_Dictionary_detail extends Fragment {
 
             @Override
             public void onFailure(Call<DsResponse> call, Throwable t) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
             }
         });
 
