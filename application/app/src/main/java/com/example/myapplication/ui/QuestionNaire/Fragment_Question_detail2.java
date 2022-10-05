@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -146,6 +147,7 @@ public class Fragment_Question_detail2 extends Fragment {
             @Override
             public void onClick(View view) {
                 //addQuestion();
+                Toast.makeText(getActivity(), "수정되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
         btn_back.setOnClickListener(new View.OnClickListener() {
