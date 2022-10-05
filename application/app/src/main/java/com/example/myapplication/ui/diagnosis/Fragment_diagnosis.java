@@ -45,14 +45,9 @@ public class Fragment_diagnosis extends Fragment {
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("만성 기관기관지 증후군(Chronic tracheobronchial syndrome in dogs)", "2022.08.25");
-        addItem("개와 고양이의 이소 눈꺼플 섬모(Ectopic cilia of the eyelid in dogs and cats)", "2022.08.25");
-        addItem("노카르디아증(Nocardiosis)", "2022.09.10");
-        addItem("담즙성 구토 증후군 (Bilious vomiting syndrome)", "2022.09.10");
-
-
-
-
+        addItem("외독성의 유비저증", "2022.10.05");
+        addItem("개와 고양이의 이소 눈꺼플 섬모", "2022.10.05");
+        addItem("비만성 개와 고양이에서의 구속성 폐질환", "2022.10.05");
 
 
         mAdapter = new diagnosisAdapter(mList);
