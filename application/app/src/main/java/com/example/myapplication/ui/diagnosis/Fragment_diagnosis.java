@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.diagnosis;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.QuestionNaire.QuestionAdapter;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
@@ -57,6 +59,18 @@ public class Fragment_diagnosis extends Fragment {
             @Override
             public void onItemClick(int pos) {
                 mainActivity.onChangeFragment(6);
+            }
+        });
+        mAdapter.setOnLongItemClickListener(new diagnosisAdapter.OnLongItemClickListener() {
+            @Override
+            public void onLongItemClick(int pos) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("예상진단 삭제")
+                        .setMessage("정말로 삭제하시겠습니까?")
+                        .setPositiveButton("아니오", null)
+                        .setNegativeButton("예", null)
+                        .create()
+                        .show();
             }
         });
 

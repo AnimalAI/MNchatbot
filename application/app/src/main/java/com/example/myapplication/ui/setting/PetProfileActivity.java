@@ -240,8 +240,8 @@ public class PetProfileActivity extends SettingActivity {
     
     //반려동물 정보 불러오기
     public void callPetinfo(){
-        preferences = getSharedPreferences("petSerial", MODE_PRIVATE);
-        int Serial = preferences.getInt("Serial", 0);
+        preferences = getSharedPreferences("Serial", MODE_PRIVATE);
+        int Serial = preferences.getInt("petSerial", 0);
         Log.d("!!", String.valueOf(Serial));
         Call<PetProfileResponse> call = profileAPI.getPetinfo(Serial);
 
@@ -250,7 +250,7 @@ public class PetProfileActivity extends SettingActivity {
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     petdata = response.body().data;
-                    Log.d("petdataType", petdata.toString());
+                    //Log.d("petdataType", petdata.toString());
 
                     CATDOG = petdata.getpetSpecies();
                     if (CATDOG.equals("CAT")) {petSpecies.setImageResource(R.drawable.cat2);}
