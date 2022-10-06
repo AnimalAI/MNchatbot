@@ -1,7 +1,10 @@
 package com.example.myapplication.ui.mainPage;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,17 +26,28 @@ import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail2;
 import com.example.myapplication.ui.QuestionNaire.Question;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
 import com.example.myapplication.ui.hospital.Fragment_hospital;
 import com.example.myapplication.ui.hospital.Fragment_hospital_detail;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.example.myapplication.ui.setting.PetProfileActivity;
+import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.example.myapplication.ui.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences pre, pre2;
+    PetProfileResponse.PetDataObject petdata;
 
     HomeTutor homeTutor;
     ManuFragment manuFragment;
@@ -75,12 +89,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // 버튼 선언
-        //Button loginPage = (Button) findViewById(R.id.drawer_button_login);
-        //Button petPage = (Button) findViewById(R.id.drawer_button_pet);
         ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
         TextView drawerLogo = findViewById(R.id.toolbar_logo);
+
 
         onChangeFragment(0);
 
@@ -125,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         drawerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                if(!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT);
+                if(!drawer.isDrawerOpen(Gravity.LEFT)) {drawer.openDrawer(Gravity.LEFT); callpetName();}
                 else drawer. closeDrawer(Gravity.LEFT);
             }
         });
@@ -145,21 +157,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        /* (상세) 드로어 버튼 클릭 시의 화면 이동 구현
-        loginPage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        petPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PetSelectActivity.class);
-                startActivity(intent);            }
-        });*/
     }
 
     public void onChangeFragment(int index){
@@ -189,6 +186,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void callpetName() {
+        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
+        int Serial = pre2.getInt("petSerial", 0);
+        TextView petName = (TextView) findViewById(R.id.petName);
+
+        ServiceAPI callpetNameAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<PetProfileResponse> call = callpetNameAPI.getPetinfo(Serial);
+
+        call.enqueue(new Callback<PetProfileResponse>() {
+            @Override
+            public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
+                if (!response.equals(200)) {
+                    petdata = response.body().data;
+                    petName.setText(petdata.getPetName());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PetProfileResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+                Log.d("~", t.toString());
+            }
+        });
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
