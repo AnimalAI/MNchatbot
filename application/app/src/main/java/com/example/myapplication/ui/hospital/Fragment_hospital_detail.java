@@ -361,7 +361,7 @@ public class Fragment_hospital_detail extends Fragment {
             public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getActivity(),"신청되었습니다.", Toast.LENGTH_SHORT).show();
-                    mainActivity.onChangeFragment(5);
+                    mainActivity.onChangeFragment(4);
                 }
             }
 
