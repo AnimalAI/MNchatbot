@@ -183,13 +183,14 @@ public class Fragment_hospital_detail extends Fragment {
         adapter = new ArrayAdapter<>(getActivity(), R.layout.row_spinner, spnArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_quesionNaire.setAdapter(adapter);
-        spn_quesionNaire.setSelection(0);
+        spn_quesionNaire.setSelection(1);
 
 
         spn_quesionNaire.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("spn", String.valueOf(mSerial));
+                Log.d("spn", String.valueOf(spn_quesionNaire.getSelectedItem()));
+                Log.d("spn", String.valueOf(Qndata.get(i).getMedicalFormSerial()));
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -266,9 +267,9 @@ public class Fragment_hospital_detail extends Fragment {
                         for(int i=0; i< Qndata.size(); i++) {
                             mSerial = Qndata.get(i).getMedicalFormSerial();
                             String Name = Qndata.get(i).getQnName();
-                            String ID = Qndata.get(i).getQnDate();
                             spnArray.add(Name);
                             adapter.notifyDataSetChanged();
+                            Log.d("spn", String.valueOf(mSerial));
                         }}
 
                 } else if (!response.equals(404)) {Log.d("QnList", "404");
@@ -310,18 +311,18 @@ public class Fragment_hospital_detail extends Fragment {
         int hospSerial = pre2.getInt("hospSerial", 0);
 
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        ApplyData applyData = new ApplyData(Serial, 6, hospSerial, name, number, date, time, bill, reason, null);
+        /*ApplyData applyData = new ApplyData(Serial, 6, hospSerial, name, number, date, time, bill, reason, null);
 
-        /*RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
+        RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
         File IImage = directory_AAI;
         if (IImage == null) {body = null;}
         else {
             body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
         }
-        MultipartBody.Part bbody = body;*/
+        MultipartBody.Part bbody = body;
 
-        //Call<hospitalListResponse> call = SendAPI.apply(applyData);
+        Call<hospitalListResponse> call = SendAPI.apply(applyData);*/
 
         RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Serial));
         RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mediSerial));
