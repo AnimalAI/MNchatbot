@@ -49,7 +49,6 @@ public class Fragment_diagnosis extends Fragment {
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
         addItem("외독성의 유비저증", "2022.10.05");
         addItem("개와 고양이의 이소 눈꺼플 섬모", "2022.10.05");
-        addItem("비만성 개와 고양이에서의 구속성 폐질환", "2022.10.05");
 
 
         mAdapter = new diagnosisAdapter(mList);
