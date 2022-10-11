@@ -23,14 +23,28 @@ public class dsPageResponse {
     }
 
     public class DsPageList {
-        //검색결과
+        //총 페이지 수, 다음 페이지 여부
+        @SerializedName("totalDiseaseCnt")
+        private int totalCnt;
+        @SerializedName("hasNextPage")
+        private boolean nextPage;
+
+        @SerializedName("diseaseList")
+        private List<DsPageListItem> dsPageList;
+
+        public int gettotalCnt() {
+            return totalCnt;
+        }
+        public boolean getnextPage() {
+            return nextPage;
+        }
+    }
+
+    public class DsPageListItem {
         @SerializedName("diseaseId")
         private String dsId;
         @SerializedName("diseaseName")
         private String dsName;
-
-        @SerializedName("diseaseList")
-        private List<DsPageListItem> dsPageList;
 
         public String getdiseaseId() {
             return dsId;
@@ -38,8 +52,5 @@ public class dsPageResponse {
         public String getdiseaseName() {
             return dsName;
         }
-    }
-
-    public class DsPageListItem {
     }
 }
