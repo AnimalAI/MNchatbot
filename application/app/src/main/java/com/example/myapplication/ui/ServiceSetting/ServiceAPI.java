@@ -2,6 +2,7 @@ package com.example.myapplication.ui.ServiceSetting;
 
 import com.example.myapplication.ui.Dictionary.DsResponse;
 import com.example.myapplication.ui.Dictionary.dsListResponse;
+import com.example.myapplication.ui.Dictionary.dsPageResponse;
 import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
@@ -96,6 +97,10 @@ public interface ServiceAPI {
     //질병백과 목록 보여주기
     //@GET("/disease")
     //Call<hospitalListResponse> Allhosplist();
+
+    //질병백과 페이징처리
+    @GET("/disease/totalDisease/{page}/{diseaseCnt}")
+    Call<dsPageResponse> callDsinfo(@Path("page")int page, @Path("diseaseCnt")int itemCnt);
 
     //질병백과 검색 결과
     @GET("/disease/dsList/{dsName}")
