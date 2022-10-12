@@ -8,10 +8,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,16 +23,16 @@ import com.example.myapplication.ui.Dictionary.LoadMoreActivity;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail2;
-import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
+import com.example.myapplication.ui.history.HistoryActivity;
+import com.example.myapplication.ui.history.history_detail;
 import com.example.myapplication.ui.hospital.Fragment_hospital;
 import com.example.myapplication.ui.hospital.Fragment_hospital_detail;
 import com.example.myapplication.ui.login.LoginActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
-import com.example.myapplication.ui.setting.PetProfileActivity;
 import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.example.myapplication.ui.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -230,7 +228,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(), PetSelectActivity.class);
                 startActivity(intent2);
             case R.id.showHistory:
-                Toast.makeText(this, "상담 신청 내역이 없습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(getApplicationContext(), HistoryActivity.class);
+                startActivity(intent3);
                 return true;
         }
         return false;
