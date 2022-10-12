@@ -49,7 +49,7 @@ public class LoadMoreActivity extends Fragment {
     List<dsListResponse.DsDataList> DsSearchdata;
     private SharedPreferences preferences;
 
-    private int type = 0;
+    private int totalCnt = 0;
     private final int mPageCnt = 10;
     private int mLoadItemCnt = 10;
     private boolean isLoading = false;
