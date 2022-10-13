@@ -30,7 +30,7 @@ public class dsPageResponse {
         private boolean nextPage;
 
         @SerializedName("diseaseList")
-        private List<DsPageListItem> dsPageList;
+        public List<DsPageListItem> dsPageList;
 
         public int gettotalCnt() {
             return totalCnt;
