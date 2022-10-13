@@ -19,7 +19,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Dictionary.Fragment_Dictionary;
 import com.example.myapplication.ui.Dictionary.Fragment_Dictionary_detail;
-import com.example.myapplication.ui.Dictionary.LoadMoreActivity;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail;
 import com.example.myapplication.ui.QuestionNaire.Fragment_Question_detail2;
@@ -28,7 +27,6 @@ import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis;
 import com.example.myapplication.ui.diagnosis.Fragment_diagnosis_detail;
 import com.example.myapplication.ui.history.HistoryActivity;
-import com.example.myapplication.ui.history.history_detail;
 import com.example.myapplication.ui.hospital.Fragment_hospital;
 import com.example.myapplication.ui.hospital.Fragment_hospital_detail;
 import com.example.myapplication.ui.login.LoginActivity;
@@ -61,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     Fragment_Question_detail question_detail;
     Fragment_Question_detail2 question_detail2;
 
-    LoadMoreActivity loadMoreActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         question_detail = new Fragment_Question_detail();
         question_detail2 = new Fragment_Question_detail2();
 
-        loadMoreActivity = new LoadMoreActivity();
 
         //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
                         return true;
                     case R.id.tab_5:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, loadMoreActivity).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, dictionary).commit();
                         return true;
                 }
                 return false;
