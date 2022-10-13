@@ -5,6 +5,7 @@ import com.example.myapplication.ui.Dictionary.dsListResponse;
 import com.example.myapplication.ui.Dictionary.dsPageResponse;
 import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
+import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.hospital.ApplyData;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
@@ -94,10 +95,6 @@ public interface ServiceAPI {
     Call<PetProfileResponse> deletePetPost(@Path("petSerial")int Serial);
 
     //======================
-    //질병백과 목록 보여주기
-    //@GET("/disease")
-    //Call<hospitalListResponse> Allhosplist();
-
     //질병백과 페이징처리
     @GET("/disease/totalDisease/{page}/{diseaseCnt}")
     Call<dsPageResponse> callDsinfo(@Path("page")int page, @Path("diseaseCnt")int itemCnt);
@@ -115,10 +112,7 @@ public interface ServiceAPI {
     @GET("/hospital/{region}/{city}")
     Call<hospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
 
-    /*연계병원 상담신청
-    @POST("/hospital/apply")
-    Call<hospitalListResponse> apply(@Body ApplyData applyData);*/
-
+    //연계병원 상담신청
     @Multipart
     @POST("/hospital/apply")
     Call<hospitalListResponse> apply(@Part MultipartBody.Part postImg,
@@ -129,10 +123,19 @@ public interface ServiceAPI {
     @POST("/medicalForm/add")
     Call<QnResponse> setQuestion(@Body Question questionNaire);
 
-
+    //문진표 목록
     @GET("/medicalForm/medicalFormList/{petSerial}")
     Call<qnListResponse> getQnList(@Path("petSerial")int Serial);
 
+    //문진표 세부 내용
     @GET("/medicalForm/{medicalFormSerial}")
     Call<QnResponse> getQuestion(@Path("medicalFormSerial")int mSerial);
+
+    //문진표 정보 수정
+    @PATCH("/medicalForm/update")
+    Call<QnResponse> EditQuestion(@Body QuestionEdit questionNaire);
+
+    //문진표 삭제
+    @DELETE("/medicalForm/delete/{medicalFormSerial}")
+    Call<qnListResponse> deleteQuestion(@Path("medicalFormSerial")int mSerial);
 }

@@ -64,6 +64,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                     if (position != RecyclerView.NO_POSITION) {
                         if (onLongItemClickListener != null) {
                             onLongItemClickListener.onLongItemClick(position);
+
+                            QuestionViewItem item = mList.get(position);
+                            int medicalSerial = item.getMedicalSerial();
+                            Log.d("mSerial", String.valueOf(medicalSerial));
+
+                            preferences = context.getSharedPreferences("Serial", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putInt("medicalSerial", medicalSerial);
+                            editor.commit();
                             return true;
                         }
                     }
