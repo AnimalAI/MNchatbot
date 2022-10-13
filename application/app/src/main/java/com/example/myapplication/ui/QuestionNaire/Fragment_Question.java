@@ -4,6 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +27,14 @@ import com.example.myapplication.ui.diagnosis.diagnosisAdapter;
 import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 import com.example.myapplication.ui.mainPage.MainActivity;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
+import com.example.myapplication.ui.setting.PetProfileActivity;
+import com.example.myapplication.ui.setting.PetProfileResponse;
+import com.example.myapplication.ui.setting.PetinfoData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +95,12 @@ public class Fragment_Question extends Fragment {
                 builder.setTitle("문진표 삭제")
                         .setMessage("정말로 삭제하시겠습니까?")
                         .setPositiveButton("아니오", null)
-                        .setNegativeButton("예", null)
+                        .setNegativeButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DeleteQuestion(pos);
+                            }
+                        })
                         .create()
                         .show();
             }
@@ -115,6 +129,8 @@ public class Fragment_Question extends Fragment {
         mList.add(item);
     }
 
+
+    //문진표 목록
     public void getQuestion() {
         Qndata = new ArrayList<>();
         pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
@@ -158,4 +174,34 @@ public class Fragment_Question extends Fragment {
 
     }
 
+    //문진표 삭제
+    private void DeleteQuestion(int pos) {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int medicalSerial = pre2.getInt("medicalSerial", 0);
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<qnListResponse> call = QnListAPI.deleteQuestion(medicalSerial);
+
+        call.enqueue(new Callback<qnListResponse>() {
+            @Override
+            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+                if (!response.equals(200)) {
+                    QuestionViewItem item = mList.get(pos);
+                    mList.remove(item);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<qnListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
 }

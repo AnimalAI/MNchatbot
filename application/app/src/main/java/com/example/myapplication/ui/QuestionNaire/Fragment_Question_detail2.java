@@ -82,6 +82,9 @@ public class Fragment_Question_detail2 extends Fragment {
         btn_save = rootview.findViewById(R.id.btn_save);
 
         callQuestion();
+        date = new DateTime();
+        q_Date.setText(date.getDate());
+        q_time.setText(date.getTime());
 
         Disease_Adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.기저질환, R.layout.row_spinner);
@@ -146,7 +149,8 @@ public class Fragment_Question_detail2 extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //addQuestion();
+                updatePetPost();
+                mainActivity.onChangeFragment(2);
                 Toast.makeText(getActivity(), "수정되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -177,27 +181,11 @@ public class Fragment_Question_detail2 extends Fragment {
         }
     }
 
-    public class callDateTime {
-        public String getDate(String d) {
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String getDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
-            //String getDate = sdf.format(d);
-            return getDate;
-        }
-
-        public String getTime(String t) {
-            SimpleDateFormat sdT= new SimpleDateFormat("hh:mm");
-            String getTime = sdT.format(t);
-            return getTime;
-        }
-    }
     public void callQuestion() {
         pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = pre.getString("TOKEN", null);
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
         int medicalSerial = pre2.getInt("medicalSerial", 0);
-
-        callDateTime cDate = new callDateTime();
 
         ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
@@ -260,12 +248,12 @@ public class Fragment_Question_detail2 extends Fragment {
 
     }
 
-    /*문진표 수정으로 바꿀 예정
-    public void addQuestion() {
+    //문진표 수정
+    public void updatePetPost(){
         pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = pre.getString("TOKEN", null);
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int petSerial = pre2.getInt("petSerial", 0);
+        int medicalSerial = pre2.getInt("medicalSerial", 0);
         String Qname = q_Name.getText().toString();
         String Date = date.getDate();
         String Time = date.getTime();
@@ -279,23 +267,26 @@ public class Fragment_Question_detail2 extends Fragment {
         if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
-        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI QnEditAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        QuestionEdit questionNaire = new QuestionEdit(medicalSerial, Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
-        Question questionNaire = new Question(petSerial, Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
-
-        Call<QnResponse> call = QuestionAPI.setQuestion(questionNaire);
+        Call<QnResponse> call = QnEditAPI.EditQuestion(questionNaire);
         call.enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
-                Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                mainActivity.onChangeFragment(2);
+                if (!response.equals(200)) {
+                }
             }
 
             @Override
             public void onFailure(Call<QnResponse> call, Throwable t) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
             }
         });
-
-    }*/
+    }
 }
