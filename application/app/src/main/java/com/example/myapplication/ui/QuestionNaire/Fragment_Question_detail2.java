@@ -46,7 +46,6 @@ public class Fragment_Question_detail2 extends Fragment {
     private RadioGroup q_radioGroup1, q_radioGroup2, q_radioGroup3;
     private boolean radio1, radio2, radio3;
     private Button btn_back, btn_save;
-    DateTime date;
 
     QnResponse.QnData Qndata;
     private SharedPreferences pre, pre2;
@@ -82,9 +81,6 @@ public class Fragment_Question_detail2 extends Fragment {
         btn_save = rootview.findViewById(R.id.btn_save);
 
         callQuestion();
-        date = new DateTime();
-        q_Date.setText(date.getDate());
-        q_time.setText(date.getTime());
 
         Disease_Adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.기저질환, R.layout.row_spinner);
@@ -145,7 +141,6 @@ public class Fragment_Question_detail2 extends Fragment {
             }
         });
 
-
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,22 +159,6 @@ public class Fragment_Question_detail2 extends Fragment {
         return rootview;
     }
 
-    public class DateTime {
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-
-        public String getDate() {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String getDate = sdf.format(date);
-            return getDate;
-        }
-
-        public String getTime() {
-            SimpleDateFormat sdT= new SimpleDateFormat("hh:mm");
-            String getTime = sdT.format(date);
-            return getTime;
-        }
-    }
 
     public void callQuestion() {
         pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
@@ -255,8 +234,6 @@ public class Fragment_Question_detail2 extends Fragment {
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
         int medicalSerial = pre2.getInt("medicalSerial", 0);
         String Qname = q_Name.getText().toString();
-        String Date = date.getDate();
-        String Time = date.getTime();
         String Qreason = q_reason.getText().toString();
         String Disease = DiseaseName;
         boolean Radio1 = radio1;
@@ -268,7 +245,7 @@ public class Fragment_Question_detail2 extends Fragment {
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
         ServiceAPI QnEditAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        QuestionEdit questionNaire = new QuestionEdit(medicalSerial, Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
+        QuestionEdit questionNaire = new QuestionEdit(medicalSerial, Qname, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
         Call<QnResponse> call = QnEditAPI.EditQuestion(questionNaire);
         call.enqueue(new Callback<QnResponse>() {
