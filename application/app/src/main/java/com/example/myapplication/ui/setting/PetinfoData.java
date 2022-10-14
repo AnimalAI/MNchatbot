@@ -28,7 +28,7 @@ public class PetinfoData {
     @SerializedName("petNeutralization")
     public String petNeutering;
 
-    public PetinfoData(int petSerial, String petSpecies, String petName, int petAge, String petBreed, String petGender, String petNeutering) {
+    public PetinfoData(int petSerial, String petSpecies, String petBreed, String petName, int petAge,  String petGender, String petNeutering) {
         this.petSerial = petSerial;
         this.petSpecies = petSpecies;
         this.petName = petName;

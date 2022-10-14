@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 onOptionsItemSelected(item);
+                Log.d("item", item.toString());
                 return false;
             }
         });
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.petSelect:
                 Intent intent2 = new Intent(getApplicationContext(), PetSelectActivity.class);
                 startActivity(intent2);
+                return true;
             case R.id.showHistory:
                 Intent intent3 = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent3);
