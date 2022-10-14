@@ -82,13 +82,9 @@ public interface ServiceAPI {
     @GET("/pet/{petSerial}")
     Call<PetProfileResponse> getPetinfo(@Path("petSerial")int Serial);
 
-    //(수정 필요) 반려동물 정보 수정
+    //반려동물 정보 수정
     @PATCH("/pet/changeInfo")
     Call<PetProfileResponse> EditPetPost(@Body PetinfoData petinfoData);
-
-    /*@PUT("/Profile/{petAge}")
-    Call<ProfileResponse> updatePetPost(@Path("petAge") int petAge,
-                                        @Body PetinfoData petinfoData);*/
 
     //반려동물 삭제
     @DELETE("/pet/delete/{petSerial}")
