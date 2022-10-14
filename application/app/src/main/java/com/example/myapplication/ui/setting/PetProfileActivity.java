@@ -127,7 +127,7 @@ public class PetProfileActivity extends SettingActivity {
                 name.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        PetProfileDelete();
+                        PetProfileDelete(i);
                     }
                 });
                 name.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -148,7 +148,7 @@ public class PetProfileActivity extends SettingActivity {
         pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
         int Serial = pre2.getInt("petSerial", 0);
 
-        String Species = "";
+        String Species = "CAT";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
         String Breed = petBreed.getText().toString().trim();
@@ -187,7 +187,7 @@ public class PetProfileActivity extends SettingActivity {
     }
 
     //반려동물 정보 삭제
-    private void PetProfileDelete() {
+    private void PetProfileDelete(int pos) {
         ArrayList List = new ArrayList();
         pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = pre.getString("TOKEN", null);
@@ -212,7 +212,7 @@ public class PetProfileActivity extends SettingActivity {
                             }
                             mRecyclerViewAdapter = new RecyclerViewAdapter(List, context);
                             Intent intent = new Intent(PetProfileActivity.this, PetSelectActivity.class);
-                            String item = (String) List.get(Serial -1);
+                            Object item = List.get(pos +1);
                             List.remove(item);
                             mRecyclerViewAdapter.notifyDataSetChanged();
                             Log.d("~", String.valueOf(item));
@@ -255,13 +255,11 @@ public class PetProfileActivity extends SettingActivity {
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     petdata = response.body().data;
-                    //Log.d("petdataType", petdata.toString());
-
                     CATDOG = petdata.getpetSpecies();
                     if (CATDOG.equals("CAT")) {petSpecies.setImageResource(R.drawable.cat2);}
                     else {petSpecies.setImageResource(R.drawable.dog2);}
-                    petNickName.setHint(petdata.getPetName());
-                    petBreed.setHint(petdata.getPetBreed());
+                    petNickName.setText(petdata.getPetName());
+                    petBreed.setText(petdata.getPetBreed());
                     petAge.setText(String.valueOf(petdata.getPetAge()));
                     if (petdata.getPetGender().equals("MALE")) {
                         man.setChecked(true);

@@ -7,7 +7,6 @@ import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
-import com.example.myapplication.ui.hospital.ApplyData;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;

@@ -28,7 +28,7 @@
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <EditText
-                android:hint="요크셔테리어"
+                android:hint="품종을 적어주세요."
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:id="@+id/petBreed"
@@ -47,7 +47,7 @@
                 android:layout_column="0"
                 android:layout_gravity="center"/>
             <EditText
-                android:hint="밤"
+                android:hint="이름을 적어주세요."
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:id="@+id/petNickname"
