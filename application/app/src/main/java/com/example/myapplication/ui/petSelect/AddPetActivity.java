@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class AddPetActivity extends AppCompatActivity {
     private MaterialButtonToggleGroup Gendertoggle, Neuteringtoggle;
     private MaterialButton man, woman, NeuteringYes, NeuteringNo;
-    private String CATDOG;
+    private String CATDOG = "DOG";
     private ImageView petprofile;
     private TextView petAge;
     private EditText petBreed,petNickName;
@@ -68,7 +68,24 @@ public class AddPetActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                setPetinfo();
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddPetActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("개/고양이 선택 정보는 바꿀 수 없습니다. 확인하셨습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                setPetinfo();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create()
+                        .show();
+
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener(){
