@@ -148,7 +148,7 @@ public class PetProfileActivity extends SettingActivity {
         pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
         int Serial = pre2.getInt("petSerial", 0);
 
-        String Species = "CAT";
+        //String Species = "CAT";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
         String Breed = petBreed.getText().toString().trim();
@@ -161,7 +161,7 @@ public class PetProfileActivity extends SettingActivity {
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
         ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        PetinfoData petinfoData = new PetinfoData(Serial, Species, Breed, Name, Age, Gender, Neutering);
+        PetinfoData petinfoData = new PetinfoData(Serial, null, Breed, Name, Age, Gender, Neutering);
 
         Call<PetProfileResponse> call = profileAPI.EditPetPost(petinfoData);
 
