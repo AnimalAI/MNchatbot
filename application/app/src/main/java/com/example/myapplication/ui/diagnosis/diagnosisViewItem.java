@@ -1,9 +1,13 @@
 package com.example.myapplication.ui.diagnosis;
 
 public class diagnosisViewItem {
+    private int diagSerial;
     private String DiseaseName;
     private String DiseaseDate;
 
+    public int getdiagSerial() {
+        return diagSerial;
+    }
     public String getDiseaseName() {
         return DiseaseName;
     }

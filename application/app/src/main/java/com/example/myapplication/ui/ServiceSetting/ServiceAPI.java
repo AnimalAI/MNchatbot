@@ -7,6 +7,7 @@ import com.example.myapplication.ui.QuestionNaire.QnResponse;
 import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
+import com.example.myapplication.ui.diagnosis.diagListResponse;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -133,4 +134,9 @@ public interface ServiceAPI {
     //문진표 삭제
     @DELETE("/medicalForm/delete/{medicalFormSerial}")
     Call<qnListResponse> deleteQuestion(@Path("medicalFormSerial")int mSerial);
+
+    //=======================
+    //예상진단 목록
+    @GET("/expectDiag/expectDiagList/{petSerial}")
+    Call<diagListResponse> getDiagList(@Path("petSerial")int Serial);
 }
