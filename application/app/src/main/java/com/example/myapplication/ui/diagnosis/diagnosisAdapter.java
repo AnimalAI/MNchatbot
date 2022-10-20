@@ -1,5 +1,8 @@
 package com.example.myapplication.ui.diagnosis;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,9 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 
 public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.ViewHolder> {
+
+    private SharedPreferences preferences;
+    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
     TextView diseaseName, diseaseDate;
@@ -30,6 +36,15 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {
                         onItemClickListener.onItemClick(position);
+
+                        diagnosisViewItem item = mList.get(position);
+                        int diagSerial = item.getdiagSerial();
+                        Log.d("짧게 누름", String.valueOf(diagSerial));
+
+                        preferences = context.getSharedPreferences("Serial", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("diagSerial", diagSerial);
+                        editor.commit();
                     }
                 }
             }
@@ -43,7 +58,15 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
                 if (position != RecyclerView.NO_POSITION) {
                     if (onLongItemClickListener != null) {
                         onLongItemClickListener.onLongItemClick(position);
-                        return true;
+
+                        diagnosisViewItem item = mList.get(position);
+                        int diagSerial = item.getdiagSerial();
+                        Log.d("길게 누름", String.valueOf(diagSerial));
+
+                        preferences = context.getSharedPreferences("Serial", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("diagSerial", diagSerial);
+                        editor.commit();
                     }
                 }
                 return false;
@@ -55,8 +78,8 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
     //ArrayList
     private ArrayList<diagnosisViewItem> mList = null;
 
-    public diagnosisAdapter(ArrayList<diagnosisViewItem> mList) {
-        this.mList = mList;
+    public diagnosisAdapter(ArrayList<diagnosisViewItem> mList, Context context) {
+        this.mList = mList; this.context = context;
     }
 
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴

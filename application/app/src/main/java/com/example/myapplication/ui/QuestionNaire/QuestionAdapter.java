@@ -73,7 +73,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putInt("medicalSerial", medicalSerial);
                             editor.commit();
-                            return true;
                         }
                     }
                     return false;
