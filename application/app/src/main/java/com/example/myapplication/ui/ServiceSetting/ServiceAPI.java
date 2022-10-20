@@ -139,4 +139,8 @@ public interface ServiceAPI {
     //예상진단 목록
     @GET("/expectDiag/expectDiagList/{petSerial}")
     Call<diagListResponse> getDiagList(@Path("petSerial")int Serial);
+
+    //예상진단 삭제
+    @DELETE("/expectDiag/delete/{expectDiagSerial}")
+    Call<diagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
 }

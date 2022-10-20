@@ -8,6 +8,10 @@ public class diagnosisViewItem {
     public int getdiagSerial() {
         return diagSerial;
     }
+    public void setdiagSerial(int dSerial) {
+        this.diagSerial = dSerial;
+    }
+
     public String getDiseaseName() {
         return DiseaseName;
     }

@@ -3,6 +3,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Dictionary.dsPageResponse;
 import com.example.myapplication.ui.QuestionNaire.QuestionAdapter;
+import com.example.myapplication.ui.QuestionNaire.QuestionViewItem;
+import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
@@ -64,9 +67,10 @@ public class Fragment_diagnosis extends Fragment {
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
 
-        setDiagList();
-        mAdapter = new diagnosisAdapter(mList);
+        mAdapter = new diagnosisAdapter(mList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
+
+        setDiagList();
 
         mAdapter.setOnItemClickListener(new diagnosisAdapter.OnItemClickListener() {
             @Override
@@ -81,7 +85,12 @@ public class Fragment_diagnosis extends Fragment {
                 builder.setTitle("예상진단 삭제")
                         .setMessage("정말로 삭제하시겠습니까?")
                         .setPositiveButton("아니오", null)
-                        .setNegativeButton("예", null)
+                        .setNegativeButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DeleteDiag(pos);
+                            }
+                        })
                         .create()
                         .show();
             }
@@ -95,13 +104,15 @@ public class Fragment_diagnosis extends Fragment {
         return rootview;
     }
     // 리사이클러뷰에 데이터추가
-    public void addItem(String DiseaseName, String Date){
+    public void addItem(int DiagSerial, String DiseaseName, String Date){
         diagnosisViewItem item = new diagnosisViewItem();
+        item.setdiagSerial(DiagSerial);
         item.setDiseaseName(DiseaseName);
         item.setDiseaseDate(Date);
         mList.add(item);
     }
 
+    //예상진단 로드
     public void setDiagList() {
         DiagList = new ArrayList<>();
         pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
@@ -115,18 +126,17 @@ public class Fragment_diagnosis extends Fragment {
         call.enqueue(new Callback<diagListResponse>() {
             @Override
             public void onResponse(Call<diagListResponse> call, Response<diagListResponse> response) {
-                Log.d("통신성공", "성공");
                 if(response.isSuccessful()) {
                     DiagList = response.body().data;
-
                     if(DiagList == null) {
                         Log.d("비어있음", "성공");
                     } else {
                         Log.d("자료있음", "성공");
                         for(int i=0; i< DiagList.size(); i++) {
+                            int dSerial = DiagList.get(i).getDsSerial();
                             String Name = DiagList.get(i).getDsName();
                             String Date = DiagList.get(i).getDsDate();
-                            addItem(Name, Date);
+                            addItem(dSerial, Name, Date);
                             mAdapter.notifyDataSetChanged();
                         }
                     }
@@ -145,5 +155,35 @@ public class Fragment_diagnosis extends Fragment {
         });
     }
 
+    //예상진단 삭제
+    public void DeleteDiag(int pos) {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int diagSerial = pre2.getInt("diagSerial", 0);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<diagListResponse> call = DiagAPI.deleteDiag(diagSerial);
+
+        call.enqueue(new Callback<diagListResponse>() {
+            @Override
+            public void onResponse(Call<diagListResponse> call, Response<diagListResponse> response) {
+                if (!response.equals(200)) {
+                    diagnosisViewItem item = mList.get(pos);
+                    mList.remove(item);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<diagListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
 
 }
