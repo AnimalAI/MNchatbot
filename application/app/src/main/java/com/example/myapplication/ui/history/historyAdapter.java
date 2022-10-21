@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class historyAdapter extends RecyclerView.Adapter<historyAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView diseaseName, diseaseDate;
+        TextView HospitalName, HospitalDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            diseaseName = itemView.findViewById(R.id.diseaseName);
-            diseaseDate = itemView.findViewById(R.id.diseaseDate);
+            HospitalName = itemView.findViewById(R.id.HospitalName);
+            HospitalDate = itemView.findViewById(R.id.HospitalDate);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,9 +54,9 @@ public class historyAdapter extends RecyclerView.Adapter<historyAdapter.ViewHold
     }
 
     //ArrayList
-    private ArrayList<diagnosisViewItem> mList = null;
+    private ArrayList<historyViewItem> mList = null;
 
-    public historyAdapter(ArrayList<diagnosisViewItem> mList) {
+    public historyAdapter(ArrayList<historyViewItem> mList) {
         this.mList = mList;
     }
 
@@ -65,7 +65,7 @@ public class historyAdapter extends RecyclerView.Adapter<historyAdapter.ViewHold
     @Override
     public historyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.f_diagnosis_item, parent, false);
+                .inflate(R.layout.f_history_item, parent, false);
         historyAdapter.ViewHolder viewHolder = new historyAdapter.ViewHolder(view);
 
         return viewHolder;
@@ -74,10 +74,10 @@ public class historyAdapter extends RecyclerView.Adapter<historyAdapter.ViewHold
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull historyAdapter.ViewHolder holder, int position) {
-        diagnosisViewItem item = mList.get(position);
+        historyViewItem item = mList.get(position);
 
-        holder.diseaseName.setText(item.getDiseaseName());
-        holder.diseaseDate.setText(item.getDiseaseDate());
+        holder.HospitalName.setText(item.getHospitalName());
+        holder.HospitalDate.setText(item.getHospitalDate());
     }
 
     @Override

@@ -18,7 +18,7 @@ public class HistoryActivity extends AppCompatActivity {
     MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
-    private ArrayList<diagnosisViewItem> mList;
+    private ArrayList<historyViewItem> mList;
     private historyAdapter mAdapter;
 
     @Override
@@ -29,8 +29,8 @@ public class HistoryActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
-        addItem("외독성의 유비저증", "2022.10.05");
-        addItem("개와 고양이의 이소 눈꺼플 섬모", "2022.10.05");
+        addItem("모모병원", "2022.10.05");
+        addItem("따옴병원", "2022.10.05");
 
 
         mAdapter = new historyAdapter(mList);
@@ -64,10 +64,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     // 리사이클러뷰에 데이터추가
-    public void addItem(String DiseaseName, String Date) {
-        diagnosisViewItem item = new diagnosisViewItem();
-        item.setDiseaseName(DiseaseName);
-        item.setDiseaseDate(Date);
+    public void addItem(String HospitalName, String Date) {
+        historyViewItem item = new historyViewItem();
+        item.setHospitalName(HospitalName);
+        item.setHospitalDate(Date);
         mList.add(item);
     }
 }
