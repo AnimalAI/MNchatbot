@@ -1,25 +1,37 @@
 package com.example.myapplication.ui.history;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.diagnosis.diagListResponse;
 import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HistoryActivity extends AppCompatActivity {
-
-    MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
     private ArrayList<historyViewItem> mList;
     private historyAdapter mAdapter;
+
+    List<diagListResponse.DiagList> DiagList;
+    private SharedPreferences pre, pre2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,8 @@ public class HistoryActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new historyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(6);
+                Intent intent = new Intent(getApplicationContext(), history_detail.class);
+                startActivity(intent);
             }
         });
         mAdapter.setOnLongItemClickListener(new historyAdapter.OnLongItemClickListener() {
@@ -69,5 +82,48 @@ public class HistoryActivity extends AppCompatActivity {
         item.setHospitalName(HospitalName);
         item.setHospitalDate(Date);
         mList.add(item);
+    }
+
+    //상담내역 로드
+    public void setHistoryList() {
+        DiagList = new ArrayList<>();
+        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+
+        Call<diagListResponse> call = DiagAPI.getDiagList(petSerial);
+
+        call.enqueue(new Callback<diagListResponse>() {
+            @Override
+            public void onResponse(Call<diagListResponse> call, Response<diagListResponse> response) {
+                if(response.isSuccessful()) {
+                    DiagList = response.body().data;
+                    if(DiagList == null) {
+                        Log.d("비어있음", "성공");
+                    } else {
+                        Log.d("자료있음", "성공");
+                        for(int i=0; i< DiagList.size(); i++) {
+                            int dSerial = DiagList.get(i).getDsSerial();
+                            String Name = DiagList.get(i).getDsName();
+                            String Date = DiagList.get(i).getDsDate();
+                            addItem(Name, Date);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<diagListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
     }
 }
