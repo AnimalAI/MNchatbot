@@ -10,6 +10,6 @@ public class history_detail extends AppCompatActivity {
         @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.f_dictionary_detail);
+            setContentView(R.layout.history_detail);
         }
 }

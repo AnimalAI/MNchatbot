@@ -8,6 +8,7 @@ import com.example.myapplication.ui.QuestionNaire.Question;
 import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.diagnosis.diagListResponse;
+import com.example.myapplication.ui.diagnosis.diagResponse;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -139,6 +140,10 @@ public interface ServiceAPI {
     //예상진단 목록
     @GET("/expectDiag/expectDiagList/{petSerial}")
     Call<diagListResponse> getDiagList(@Path("petSerial")int Serial);
+
+    //예상진단 세부목록
+    @GET("/expectDiag/delete/{expectDiagSerial}")
+    Call<diagResponse> getDiag(@Path("expectDiagSerial")int DiagSerial);
 
     //예상진단 삭제
     @DELETE("/expectDiag/delete/{expectDiagSerial}")
