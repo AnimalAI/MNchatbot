@@ -58,6 +58,22 @@ public class Fragment_diagnosis extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+    public int getdiagSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int diagSerial = pre2.getInt("diagSerial", 0);
+        return diagSerial;
+    }
 
     @Nullable
     @Override
@@ -115,13 +131,9 @@ public class Fragment_diagnosis extends Fragment {
     //예상진단 로드
     public void setDiagList() {
         DiagList = new ArrayList<>();
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int petSerial = pre2.getInt("petSerial", 0);
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<diagListResponse> call = DiagAPI.getDiagList(petSerial);
+        Call<diagListResponse> call = DiagAPI.getDiagList(getpetSerial());
 
         call.enqueue(new Callback<diagListResponse>() {
             @Override
@@ -157,13 +169,8 @@ public class Fragment_diagnosis extends Fragment {
 
     //예상진단 삭제
     public void DeleteDiag(int pos) {
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int diagSerial = pre2.getInt("diagSerial", 0);
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<diagListResponse> call = DiagAPI.deleteDiag(diagSerial);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<diagListResponse> call = DiagAPI.deleteDiag(getdiagSerial());
 
         call.enqueue(new Callback<diagListResponse>() {
             @Override

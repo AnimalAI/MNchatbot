@@ -64,6 +64,18 @@ public class Fragment_Question_detail extends Fragment {
         mainActivity = null;
     }
 
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -183,10 +195,6 @@ public class Fragment_Question_detail extends Fragment {
     }
 
     public void addQuestion() {
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int petSerial = pre2.getInt("petSerial", 0);
         String Qname = q_Name.getText().toString();
         String Date = date.getDate();
         String Time = date.getTime();
@@ -200,9 +208,9 @@ public class Fragment_Question_detail extends Fragment {
         if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
-        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Question questionNaire = new Question(petSerial, Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
+        Question questionNaire = new Question(getpetSerial(), Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
         Call<QnResponse> call = QuestionAPI.setQuestion(questionNaire);
         call.enqueue(new Callback<QnResponse>() {

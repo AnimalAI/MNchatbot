@@ -68,6 +68,12 @@ public class Fragment_Dictionary extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+    //서버통신
+    public String getToken() {
+        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        return token;
+    }
 
     @Nullable
     @Override
@@ -117,12 +123,9 @@ public class Fragment_Dictionary extends Fragment {
     }
     //로드 화면
     public void loadDsinfo() {
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI LoadAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI LoadAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         int item = itemCnt;
-
         Call<dsPageResponse> call = LoadAPI.callDsinfo(getPage(),item);
 
         call.enqueue(new Callback<dsPageResponse>() {
@@ -176,9 +179,7 @@ public class Fragment_Dictionary extends Fragment {
     }
     public void getDsinfo(){
         DsSearchdata = new ArrayList<>();
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI DsSearchListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI DsSearchListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
         String dsName = editText.getText().toString();
 
         Call<dsListResponse> call = DsSearchListAPI.getDsinfo(dsName);

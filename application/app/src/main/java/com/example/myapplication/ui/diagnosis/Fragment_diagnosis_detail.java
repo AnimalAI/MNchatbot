@@ -49,6 +49,17 @@ public class Fragment_diagnosis_detail extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getdiagSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int diagSerial = pre2.getInt("diagSerial", 0);
+        return diagSerial;
+    }
 
     @Nullable
     @Override
@@ -95,19 +106,12 @@ public class Fragment_diagnosis_detail extends Fragment {
     }
 
     public void call_Diagnosis() {
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int diagSerial = pre2.getInt("diagSerial", 0);
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<diagResponse> call = DiagAPI.getDiag(diagSerial);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<diagResponse> call = DiagAPI.getDiag(getdiagSerial());
         call.enqueue(new Callback<diagResponse>() {
             @Override
             public void onResponse(Call<diagResponse> call, Response<diagResponse> response) {
-                Log.d("diagSerial?", String.valueOf(diagSerial));
                 if(!response.equals(200)) {
-                    Log.d("diagSerial!", String.valueOf(diagSerial));
                     DiagData = response.body().data;
                     if (DiagData == null) {
                         Toast.makeText(getActivity(), "챗봇 상담을 먼저 진행하세요.", Toast.LENGTH_SHORT).show();

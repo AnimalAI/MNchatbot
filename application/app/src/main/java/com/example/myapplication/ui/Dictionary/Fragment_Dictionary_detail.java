@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class Fragment_Dictionary_detail extends Fragment {
 
     MainActivity mainActivity;
-    private SharedPreferences preferences, preferences2;
+    private SharedPreferences pre, pre2;
     private TextView ds_Name, ds_Species, ds_definition, ds_cause, ds_pathogenesis,
             ds_epidemiology, ds_symptom, ds_diagnosis, ds_treatment, ds_prevention,
             ds_prognosis, ds_advice, more, more1, more2, more3, more4, more5, more6, more7, more8, more9;
@@ -46,6 +46,17 @@ public class Fragment_Dictionary_detail extends Fragment {
     public void onDetach() {
         super.onDetach();
         mainActivity = null;
+    }
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public String getdsId() {
+        pre2 = getActivity().getSharedPreferences("dsId", MODE_PRIVATE);
+        String diseaseId = pre2.getString("dsId", null);
+        return diseaseId;
     }
 
     @Nullable
@@ -104,14 +115,8 @@ public class Fragment_Dictionary_detail extends Fragment {
     }
 
     public void callDsSearchinfo() {
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI DsSearchAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        preferences2 = getActivity().getSharedPreferences("dsId", MODE_PRIVATE);
-        String diseaseId = preferences2.getString("dsId", null);
-
-        Call<DsResponse> call = DsSearchAPI.getDsSearchinfo(diseaseId);
+        ServiceAPI DsSearchAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<DsResponse> call = DsSearchAPI.getDsSearchinfo(getdsId());
         call.enqueue(new Callback<DsResponse>() {
             @Override
             public void onResponse(Call<DsResponse> call, Response<DsResponse> response) {

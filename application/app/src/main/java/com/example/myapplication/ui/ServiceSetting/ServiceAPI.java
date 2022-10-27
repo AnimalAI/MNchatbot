@@ -142,7 +142,7 @@ public interface ServiceAPI {
     Call<diagListResponse> getDiagList(@Path("petSerial")int Serial);
 
     //예상진단 세부목록
-    @GET("/expectDiag/delete/{expectDiagSerial}")
+    @GET("/expectDiag/{expectDiagSerial}")
     Call<diagResponse> getDiag(@Path("expectDiagSerial")int DiagSerial);
 
     //예상진단 삭제

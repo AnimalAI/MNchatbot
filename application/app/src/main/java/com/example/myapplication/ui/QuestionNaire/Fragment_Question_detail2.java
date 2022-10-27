@@ -62,6 +62,18 @@ public class Fragment_Question_detail2 extends Fragment {
         mainActivity = null;
     }
 
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getmedicalSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int medicalSerial = pre2.getInt("medicalSerial", 0);
+        return medicalSerial;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -161,14 +173,8 @@ public class Fragment_Question_detail2 extends Fragment {
 
 
     public void callQuestion() {
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int medicalSerial = pre2.getInt("medicalSerial", 0);
-
-        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<QnResponse> call = QuestionAPI.getQuestion(medicalSerial);
+        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<QnResponse> call = QuestionAPI.getQuestion(getmedicalSerial());
         call.enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
@@ -229,10 +235,6 @@ public class Fragment_Question_detail2 extends Fragment {
 
     //문진표 수정
     public void updatePetPost(){
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int medicalSerial = pre2.getInt("medicalSerial", 0);
         String Qname = q_Name.getText().toString();
         String Qreason = q_reason.getText().toString();
         String Disease = DiseaseName;
@@ -244,8 +246,8 @@ public class Fragment_Question_detail2 extends Fragment {
         if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
-        ServiceAPI QnEditAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        QuestionEdit questionNaire = new QuestionEdit(medicalSerial, Qname, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
+        ServiceAPI QnEditAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        QuestionEdit questionNaire = new QuestionEdit(getmedicalSerial(), Qname, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
         Call<QnResponse> call = QnEditAPI.EditQuestion(questionNaire);
         call.enqueue(new Callback<QnResponse>() {

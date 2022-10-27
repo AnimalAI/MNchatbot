@@ -67,6 +67,23 @@ public class Fragment_Question extends Fragment {
         mainActivity = null;
     }
 
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+    public int getmedicalSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int medicalSerial = pre2.getInt("medicalSerial", 0);
+        return medicalSerial;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -129,18 +146,11 @@ public class Fragment_Question extends Fragment {
         mList.add(item);
     }
 
-
     //문진표 목록
     public void getQuestion() {
         Qndata = new ArrayList<>();
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int petSerial = pre2.getInt("petSerial", 0);
-
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<qnListResponse> call = QnListAPI.getQnList(petSerial);
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<qnListResponse> call = QnListAPI.getQnList(getpetSerial());
         call.enqueue(new Callback<qnListResponse>() {
             @Override
             public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
@@ -176,13 +186,8 @@ public class Fragment_Question extends Fragment {
 
     //문진표 삭제
     private void DeleteQuestion(int pos) {
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int medicalSerial = pre2.getInt("medicalSerial", 0);
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<qnListResponse> call = QnListAPI.deleteQuestion(medicalSerial);
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<qnListResponse> call = QnListAPI.deleteQuestion(getmedicalSerial());
 
         call.enqueue(new Callback<qnListResponse>() {
             @Override
