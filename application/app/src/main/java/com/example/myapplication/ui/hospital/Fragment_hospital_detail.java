@@ -105,6 +105,23 @@ public class Fragment_hospital_detail extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+    //medical? hospSerial?
+    public int getdiagSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int diagSerial = pre2.getInt("diagSerial", 0);
+        return diagSerial;
+    }
 
     @Nullable
     @Override
@@ -177,14 +194,11 @@ public class Fragment_hospital_detail extends Fragment {
             }
         });
 
-
-
         callQuestion();
         adapter = new ArrayAdapter<>(getActivity(), R.layout.row_spinner, spnArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_quesionNaire.setAdapter(adapter);
         spn_quesionNaire.setSelection(1);
-
 
         spn_quesionNaire.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -234,7 +248,6 @@ public class Fragment_hospital_detail extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sendData();
             }
         });
@@ -249,14 +262,9 @@ public class Fragment_hospital_detail extends Fragment {
     }
     public void callQuestion() {
         Qndata = new ArrayList<>();
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int petSerial = pre2.getInt("petSerial", 0);
+        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<qnListResponse> call = QnListAPI.getQnList(petSerial);
+        Call<qnListResponse> call = QnListAPI.getQnList(getpetSerial());
         call.enqueue(new Callback<qnListResponse>() {
             @Override
             public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
@@ -304,13 +312,10 @@ public class Fragment_hospital_detail extends Fragment {
         String reason = Reason.getText().toString();
         String Image = url;
 
-        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int Serial = pre2.getInt("petSerial", 0);
+
         int hospSerial = pre2.getInt("hospSerial", 0);
 
-        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
         /*ApplyData applyData = new ApplyData(Serial, 6, hospSerial, name, number, date, time, bill, reason, null);
 
         RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
@@ -324,7 +329,7 @@ public class Fragment_hospital_detail extends Fragment {
 
         Call<hospitalListResponse> call = SendAPI.apply(applyData);*/
 
-        RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Serial));
+        RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getpetSerial()));
         RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mediSerial));
         RequestBody partnerSerial = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(hospSerial));
         RequestBody apptMemberName = RequestBody.create(MediaType.parse("text/plain"), name);

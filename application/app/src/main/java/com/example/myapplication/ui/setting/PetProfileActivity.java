@@ -47,6 +47,18 @@ public class PetProfileActivity extends SettingActivity {
     private SharedPreferences pre, pre2;
     PetProfileResponse.PetDataObject petdata;
 
+    //서버통신
+    public String getToken() {
+        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,11 +155,6 @@ public class PetProfileActivity extends SettingActivity {
 
     //반려동물 정보 변경
     public void updatePetPost(){
-        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
-        int Serial = pre2.getInt("petSerial", 0);
-
         //String Species = "CAT";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
@@ -160,8 +167,8 @@ public class PetProfileActivity extends SettingActivity {
         if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        PetinfoData petinfoData = new PetinfoData(Serial, null, Breed, Name, Age, Gender, Neutering);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        PetinfoData petinfoData = new PetinfoData(getpetSerial(), null, Breed, Name, Age, Gender, Neutering);
 
         Call<PetProfileResponse> call = profileAPI.EditPetPost(petinfoData);
 
@@ -189,14 +196,8 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 삭제
     private void PetProfileDelete(int pos) {
         ArrayList List = new ArrayList();
-        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
-        int Serial = pre2.getInt("petSerial", 0);
-
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<PetProfileResponse> call = profileAPI.deletePetPost(Serial);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<PetProfileResponse> call = profileAPI.deletePetPost(getpetSerial());
         call.enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
@@ -240,15 +241,9 @@ public class PetProfileActivity extends SettingActivity {
     
     //반려동물 정보 불러오기
     public void callPetinfo(){
-        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
-        int Serial = pre2.getInt("petSerial", 0);
-        Log.d("!!", String.valueOf(Serial));
-
-
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-        Call<PetProfileResponse> call = profileAPI.getPetinfo(Serial);
+        Log.d("!!", String.valueOf(getpetSerial()));
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<PetProfileResponse> call = profileAPI.getPetinfo(getpetSerial());
 
         call.enqueue(new Callback<PetProfileResponse>() {
             @Override

@@ -62,6 +62,12 @@ public class Fragment_hospital extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+    //서버통신
+    public String getToken() {
+        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        return token;
+    }
 
     @Nullable
     @Override
@@ -149,9 +155,7 @@ public class Fragment_hospital extends Fragment {
         String region = City1Name;
         String city = City2Name;
         hospdata = new ArrayList<>();
-        preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI hospListAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI hospListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         Call<hospitalListResponse> call = hospListAPI.Allhosplist(region, city);
 

@@ -31,7 +31,6 @@ public class SettingActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((Context) this);
         recyclerView.setLayoutManager(linearLayoutManager); //LayoutManger 설정
 

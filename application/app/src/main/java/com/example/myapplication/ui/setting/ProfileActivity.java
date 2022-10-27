@@ -23,6 +23,12 @@ public class ProfileActivity extends SettingActivity {
     private TextView ID, pwchange, logout, deleteinfo;
     private SharedPreferences preferences;
 
+    //서버통신
+    public String getToken() {
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        return token;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +87,7 @@ public class ProfileActivity extends SettingActivity {
     
     //회원 탈퇴
     private void ProfileDelete() {
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         Call<PetProfileResponse> call = profileAPI.deletePost(10); //이게 무슨 의미인지 잘 모르겠음. 그러나 작동은 됨.
         call.enqueue(new Callback<PetProfileResponse>() {
@@ -108,9 +112,7 @@ public class ProfileActivity extends SettingActivity {
         });
     }
     public void calluserInfo(){
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
         Call<ProfileResponse> call = profileAPI.GetmemberEmail();
 
         call.enqueue(new Callback<ProfileResponse>() {

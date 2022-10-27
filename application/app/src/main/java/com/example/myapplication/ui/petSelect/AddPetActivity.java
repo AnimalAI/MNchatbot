@@ -37,9 +37,14 @@ public class AddPetActivity extends AppCompatActivity {
     private EditText petBreed,petNickName;
     private Button btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
-    //서버 통신
     private SharedPreferences preferences;
 
+    //서버통신
+    public String getToken() {
+        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = preferences.getString("TOKEN", null);
+        return token;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,9 +157,7 @@ public class AddPetActivity extends AppCompatActivity {
     }
     //반려동물 정보 설정
     public void setPetinfo(){
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI petAddAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        ServiceAPI petAddAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         String Species = CATDOG;
         String Name = petNickName.getText().toString().trim();
