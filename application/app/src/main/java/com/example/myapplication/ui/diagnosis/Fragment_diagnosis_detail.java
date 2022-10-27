@@ -2,14 +2,17 @@ package com.example.myapplication.ui.diagnosis;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +24,8 @@ import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,9 +33,11 @@ import retrofit2.Response;
 public class Fragment_diagnosis_detail extends Fragment {
 
     MainActivity mainActivity;
-    private SharedPreferences preferences;
-    private TextView dia_Date, dia_Time, dia_Name, dia_Species, dia_definition, dia_cause, dia_advice, more, more1, more2;
 
+    private SharedPreferences pre, pre2;
+    private TextView dia_Date, dia_Time, dia_Name, dia_Breed, dia_definition, dia_cause, dia_advice, more, more1, more2;
+
+    diagResponse.DiagData DiagData;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -48,14 +55,18 @@ public class Fragment_diagnosis_detail extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_diagnosis_detail,container,false);
+        dia_Date = rootview.findViewById(R.id.dia_Date);
+        dia_Time = rootview.findViewById(R.id.dia_time);
         dia_Name = rootview.findViewById(R.id.dia_Name);
-        dia_Species = rootview.findViewById(R.id.dia_Species);
+        dia_Breed = rootview.findViewById(R.id.dia_Breed);
         dia_definition = rootview.findViewById(R.id.dia_definition);
         dia_cause = rootview.findViewById(R.id.dia_cause);
         dia_advice = rootview.findViewById(R.id.dia_advice);
         more = rootview.findViewById(R.id.more);
         more1 = rootview.findViewById(R.id.more1);
         more2 = rootview.findViewById(R.id.more2);
+
+        call_Diagnosis();
 
         return rootview;
     }
@@ -84,32 +95,47 @@ public class Fragment_diagnosis_detail extends Fragment {
     }
 
     public void call_Diagnosis() {
-        /*preferences = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
-        ServiceAPI DsSearchAPI = ServiceGenerator.createService(ServiceAPI.class, token);
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int diagSerial = pre2.getInt("diagSerial", 0);
+        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, token);
 
-        Call<DsResponse> call = DsSearchAPI.getDsSearchinfo(diseaseId);
-        call.enqueue(new Callback<DsResponse>() {
+        Call<diagResponse> call = DiagAPI.getDiag(diagSerial);
+        call.enqueue(new Callback<diagResponse>() {
             @Override
-            public void onResponse(Call<DsResponse> call, Response<DsResponse> response) {
-                Diadata = response.body().data;
-                dia_Date.setText(Diadata.);
-                dia_Time.setText(Diadata.);
-                dia_Name.setText(Diadata.getdsName());
-                dia_Species.setText(Diadata.getdsAmlBreed());
-                dia_definition.setText(Diadata.getdsDefinition());
-                isEllipsize(dia_definition, more);
-                dia_cause.setText(Diadata.getdsCause());
-                isEllipsize(dia_cause, more1);
-                dia_advice.setText(Diadata.getdsAdvice());
-                isEllipsize(dia_advice, more2);
+            public void onResponse(Call<diagResponse> call, Response<diagResponse> response) {
+                Log.d("diagSerial?", String.valueOf(diagSerial));
+                if(!response.equals(200)) {
+                    Log.d("diagSerial!", String.valueOf(diagSerial));
+                    DiagData = response.body().data;
+                    if (DiagData == null) {
+                        Toast.makeText(getActivity(), "챗봇 상담을 먼저 진행하세요.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        dia_Date.setText(DiagData.getdiagDate());
+                        dia_Time.setText(DiagData.getdiagTime());
+                        dia_Name.setText(DiagData.getdsName());
+                        dia_Breed.setText(DiagData.getdsBreed());
+                        dia_definition.setText(DiagData.getdsDefinition());
+                        isEllipsize(dia_definition, more);
+                        dia_cause.setText(DiagData.getdsCause());
+                        isEllipsize(dia_cause, more1);
+                        dia_advice.setText(DiagData.getdsAdvice());
+                        isEllipsize(dia_advice, more2);
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<DsResponse> call, Throwable t) {
-
+            public void onFailure(Call<diagResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
             }
-        });*/
+        });
 
     }
 }

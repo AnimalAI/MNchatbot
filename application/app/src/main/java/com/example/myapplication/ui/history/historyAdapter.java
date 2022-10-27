@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 
 import java.util.ArrayList;
 
@@ -65,7 +64,7 @@ public class historyAdapter extends RecyclerView.Adapter<historyAdapter.ViewHold
     @Override
     public historyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.f_history_item, parent, false);
+                .inflate(R.layout.history_item, parent, false);
         historyAdapter.ViewHolder viewHolder = new historyAdapter.ViewHolder(view);
 
         return viewHolder;

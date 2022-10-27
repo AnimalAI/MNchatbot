@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     PetProfileResponse.PetDataObject petdata;
 
     HomeTutor homeTutor;
-    ManuFragment manuFragment;
 
     ChatbotWeb chatbotWeb;
     Fragment_diagnosis diagnosis;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.home_main);
 
         homeTutor = new HomeTutor();
-        manuFragment = new ManuFragment();
         chatbotWeb = new ChatbotWeb();
         diagnosis = new Fragment_diagnosis();
         diagnosis_detail = new Fragment_diagnosis_detail();

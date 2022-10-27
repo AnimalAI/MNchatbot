@@ -14,8 +14,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
 import com.example.myapplication.ui.diagnosis.diagListResponse;
-import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
-import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.f_history);
+        setContentView(R.layout.history);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
