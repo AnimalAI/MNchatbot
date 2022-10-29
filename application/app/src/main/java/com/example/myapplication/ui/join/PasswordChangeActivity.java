@@ -45,7 +45,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.password_change);
+        setContentView(R.layout.a_password_change);
 
         final EditText emailEditText = (EditText) findViewById(R.id.editTextEmailAddress);
         final Button emailCheckButton = (Button) findViewById(R.id.emailCheckButton);

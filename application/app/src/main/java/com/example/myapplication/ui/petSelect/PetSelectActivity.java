@@ -50,7 +50,7 @@ public class PetSelectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pet_activity_main);
+        setContentView(R.layout.a_pet_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mList = new ArrayList<>();

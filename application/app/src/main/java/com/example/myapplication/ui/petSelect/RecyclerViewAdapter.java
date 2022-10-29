@@ -1,8 +1,6 @@
 package com.example.myapplication.ui.petSelect;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,19 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.setting.PetProfileActivity;
 
 import org.json.JSONArray;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private Context context;
@@ -98,7 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.pet_activity_recycler_item, parent, false);
+        View view = inflater.inflate(R.layout.a_pet_item, parent, false);
         RecyclerViewAdapter.ViewHolder vh = new RecyclerViewAdapter.ViewHolder(view);
         return vh;
     }

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_main);
+        setContentView(R.layout.a_home_main);
 
         homeTutor = new HomeTutor();
         chatbotWeb = new ChatbotWeb();
