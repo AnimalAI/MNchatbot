@@ -34,7 +34,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
+        setContentView(R.layout.a_history);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class HistoryActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new historyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Intent intent = new Intent(getApplicationContext(), history_detail.class);
+                Intent intent = new Intent(getApplicationContext(), HistoryDetail.class);
                 startActivity(intent);
             }
         });

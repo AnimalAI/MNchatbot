@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
 import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.petSelect.Petinfo;
 import com.example.myapplication.ui.setting.PetProfileResponse;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -49,7 +48,7 @@ public class AddPetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newpetprofile);
+        setContentView(R.layout.a_newpetprofile);
 
         petprofile = findViewById(R.id.pic);
         btnAge = findViewById(R.id.btnAge);

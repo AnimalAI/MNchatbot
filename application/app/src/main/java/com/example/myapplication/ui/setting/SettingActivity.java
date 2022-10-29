@@ -1,15 +1,12 @@
 package com.example.myapplication.ui.setting;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting_page);
+        setContentView(R.layout.a_setting_page);
 
         //설정 목록 생성
         ArrayList<String> listSet = new ArrayList<>();
@@ -34,9 +31,9 @@ public class SettingActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((Context) this);
         recyclerView.setLayoutManager(linearLayoutManager); //LayoutManger 설정
 
-        CustomAdapter customAdapter = new CustomAdapter(listSet);
+        SettingAdapter settingAdapter = new SettingAdapter(listSet);
         //==========[Click 이벤트]=========
-        customAdapter.setOnItemClickListener(new CustomAdapter.OnItemclickListener() {
+        settingAdapter.setOnItemClickListener(new SettingAdapter.OnItemclickListener() {
             @Override
             public void onItemclicked(int position, String data) {
                 if(position==0) {
@@ -52,6 +49,6 @@ public class SettingActivity extends AppCompatActivity {
         });
         //====================================
 
-        recyclerView.setAdapter(customAdapter); //어댑터 설정
+        recyclerView.setAdapter(settingAdapter); //어댑터 설정
     }
 }

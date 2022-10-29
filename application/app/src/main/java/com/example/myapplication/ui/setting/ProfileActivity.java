@@ -32,7 +32,7 @@ public class ProfileActivity extends SettingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.a_profile);
 
         ID = findViewById(R.id.userID);
         pwchange = findViewById(R.id.pwchange);

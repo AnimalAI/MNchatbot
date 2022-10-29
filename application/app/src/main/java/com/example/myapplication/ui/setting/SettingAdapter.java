@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import com.example.myapplication.R;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<String> listSet;
@@ -44,16 +44,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
     //생성자, 데이터 전달받게 하기 위함.
-    public CustomAdapter(ArrayList<String> list) {
+    public SettingAdapter(ArrayList<String> list) {
         listSet = list;
     }
 
     @NonNull
     @Override //ViewHolder 객체 생성, 리턴.
-    public CustomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SettingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_item, parent, false);
-        CustomAdapter.ViewHolder viewHolder = new CustomAdapter.ViewHolder(view);
+                .inflate(R.layout.a_setting_item, parent, false);
+        SettingAdapter.ViewHolder viewHolder = new SettingAdapter.ViewHolder(view);
 
         //=================[Click 이벤트]=============
         view.setOnClickListener(new View.OnClickListener() {

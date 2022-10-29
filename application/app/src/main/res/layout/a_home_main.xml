@@ -86,7 +86,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/warmBlue"
-        app:headerLayout="@layout/home_drawer"
+        app:headerLayout="@layout/a_home_drawer"
         app:menu="@menu/drawer_menu"
         app:itemTextColor="@color/white"
         app:itemVerticalPadding="20dp"

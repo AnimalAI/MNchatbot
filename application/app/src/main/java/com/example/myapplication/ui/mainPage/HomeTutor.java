@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.myapplication.R;
 
@@ -38,7 +37,7 @@ public class HomeTutor extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.home_main2,container,false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.a_home_main2,container,false);
 
         Img_tutor = rootview.findViewById(R.id.Img_tutor);
         btn_tutor = rootview.findViewById(R.id.btn_tutor);

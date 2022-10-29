@@ -37,7 +37,7 @@
         <activity android:name=".ui.setting.PetProfileActivity" />
         <activity android:name=".ui.setting.ProfileActivity" />
         <activity android:name=".ui.history.HistoryActivity" />
-        <activity android:name=".ui.history.history_detail" />
+        <activity android:name=".ui.history.HistoryDetail" />
     </application>
 
 </manifest>

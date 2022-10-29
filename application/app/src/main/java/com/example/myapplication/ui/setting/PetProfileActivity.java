@@ -62,7 +62,7 @@ public class PetProfileActivity extends SettingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.petprofile);
+        setContentView(R.layout.a_petprofile);
 
         petNickName = findViewById(R.id.petNickname);
         petAge = findViewById(R.id.petAge);
