@@ -148,4 +148,9 @@ public interface ServiceAPI {
     //예상진단 삭제
     @DELETE("/expectDiag/delete/{expectDiagSerial}")
     Call<diagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
+
+    //=======================
+    //챗봇 정보 (수정필요)
+    @POST("/expectDiag/expectDiagList/{petSerial}")
+    Call<LoginResponse> SendInfo(@Path("petSerial")int Serial);
 }

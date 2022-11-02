@@ -1,30 +1,59 @@
 package com.example.myapplication.ui.mainPage;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.petSelect.PetSelectActivity;
+import com.example.myapplication.ui.petSelect.petListResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatbotWeb extends Fragment {
 
-    MainActivity mainActivity;
     private String TAG = ChatbotWeb.class.getSimpleName();
     private WebView webView = null;
+    private Button btnSave;
+    private SharedPreferences pre, pre2;
+
+    //서버통신
+    public String getToken() {
+        pre = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_chatbot,container,false);
+        btnSave = rootview.findViewById(R.id.btnSave);
         webView = rootview.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());  // 새 창 띄우기 않기
         webView.setWebChromeClient(new WebChromeClient());
@@ -44,7 +73,36 @@ public class ChatbotWeb extends Fragment {
 
         //웹 뷰 호출
         webView.loadUrl("http://43.200.87.239:8000");
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendInfo();
+            }
+        });
 
         return rootview;
+    }
+
+    public void SendInfo() {
+        ServiceAPI ChatbotAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<petListResponse> call = ChatbotAPI.setPetlist();
+
+        call.enqueue(new Callback<petListResponse>() {
+            @Override
+            public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
+                if (!response.equals(200)) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<petListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
     }
 }
