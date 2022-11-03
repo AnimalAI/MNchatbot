@@ -16,6 +16,7 @@ import com.example.myapplication.ui.join.JoinData;
 import com.example.myapplication.ui.join.JoinResponse;
 import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
+import com.example.myapplication.ui.mainPage.ChatbotResponse;
 import com.example.myapplication.ui.petSelect.Petinfo;
 import com.example.myapplication.ui.petSelect.petListResponse;
 import com.example.myapplication.ui.setting.PetinfoData;
@@ -152,5 +153,5 @@ public interface ServiceAPI {
     //=======================
     //챗봇 정보 (수정필요)
     @POST("/expectDiag/expectDiagList/{petSerial}")
-    Call<LoginResponse> SendInfo(@Path("petSerial")int Serial);
+    Call<ChatbotResponse> SendInfo(@Path("petSerial")int Serial);
 }
