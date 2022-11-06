@@ -9,6 +9,7 @@ import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
 import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.diagnosis.diagListResponse;
 import com.example.myapplication.ui.diagnosis.diagResponse;
+import com.example.myapplication.ui.history.HistoryListResponse;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -150,8 +151,12 @@ public interface ServiceAPI {
     @DELETE("/expectDiag/delete/{expectDiagSerial}")
     Call<diagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
 
-    //=======================
-    //챗봇 정보 (수정필요)
-    @POST("/expectDiag/expectDiagList/{petSerial}")
+    //예상진단 추가
+    @POST("/expectDiag/add")
     Call<ChatbotResponse> SendInfo(@Path("petSerial")int Serial);
+
+    //=======================
+    //상담신청 내역
+    @GET("/appointment/appointmentList/{petSerial}")
+    Call<HistoryListResponse> getHistoryList(@Path("petSerial")int Serial);
 }

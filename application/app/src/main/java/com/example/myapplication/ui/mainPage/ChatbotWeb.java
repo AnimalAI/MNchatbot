@@ -91,6 +91,7 @@ public class ChatbotWeb extends Fragment {
             @Override
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
                 if (!response.equals(200)) {
+                    Log.d("예상진단 저장", "성공");
                 }
             }
 
