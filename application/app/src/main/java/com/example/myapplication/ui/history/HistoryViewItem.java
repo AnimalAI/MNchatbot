@@ -1,8 +1,16 @@
 package com.example.myapplication.ui.history;
 
-public class historyViewItem {
+public class HistoryViewItem {
+    private int apptSerial;
     private String HospitalName;
     private String HospitalDate;
+
+    public int getapptSerial() {
+        return apptSerial;
+    }
+    public void setapptSerial(int apptSerial) {
+        this.apptSerial = apptSerial;
+    }
 
     public String getHospitalName() {
         return HospitalName;
