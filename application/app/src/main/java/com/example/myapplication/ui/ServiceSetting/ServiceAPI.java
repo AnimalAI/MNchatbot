@@ -10,6 +10,7 @@ import com.example.myapplication.ui.QuestionNaire.qnListResponse;
 import com.example.myapplication.ui.diagnosis.diagListResponse;
 import com.example.myapplication.ui.diagnosis.diagResponse;
 import com.example.myapplication.ui.history.HistoryListResponse;
+import com.example.myapplication.ui.history.HistoryResponse;
 import com.example.myapplication.ui.hospital.hospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
@@ -152,11 +153,19 @@ public interface ServiceAPI {
     Call<diagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
 
     //예상진단 추가
-    @POST("/expectDiag/add")
-    Call<ChatbotResponse> SendInfo(@Path("petSerial")int Serial);
+    @POST("/expectDiag/add/{petSerial}")
+    Call<ChatbotResponse> addDiag(@Path("petSerial")int Serial);
 
     //=======================
     //상담신청 내역
     @GET("/appointment/appointmentList/{petSerial}")
     Call<HistoryListResponse> getHistoryList(@Path("petSerial")int Serial);
+
+    //상담신청 내역 세부정보
+    @GET("/appointment/{appointmentSerial}")
+    Call<HistoryResponse> getHistoryObject(@Path("appointmentSerial")int apptSerial);
+
+    //상담신청 삭제
+    @DELETE("/appointment/delete/{appointmentSerial}")
+    Call<HistoryResponse> deleteHistory(@Path("appointmentSerial")int apptSerial);
 }

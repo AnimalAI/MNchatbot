@@ -24,14 +24,14 @@ public class HistoryListResponse {
     public class HistoryDataList {
         //검색결과
         @SerializedName("apptSerial")
-        private int HistorySerial;
+        private int apptSerial;
         @SerializedName("partnerName")
         private String partnerName;
         @SerializedName("apptDate")
         private String HistoryDate;
 
-        public int getHistorySerial() {
-            return HistorySerial;
+        public int getapptSerial() {
+            return apptSerial;
         }
         public String getpartnerName() {
             return partnerName;

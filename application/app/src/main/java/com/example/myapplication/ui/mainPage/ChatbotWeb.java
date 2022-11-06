@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class ChatbotWeb extends Fragment {
 
     private String TAG = ChatbotWeb.class.getSimpleName();
-    private WebView webView = null;
+    private WebView webView;
     private Button btnSave;
     private SharedPreferences pre, pre2;
 
@@ -53,7 +53,7 @@ public class ChatbotWeb extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_chatbot,container,false);
-        btnSave = rootview.findViewById(R.id.btnSave);
+        btnSave = rootview.findViewById(R.id.webBtnSave);
         webView = rootview.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());  // 새 창 띄우기 않기
         webView.setWebChromeClient(new WebChromeClient());
@@ -85,18 +85,18 @@ public class ChatbotWeb extends Fragment {
 
     public void SendInfo() {
         ServiceAPI ChatbotAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<petListResponse> call = ChatbotAPI.setPetlist();
+        Call<ChatbotResponse> call = ChatbotAPI.addDiag(getpetSerial());
 
-        call.enqueue(new Callback<petListResponse>() {
+        call.enqueue(new Callback<ChatbotResponse>() {
             @Override
-            public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
+            public void onResponse(Call<ChatbotResponse> call, Response<ChatbotResponse> response) {
                 if (!response.equals(200)) {
                     Log.d("예상진단 저장", "성공");
                 }
             }
 
             @Override
-            public void onFailure(Call<petListResponse> call, Throwable t) {
+            public void onFailure(Call<ChatbotResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
