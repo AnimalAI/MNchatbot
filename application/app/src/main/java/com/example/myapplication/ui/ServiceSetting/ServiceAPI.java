@@ -62,7 +62,7 @@ public interface ServiceAPI {
     Call<JoinResponse> enterEmailCode(@Body EmailCodeData data);
 
     //비밀번호 변경
-    @POST("/member/changePw")
+    @PATCH("/member/changePw")
     Call<JoinResponse> changePw(@Body LoginRequest data);
 
     //회원 이메일(ID) 받아오는 api

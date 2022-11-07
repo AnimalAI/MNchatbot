@@ -188,13 +188,13 @@ public class PasswordChangeActivity extends AppCompatActivity {
         service.changePw(data).enqueue(new Callback<JoinResponse>() {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
-                JoinResponse result = response.body();
-                Toast.makeText(PasswordChangeActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-                if (result.getCode() == 200) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(PasswordChangeActivity.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder builder = new AlertDialog.Builder(PasswordChangeActivity.this);
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
+                    Log.d("패스워드변경", String.valueOf(response.code()));
                     String faileResult = "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.";
                     Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
