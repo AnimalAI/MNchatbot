@@ -42,11 +42,6 @@ public class HistoryActivity extends AppCompatActivity {
         int petSerial = pre2.getInt("petSerial", 0);
         return petSerial;
     }
-    public int getapptSerial() {
-        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
-        int apptSerial = pre2.getInt("apptSerial", 0);
-        return apptSerial;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +97,7 @@ public class HistoryActivity extends AppCompatActivity {
         HistoryList = new ArrayList<>();
         ServiceAPI HistoryAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<HistoryListResponse> call = HistoryAPI.getHistoryList(getapptSerial());
+        Call<HistoryListResponse> call = HistoryAPI.getHistoryList(getpetSerial());
 
         call.enqueue(new Callback<HistoryListResponse>() {
             @Override
