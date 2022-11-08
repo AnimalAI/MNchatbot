@@ -70,9 +70,9 @@ public interface ServiceAPI {
     @GET("/member/email")
     Call<ProfileResponse> GetmemberEmail();
 
-    //회원 탈퇴 >> 코드 수정 필요 / userinfo 파일 삭제여부
+    //회원 탈퇴
     @DELETE("/member/delete/{memberEmail}")
-    Call<PetProfileResponse> deletePost (@Path("memberEmail")int id);
+    Call<PetProfileResponse> deletePost (@Path("memberEmail")String id);
 
     //반려동물 정보 등록
     @POST("/pet/add")

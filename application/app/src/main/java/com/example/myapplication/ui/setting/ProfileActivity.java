@@ -88,8 +88,8 @@ public class ProfileActivity extends SettingActivity {
     //회원 탈퇴
     private void ProfileDelete() {
         ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-
-        Call<PetProfileResponse> call = profileAPI.deletePost(10); //이게 무슨 의미인지 잘 모르겠음. 그러나 작동은 됨.
+        String userID = ID.getText().toString();
+        Call<PetProfileResponse> call = profileAPI.deletePost(userID);
         call.enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
