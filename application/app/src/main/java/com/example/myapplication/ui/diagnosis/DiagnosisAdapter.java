@@ -15,7 +15,7 @@ import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.ViewHolder> {
+public class DiagnosisAdapter extends RecyclerView.Adapter<DiagnosisAdapter.ViewHolder> {
 
     private SharedPreferences preferences;
     private Context context;
@@ -37,7 +37,7 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
                     if (onItemClickListener != null) {
                         onItemClickListener.onItemClick(position);
 
-                        diagnosisViewItem item = mList.get(position);
+                        DiagnosisViewItem item = mList.get(position);
                         int diagSerial = item.getdiagSerial();
                         Log.d("짧게 누름", String.valueOf(diagSerial));
 
@@ -59,7 +59,7 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
                     if (onLongItemClickListener != null) {
                         onLongItemClickListener.onLongItemClick(position);
 
-                        diagnosisViewItem item = mList.get(position);
+                        DiagnosisViewItem item = mList.get(position);
                         int diagSerial = item.getdiagSerial();
                         Log.d("길게 누름", String.valueOf(diagSerial));
 
@@ -76,19 +76,19 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
 }
 
     //ArrayList
-    private ArrayList<diagnosisViewItem> mList = null;
+    private ArrayList<DiagnosisViewItem> mList = null;
 
-    public diagnosisAdapter(ArrayList<diagnosisViewItem> mList, Context context) {
+    public DiagnosisAdapter(ArrayList<DiagnosisViewItem> mList, Context context) {
         this.mList = mList; this.context = context;
     }
 
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull
     @Override
-    public diagnosisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DiagnosisAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.f_diagnosis_item, parent, false);
-        diagnosisAdapter.ViewHolder viewHolder = new diagnosisAdapter.ViewHolder(view);
+        DiagnosisAdapter.ViewHolder viewHolder = new DiagnosisAdapter.ViewHolder(view);
 
         return viewHolder;
     }
@@ -96,7 +96,7 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        diagnosisViewItem item = mList.get(position);
+        DiagnosisViewItem item = mList.get(position);
 
         holder.diseaseName.setText(item.getDiseaseName());
         holder.diseaseDate.setText(item.getDiseaseDate());
@@ -112,9 +112,9 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
         void onItemClick(int pos);
     }
 
-    private diagnosisAdapter.OnItemClickListener onItemClickListener = null;
+    private DiagnosisAdapter.OnItemClickListener onItemClickListener = null;
 
-    public void setOnItemClickListener(diagnosisAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(DiagnosisAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
@@ -123,9 +123,9 @@ public class diagnosisAdapter extends RecyclerView.Adapter<diagnosisAdapter.View
         void onLongItemClick(int pos);
     }
 
-    private diagnosisAdapter.OnLongItemClickListener onLongItemClickListener = null;
+    private DiagnosisAdapter.OnLongItemClickListener onLongItemClickListener = null;
 
-    public void setOnLongItemClickListener(diagnosisAdapter.OnLongItemClickListener listener) {
+    public void setOnLongItemClickListener(DiagnosisAdapter.OnLongItemClickListener listener) {
         this.onLongItemClickListener = listener;
     }
 

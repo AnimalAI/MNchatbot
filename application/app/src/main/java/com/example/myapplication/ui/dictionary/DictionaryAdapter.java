@@ -1,6 +1,4 @@
-package com.example.myapplication.ui.Dictionary;
-
-import static android.content.Context.MODE_PRIVATE;
+package com.example.myapplication.ui.dictionary;
 
 import android.content.Context;
 import android.content.SharedPreferences;

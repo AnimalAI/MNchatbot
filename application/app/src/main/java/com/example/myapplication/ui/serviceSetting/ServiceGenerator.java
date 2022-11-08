@@ -1,10 +1,7 @@
-package com.example.myapplication.ui.ServiceSetting;
+package com.example.myapplication.ui.serviceSetting;
 
 import android.text.TextUtils;
 
-import java.io.IOException;
-
-import kotlin.jvm.Throws;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

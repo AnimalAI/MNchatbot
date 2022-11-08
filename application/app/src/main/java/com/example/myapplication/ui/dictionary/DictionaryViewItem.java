@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.Dictionary;
+package com.example.myapplication.ui.dictionary;
 
 public class DictionaryViewItem {
     private String DiseaseName;

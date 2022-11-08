@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.Dictionary;
+package com.example.myapplication.ui.dictionary;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import retrofit2.Call;

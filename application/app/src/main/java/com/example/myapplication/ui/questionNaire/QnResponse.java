@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 import com.google.gson.annotations.SerializedName;
 
 public class QnResponse {

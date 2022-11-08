@@ -1,8 +1,6 @@
-package com.example.myapplication.ui.Dictionary;
+package com.example.myapplication.ui.dictionary;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class DsResponse {
     @SerializedName("statusCode")

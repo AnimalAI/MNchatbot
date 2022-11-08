@@ -1,17 +1,13 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Question {
-    @SerializedName("petSerial")
-    public int petSerial;
+public class QuestionEdit {
+    @SerializedName("medicalFormSerial")
+    public int medicalSerial;
 
     @SerializedName("medicalFormName")
     private String QnName;
-    @SerializedName("medicalFormDate")
-    private String QnDate;
-    @SerializedName("medicalFormTime")
-    private String QnTime;
     @SerializedName("medicalFormQ1")
     private String QnReason;
     @SerializedName("medicalFormQ2")
@@ -27,11 +23,9 @@ public class Question {
     @SerializedName("medicalFormQ7")
     private String QnEtc;
 
-    public Question(int petSerial, String QnName, String QnDate, String QnTime, String QnReason, String QnDisease, boolean QnMedichine, String QnMedichine2, boolean QnSurgery, boolean QnExercise, String QnEtc) {
-        this.petSerial = petSerial;
+    public QuestionEdit(int medicalSerial, String QnName, String QnReason, String QnDisease, boolean QnMedichine, String QnMedichine2, boolean QnSurgery, boolean QnExercise, String QnEtc) {
+        this.medicalSerial = medicalSerial;
         this.QnName = QnName;
-        this.QnDate = QnDate;
-        this.QnTime = QnTime;
         this.QnReason = QnReason;
         this.QnDisease = QnDisease;
         this.QnMedichine = QnMedichine;

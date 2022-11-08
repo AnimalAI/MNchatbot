@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 
 public class QuestionViewItem {
     private int MedicalSerial;

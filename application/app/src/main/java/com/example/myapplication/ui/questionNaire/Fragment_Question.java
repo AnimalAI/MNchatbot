@@ -1,18 +1,16 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,20 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.diagnosis.diagnosisAdapter;
-import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
-import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
-import com.example.myapplication.ui.setting.PetProfileActivity;
-import com.example.myapplication.ui.setting.PetProfileResponse;
-import com.example.myapplication.ui.setting.PetinfoData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +40,7 @@ public class Fragment_Question extends Fragment {
     private QuestionAdapter mAdapter;
     private FloatingActionButton btnAdd;
 
-    List<qnListResponse.QnDataList> Qndata;
+    List<QnListResponse.QnDataList> Qndata;
     private SharedPreferences pre, pre2;
 
     @Override
@@ -150,10 +138,10 @@ public class Fragment_Question extends Fragment {
     public void getQuestion() {
         Qndata = new ArrayList<>();
         ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<qnListResponse> call = QnListAPI.getQnList(getpetSerial());
-        call.enqueue(new Callback<qnListResponse>() {
+        Call<QnListResponse> call = QnListAPI.getQnList(getpetSerial());
+        call.enqueue(new Callback<QnListResponse>() {
             @Override
-            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+            public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
@@ -171,7 +159,7 @@ public class Fragment_Question extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<qnListResponse> call, Throwable t) {
+            public void onFailure(Call<QnListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -187,11 +175,11 @@ public class Fragment_Question extends Fragment {
     //문진표 삭제
     private void DeleteQuestion(int pos) {
         ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<qnListResponse> call = QnListAPI.deleteQuestion(getmedicalSerial());
+        Call<QnListResponse> call = QnListAPI.deleteQuestion(getmedicalSerial());
 
-        call.enqueue(new Callback<qnListResponse>() {
+        call.enqueue(new Callback<QnListResponse>() {
             @Override
-            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+            public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {
                     QuestionViewItem item = mList.get(pos);
                     mList.remove(item);
@@ -199,7 +187,7 @@ public class Fragment_Question extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<qnListResponse> call, Throwable t) {
+            public void onFailure(Call<QnListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

@@ -17,15 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.Dictionary.dsPageResponse;
-import com.example.myapplication.ui.QuestionNaire.QuestionAdapter;
-import com.example.myapplication.ui.QuestionNaire.QuestionViewItem;
-import com.example.myapplication.ui.QuestionNaire.qnListResponse;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
@@ -40,10 +35,10 @@ public class Fragment_diagnosis extends Fragment {
     MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
-    private ArrayList<diagnosisViewItem> mList;
-    private diagnosisAdapter mAdapter;
+    private ArrayList<DiagnosisViewItem> mList;
+    private DiagnosisAdapter mAdapter;
 
-    List<diagListResponse.DiagList> DiagList;
+    List<DiagListResponse.DiagList> DiagList;
 
     private SharedPreferences pre, pre2;
 
@@ -83,18 +78,18 @@ public class Fragment_diagnosis extends Fragment {
         mRecyclerView = rootview.findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
 
-        mAdapter = new diagnosisAdapter(mList, getActivity());
+        mAdapter = new DiagnosisAdapter(mList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         setDiagList();
 
-        mAdapter.setOnItemClickListener(new diagnosisAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new DiagnosisAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
                 mainActivity.onChangeFragment(6);
             }
         });
-        mAdapter.setOnLongItemClickListener(new diagnosisAdapter.OnLongItemClickListener() {
+        mAdapter.setOnLongItemClickListener(new DiagnosisAdapter.OnLongItemClickListener() {
             @Override
             public void onLongItemClick(int pos) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -121,7 +116,7 @@ public class Fragment_diagnosis extends Fragment {
     }
     // 리사이클러뷰에 데이터추가
     public void addItem(int DiagSerial, String DiseaseName, String Date){
-        diagnosisViewItem item = new diagnosisViewItem();
+        DiagnosisViewItem item = new DiagnosisViewItem();
         item.setdiagSerial(DiagSerial);
         item.setDiseaseName(DiseaseName);
         item.setDiseaseDate(Date);
@@ -133,11 +128,11 @@ public class Fragment_diagnosis extends Fragment {
         DiagList = new ArrayList<>();
         ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<diagListResponse> call = DiagAPI.getDiagList(getpetSerial());
+        Call<DiagListResponse> call = DiagAPI.getDiagList(getpetSerial());
 
-        call.enqueue(new Callback<diagListResponse>() {
+        call.enqueue(new Callback<DiagListResponse>() {
             @Override
-            public void onResponse(Call<diagListResponse> call, Response<diagListResponse> response) {
+            public void onResponse(Call<DiagListResponse> call, Response<DiagListResponse> response) {
                 if(response.isSuccessful()) {
                     DiagList = response.body().data;
                     if(DiagList == null) {
@@ -156,7 +151,7 @@ public class Fragment_diagnosis extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<diagListResponse> call, Throwable t) {
+            public void onFailure(Call<DiagListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -170,19 +165,19 @@ public class Fragment_diagnosis extends Fragment {
     //예상진단 삭제
     public void DeleteDiag(int pos) {
         ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<diagListResponse> call = DiagAPI.deleteDiag(getdiagSerial());
+        Call<DiagListResponse> call = DiagAPI.deleteDiag(getdiagSerial());
 
-        call.enqueue(new Callback<diagListResponse>() {
+        call.enqueue(new Callback<DiagListResponse>() {
             @Override
-            public void onResponse(Call<diagListResponse> call, Response<diagListResponse> response) {
+            public void onResponse(Call<DiagListResponse> call, Response<DiagListResponse> response) {
                 if (!response.equals(200)) {
-                    diagnosisViewItem item = mList.get(pos);
+                    DiagnosisViewItem item = mList.get(pos);
                     mList.remove(item);
                     mAdapter.notifyDataSetChanged();
                 }
             }
             @Override
-            public void onFailure(Call<diagListResponse> call, Throwable t) {
+            public void onFailure(Call<DiagListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

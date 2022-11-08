@@ -13,17 +13,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.petSelect.PetSelectActivity;
-import com.example.myapplication.ui.petSelect.petListResponse;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

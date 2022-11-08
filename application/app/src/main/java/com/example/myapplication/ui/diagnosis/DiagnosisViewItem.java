@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.diagnosis;
 
-public class diagnosisViewItem {
+public class DiagnosisViewItem {
     private int diagSerial;
     private String DiseaseName;
     private String DiseaseDate;

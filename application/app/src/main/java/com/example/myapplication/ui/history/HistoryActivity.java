@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.history;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,9 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.diagnosis.diagListResponse;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,11 @@ public class HistoryActivity extends AppCompatActivity {
         int petSerial = pre2.getInt("petSerial", 0);
         return petSerial;
     }
+    public int getapptSerial() {
+        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
+        int apptSerial = pre2.getInt("apptSerial", 0);
+        return apptSerial;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +70,15 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onLongItemClick(int pos) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
-                builder.setTitle("예상진단 삭제")
+                builder.setTitle("상담신청 내역 삭제")
                         .setMessage("정말로 삭제하시겠습니까?")
                         .setPositiveButton("아니오", null)
-                        .setNegativeButton("예", null)
+                        .setNegativeButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteHistoryList(pos);
+                            }
+                        })
                         .create()
                         .show();
             }
@@ -121,6 +131,32 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onFailure(Call<HistoryListResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("잠시 후에 다시 시도해주세요.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+    //상담내역 삭제
+    public void deleteHistoryList(int pos) {
+        ServiceAPI HistoryAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        Call<HistoryListResponse> call = HistoryAPI.deleteHistory(getapptSerial());
+
+        call.enqueue(new Callback<HistoryListResponse>() {
+            @Override
+            public void onResponse(Call<HistoryListResponse> call, Response<HistoryListResponse> response) {
+                if (!response.equals(200)) {
+                    HistoryViewItem item = mList.get(pos);
+                    mList.remove(item);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
             @Override
             public void onFailure(Call<HistoryListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);

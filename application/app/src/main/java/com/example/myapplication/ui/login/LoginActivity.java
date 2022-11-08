@@ -19,10 +19,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.JoinActivity;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 
 import retrofit2.Call;

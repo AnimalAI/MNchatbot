@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.ServiceSetting;
+package com.example.myapplication.ui.serviceSetting;
 
 import java.io.IOException;
 

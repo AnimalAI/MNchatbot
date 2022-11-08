@@ -3,7 +3,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class diagListResponse {
+public class DiagListResponse {
     @SerializedName("statusCode")
     private int code;
 

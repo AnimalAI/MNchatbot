@@ -1,11 +1,10 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 
-import com.example.myapplication.ui.Dictionary.dsListResponse;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class qnListResponse {
+public class QnListResponse {
     @SerializedName("statusCode")
     private int code;
 
@@ -13,7 +12,7 @@ public class qnListResponse {
     private String message;
 
     @SerializedName("data")
-    public List<qnListResponse.QnDataList> data;
+    public List<QnListResponse.QnDataList> data;
 
     public int getCode() {
         return code;

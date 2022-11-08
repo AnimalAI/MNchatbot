@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.Dictionary.DsResponse;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +33,7 @@ public class Fragment_diagnosis_detail extends Fragment {
     private SharedPreferences pre, pre2;
     private TextView dia_Date, dia_Time, dia_Name, dia_Breed, dia_definition, dia_cause, dia_advice, more, more1, more2;
 
-    diagResponse.DiagData DiagData;
+    DiagResponse.DiagData DiagData;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -107,10 +103,10 @@ public class Fragment_diagnosis_detail extends Fragment {
 
     public void call_Diagnosis() {
         ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<diagResponse> call = DiagAPI.getDiag(getdiagSerial());
-        call.enqueue(new Callback<diagResponse>() {
+        Call<DiagResponse> call = DiagAPI.getDiag(getdiagSerial());
+        call.enqueue(new Callback<DiagResponse>() {
             @Override
-            public void onResponse(Call<diagResponse> call, Response<diagResponse> response) {
+            public void onResponse(Call<DiagResponse> call, Response<DiagResponse> response) {
                 if(!response.equals(200)) {
                     DiagData = response.body().data;
                     if (DiagData == null) {
@@ -131,7 +127,7 @@ public class Fragment_diagnosis_detail extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<diagResponse> call, Throwable t) {
+            public void onFailure(Call<DiagResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
