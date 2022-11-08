@@ -1,13 +1,11 @@
-package com.example.myapplication.ui.Dictionary;
+package com.example.myapplication.ui.dictionary;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.hospital.hospitalListResponse;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.util.ArrayList;
@@ -46,9 +43,9 @@ public class Fragment_Dictionary extends Fragment {
     private Button btnDictionary;
     private Context context;
 
-    dsPageResponse.DsPageList dsPageList;
-    List<dsPageResponse.DsPageListItem> dsPageItems;
-    List<dsListResponse.DsDataList> DsSearchdata;
+    DsPageResponse.DsPageList dsPageList;
+    List<DsPageResponse.DsPageListItem> dsPageItems;
+    List<DsListResponse.DsDataList> DsSearchdata;
 
     private SharedPreferences preferences;
 
@@ -126,11 +123,11 @@ public class Fragment_Dictionary extends Fragment {
         ServiceAPI LoadAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         int item = itemCnt;
-        Call<dsPageResponse> call = LoadAPI.callDsinfo(getPage(),item);
+        Call<DsPageResponse> call = LoadAPI.callDsinfo(getPage(),item);
 
-        call.enqueue(new Callback<dsPageResponse>() {
+        call.enqueue(new Callback<DsPageResponse>() {
             @Override
-            public void onResponse(Call<dsPageResponse> call, Response<dsPageResponse> response) {
+            public void onResponse(Call<DsPageResponse> call, Response<DsPageResponse> response) {
                 if(response.isSuccessful()) {
                     dsPageList = response.body().data;
                     totalCnt = dsPageList.gettotalCnt();
@@ -150,7 +147,7 @@ public class Fragment_Dictionary extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<dsPageResponse> call, Throwable t) {
+            public void onFailure(Call<DsPageResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -182,11 +179,11 @@ public class Fragment_Dictionary extends Fragment {
         ServiceAPI DsSearchListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
         String dsName = editText.getText().toString();
 
-        Call<dsListResponse> call = DsSearchListAPI.getDsinfo(dsName);
+        Call<DsListResponse> call = DsSearchListAPI.getDsinfo(dsName);
 
-        call.enqueue(new Callback<dsListResponse>() {
+        call.enqueue(new Callback<DsListResponse>() {
             @Override
-            public void onResponse(Call<dsListResponse> call, Response<dsListResponse> response) {
+            public void onResponse(Call<DsListResponse> call, Response<DsListResponse> response) {
                 if (!response.equals(200)) {
                     DsSearchdata = response.body().data;
                     if (DsSearchdata == null) {
@@ -205,7 +202,7 @@ public class Fragment_Dictionary extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<dsListResponse> call, Throwable t) {
+            public void onFailure(Call<DsListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

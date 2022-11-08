@@ -1,21 +1,22 @@
-package com.example.myapplication.ui.ServiceSetting;
+package com.example.myapplication.ui.serviceSetting;
 
-import com.example.myapplication.ui.Dictionary.DsResponse;
-import com.example.myapplication.ui.Dictionary.dsListResponse;
-import com.example.myapplication.ui.Dictionary.dsPageResponse;
-import com.example.myapplication.ui.QuestionNaire.QnResponse;
-import com.example.myapplication.ui.QuestionNaire.Question;
-import com.example.myapplication.ui.QuestionNaire.QuestionEdit;
-import com.example.myapplication.ui.QuestionNaire.qnListResponse;
-import com.example.myapplication.ui.diagnosis.diagListResponse;
-import com.example.myapplication.ui.diagnosis.diagResponse;
+import com.example.myapplication.ui.dictionary.DsResponse;
+import com.example.myapplication.ui.dictionary.DsListResponse;
+import com.example.myapplication.ui.dictionary.DsPageResponse;
+import com.example.myapplication.ui.questionNaire.QnResponse;
+import com.example.myapplication.ui.questionNaire.Question;
+import com.example.myapplication.ui.questionNaire.QuestionEdit;
+import com.example.myapplication.ui.questionNaire.QnListResponse;
+import com.example.myapplication.ui.diagnosis.DiagListResponse;
+import com.example.myapplication.ui.diagnosis.DiagResponse;
 import com.example.myapplication.ui.history.HistoryListResponse;
 import com.example.myapplication.ui.history.HistoryResponse;
-import com.example.myapplication.ui.hospital.hospitalListResponse;
+import com.example.myapplication.ui.hospital.HospitalListResponse;
 import com.example.myapplication.ui.join.EmailCodeData;
 import com.example.myapplication.ui.join.EmailValidationData;
 import com.example.myapplication.ui.join.JoinData;
 import com.example.myapplication.ui.join.JoinResponse;
+import com.example.myapplication.ui.join.PasswordChangeRequest;
 import com.example.myapplication.ui.login.LoginRequest;
 import com.example.myapplication.ui.login.LoginResponse;
 import com.example.myapplication.ui.mainPage.ChatbotResponse;
@@ -63,7 +64,7 @@ public interface ServiceAPI {
 
     //비밀번호 변경
     @PATCH("/member/changePw")
-    Call<JoinResponse> changePw(@Body LoginRequest data);
+    Call<JoinResponse> changePw(@Body PasswordChangeRequest data);
 
     //회원 이메일(ID) 받아오는 api
     @GET("/member/email")
@@ -97,11 +98,11 @@ public interface ServiceAPI {
     //======================
     //질병백과 페이징처리
     @GET("/disease/totalDisease/{page}/{diseaseCnt}")
-    Call<dsPageResponse> callDsinfo(@Path("page")int page, @Path("diseaseCnt")int itemCnt);
+    Call<DsPageResponse> callDsinfo(@Path("page")int page, @Path("diseaseCnt")int itemCnt);
 
     //질병백과 검색 결과
     @GET("/disease/dsList/{dsName}")
-    Call<dsListResponse> getDsinfo(@Path("dsName")String dsName);
+    Call<DsListResponse> getDsinfo(@Path("dsName")String dsName);
 
     //질병백과 검색 결과 내용
     @GET("/disease/{dsId}")
@@ -110,12 +111,12 @@ public interface ServiceAPI {
     //======================
     //연계병원 목록 보여주기
     @GET("/hospital/{region}/{city}")
-    Call<hospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
+    Call<HospitalListResponse> Allhosplist(@Path("region")String region, @Path("city")String city);
 
     //연계병원 상담신청
     @Multipart
     @POST("/hospital/apply")
-    Call<hospitalListResponse> apply(@Part MultipartBody.Part postImg,
+    Call<HospitalListResponse> apply(@Part MultipartBody.Part postImg,
                                      @PartMap HashMap<String, RequestBody> data);
 
     //======================
@@ -125,7 +126,7 @@ public interface ServiceAPI {
 
     //문진표 목록
     @GET("/medicalForm/medicalFormList/{petSerial}")
-    Call<qnListResponse> getQnList(@Path("petSerial")int Serial);
+    Call<QnListResponse> getQnList(@Path("petSerial")int Serial);
 
     //문진표 세부 내용
     @GET("/medicalForm/{medicalFormSerial}")
@@ -137,20 +138,20 @@ public interface ServiceAPI {
 
     //문진표 삭제
     @DELETE("/medicalForm/delete/{medicalFormSerial}")
-    Call<qnListResponse> deleteQuestion(@Path("medicalFormSerial")int mSerial);
+    Call<QnListResponse> deleteQuestion(@Path("medicalFormSerial")int mSerial);
 
     //=======================
     //예상진단 목록
     @GET("/expectDiag/expectDiagList/{petSerial}")
-    Call<diagListResponse> getDiagList(@Path("petSerial")int Serial);
+    Call<DiagListResponse> getDiagList(@Path("petSerial")int Serial);
 
     //예상진단 세부목록
     @GET("/expectDiag/{expectDiagSerial}")
-    Call<diagResponse> getDiag(@Path("expectDiagSerial")int DiagSerial);
+    Call<DiagResponse> getDiag(@Path("expectDiagSerial")int DiagSerial);
 
     //예상진단 삭제
     @DELETE("/expectDiag/delete/{expectDiagSerial}")
-    Call<diagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
+    Call<DiagListResponse> deleteDiag(@Path("expectDiagSerial")int DiagSerial);
 
     //예상진단 추가
     @POST("/expectDiag/add/{petSerial}")
@@ -167,5 +168,5 @@ public interface ServiceAPI {
 
     //상담신청 삭제
     @DELETE("/appointment/delete/{appointmentSerial}")
-    Call<HistoryResponse> deleteHistory(@Path("appointmentSerial")int apptSerial);
+    Call<HistoryListResponse> deleteHistory(@Path("appointmentSerial")int apptSerial);
 }

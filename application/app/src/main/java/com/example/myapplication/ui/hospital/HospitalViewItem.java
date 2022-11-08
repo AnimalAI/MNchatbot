@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.hospital;
 
-public class hospitalViewItem {
+public class HospitalViewItem {
     private String HospitalType, HospitalName, HospitalNumber, location, email, field;
     private int HospitalSerial;
 

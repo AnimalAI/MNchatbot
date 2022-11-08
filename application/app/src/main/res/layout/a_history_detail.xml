@@ -182,7 +182,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_Breed"
+                    android:id="@+id/history_petSpecies"
                     android:text="고양이"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -201,7 +201,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_petSpecies"
+                    android:id="@+id/history_Breed"
                     android:text="먼치킨"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -239,7 +239,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet"
+                    android:id="@+id/history_Neutralization"
                     android:text="예"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -258,7 +258,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet2"
+                    android:id="@+id/history_underDisease"
                     android:text="근골격계질환"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -269,7 +269,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="15dp">
                 <TextView
-                    android:text="복용 중인 약"
+                    android:text="약에 관한 특이사항"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:layout_width="match_parent"
@@ -277,7 +277,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet3"
+                    android:id="@+id/history_SpecialNote"
                     android:text="특이사항 없음"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -288,7 +288,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="약 섭취 후 과민반응"
+                    android:text="약 관련 내용"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:layout_width="match_parent"
@@ -296,7 +296,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/dia_definition"
+                    android:id="@+id/history_medication"
                     android:text="네"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -317,7 +317,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet4"
+                    android:id="@+id/history_SurgeryOrAne"
                     android:text="아니오"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -336,7 +336,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet5"
+                    android:id="@+id/history_HyperExercise"
                     android:text="예"
                     android:layout_weight="8"
                     android:gravity="center"
@@ -355,7 +355,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
                 <TextView
-                    android:id="@+id/history_pet6"
+                    android:id="@+id/history_etc"
                     android:text="치료 거부반응 있음."
                     android:layout_weight="8"
                     android:gravity="center"
@@ -364,6 +364,20 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
             </TableRow></TableLayout>
+        <TextView android:layout_marginTop="15dp"
+            android:text="참고 이미지"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:id="@+id/history_Image"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"/>
         <Button
             android:layout_marginTop="30dp"
             android:text="상담 내용"

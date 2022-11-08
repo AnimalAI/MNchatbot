@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
 import com.example.myapplication.ui.petSelect.PetSelectActivity;
 import com.example.myapplication.ui.petSelect.RecyclerViewAdapter;
 import com.google.android.material.button.MaterialButton;

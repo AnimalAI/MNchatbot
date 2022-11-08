@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,11 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +39,15 @@ public class Fragment_hospital extends Fragment {
     MainActivity mainActivity;
 
     private RecyclerView mRecyclerView;
-    private ArrayList<hospitalViewItem> mList;
-    private hospitalAdapter mAdapter;
+    private ArrayList<HospitalViewItem> mList;
+    private HospitalAdapter mAdapter;
     private Spinner City1, City2;
     private ArrayAdapter City1_Adapter, City2_Adapter;
     private Button btn_city;
     private String City1Name, City2Name, type;
 
-    hospitalListResponse dataList;
-    List<hospitalListResponse.HospDataList> hospdata;
+    HospitalListResponse dataList;
+    List<HospitalListResponse.HospDataList> hospdata;
     private SharedPreferences preferences;
 
     @Override
@@ -82,22 +81,21 @@ public class Fragment_hospital extends Fragment {
         mList = new ArrayList<>();
         // 리사이클러뷰에 데이터추가 (함수가 밑에 구현되어있음)
 
-        mAdapter = new hospitalAdapter(mList, getActivity());
+        mAdapter = new HospitalAdapter(mList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
 
-        mAdapter.setOnItemClickListener(new hospitalAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new HospitalAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mainActivity.onChangeFragment(7);
+                Toast.makeText(getActivity(), "상담신청 가능한 연계병원이 아직 없습니다.", Toast.LENGTH_SHORT).show();
+                //mainActivity.onChangeFragment(7);
             }
         });
 
         btn_city.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                call_totalList();
-            }
+            public void onClick(View view) { call_totalList(); }
         });
 
         //스피너
@@ -140,7 +138,7 @@ public class Fragment_hospital extends Fragment {
     }
     // 리사이클러뷰에 데이터추가
     public void addItem(int HospSerial, String HospType, String HospitalName, String HospitalNum, String location, String email, String field){
-        hospitalViewItem item = new hospitalViewItem();
+        HospitalViewItem item = new HospitalViewItem();
         item.setHospitalSerial(HospSerial);
         item.setHospitalType(HospType);
         item.setHospitalName(HospitalName);
@@ -157,11 +155,11 @@ public class Fragment_hospital extends Fragment {
         hospdata = new ArrayList<>();
         ServiceAPI hospListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<hospitalListResponse> call = hospListAPI.Allhosplist(region, city);
+        Call<HospitalListResponse> call = hospListAPI.Allhosplist(region, city);
 
-        call.enqueue(new Callback<hospitalListResponse>() {
+        call.enqueue(new Callback<HospitalListResponse>() {
             @Override
-            public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
+            public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
                 if (!response.equals(200)) {
                     dataList = response.body();
                     hospdata = dataList.data;
@@ -180,7 +178,7 @@ public class Fragment_hospital extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<hospitalListResponse> call, Throwable t) {
+            public void onFailure(Call<HospitalListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

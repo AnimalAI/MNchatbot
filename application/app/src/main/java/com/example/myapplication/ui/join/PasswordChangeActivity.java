@@ -17,10 +17,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.login.LoginActivity;
-import com.example.myapplication.ui.login.LoginRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,7 +102,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 joinUserState.setPassword(passwordEditText.getText().toString());
                 joinUserState.setRePassword(passwordEditTextCheck.getText().toString());
                 if (joinUserState.isValidData() && isEmailValidated) {
-                    changePw(new LoginRequest(joinUserState.getEmail(), joinUserState.getPassword()));
+                    changePw(new PasswordChangeRequest(joinUserState.getPassword()));
                 } else {
                     Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_LONG).show();
                 }
@@ -184,7 +183,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         });
     }
     // 패스워드 변경 리퀘스트
-    private void changePw(LoginRequest data) {
+    private void changePw(PasswordChangeRequest data) {
         service.changePw(data).enqueue(new Callback<JoinResponse>() {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {

@@ -1,7 +1,5 @@
-package com.example.myapplication.ui.QuestionNaire;
+package com.example.myapplication.ui.questionNaire;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -14,9 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.Dictionary.DictionaryViewItem;
-import com.example.myapplication.ui.diagnosis.diagnosisAdapter;
-import com.example.myapplication.ui.diagnosis.diagnosisViewItem;
 
 import java.util.ArrayList;
 

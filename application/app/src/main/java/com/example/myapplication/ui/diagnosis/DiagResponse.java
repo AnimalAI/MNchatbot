@@ -2,7 +2,7 @@ package com.example.myapplication.ui.diagnosis;
 
 import com.google.gson.annotations.SerializedName;
 
-public class diagResponse {
+public class DiagResponse {
     @SerializedName("statusCode")
     private int code;
 

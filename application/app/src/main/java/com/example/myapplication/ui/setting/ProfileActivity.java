@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.join.PasswordChangeActivity;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
 import com.example.myapplication.ui.login.LoginActivity;
 
 import retrofit2.Call;

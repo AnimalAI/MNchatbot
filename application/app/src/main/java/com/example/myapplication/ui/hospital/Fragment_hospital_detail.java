@@ -36,13 +36,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.QuestionNaire.QuestionViewItem;
-import com.example.myapplication.ui.QuestionNaire.qnListResponse;
-import com.example.myapplication.ui.ServiceSetting.ServiceAPI;
-import com.example.myapplication.ui.ServiceSetting.ServiceGenerator;
+import com.example.myapplication.ui.questionNaire.QnListResponse;
+import com.example.myapplication.ui.serviceSetting.ServiceAPI;
+import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
 import java.io.BufferedOutputStream;
@@ -67,7 +65,7 @@ public class Fragment_hospital_detail extends Fragment {
     private SharedPreferences pre, pre2;
 
     List<String> spnArray = new ArrayList<>();
-    List<qnListResponse.QnDataList> Qndata;
+    List<QnListResponse.QnDataList> Qndata;
     ArrayAdapter<String> adapter;
     int mSerial;
 
@@ -115,12 +113,6 @@ public class Fragment_hospital_detail extends Fragment {
         pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
         int petSerial = pre2.getInt("petSerial", 0);
         return petSerial;
-    }
-    //medical? hospSerial?
-    public int getdiagSerial() {
-        pre2 = getActivity().getSharedPreferences("Serial", MODE_PRIVATE);
-        int diagSerial = pre2.getInt("diagSerial", 0);
-        return diagSerial;
     }
 
     @Nullable
@@ -264,10 +256,10 @@ public class Fragment_hospital_detail extends Fragment {
         Qndata = new ArrayList<>();
         ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<qnListResponse> call = QnListAPI.getQnList(getpetSerial());
-        call.enqueue(new Callback<qnListResponse>() {
+        Call<QnListResponse> call = QnListAPI.getQnList(getpetSerial());
+        call.enqueue(new Callback<QnListResponse>() {
             @Override
-            public void onResponse(Call<qnListResponse> call, Response<qnListResponse> response) {
+            public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
@@ -285,7 +277,7 @@ public class Fragment_hospital_detail extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<qnListResponse> call, Throwable t) {
+            public void onFailure(Call<QnListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")
@@ -302,7 +294,7 @@ public class Fragment_hospital_detail extends Fragment {
     public void sendData() {
         String name = Name.getText().toString();
         String number = Number.getText().toString();
-        
+
         //스피너 sharedPreference로 불러와야함.
         int mediSerial = mSerial;
 
@@ -310,24 +302,10 @@ public class Fragment_hospital_detail extends Fragment {
         String time = Dtime;
         boolean bill = check;
         String reason = Reason.getText().toString();
-        String Image = url;
-
 
         int hospSerial = pre2.getInt("hospSerial", 0);
 
         ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        /*ApplyData applyData = new ApplyData(Serial, 6, hospSerial, name, number, date, time, bill, reason, null);
-
-        RequestBody 내용 > byte url(?) 같은 거 넣어야 하는 듯.
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
-        File IImage = directory_AAI;
-        if (IImage == null) {body = null;}
-        else {
-            body = MultipartBody.Part.createFormData("uploaded_file", directory_AAI.getName(), requestFile);
-        }
-        MultipartBody.Part bbody = body;
-
-        Call<hospitalListResponse> call = SendAPI.apply(applyData);*/
 
         RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getpetSerial()));
         RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mediSerial));
@@ -360,11 +338,11 @@ public class Fragment_hospital_detail extends Fragment {
         }
         MultipartBody.Part bbody = body;
 
-        Call<hospitalListResponse> call = SendAPI.apply(bbody, map);
+        Call<HospitalListResponse> call = SendAPI.apply(bbody, map);
 
-        call.enqueue(new Callback<hospitalListResponse>() {
+        call.enqueue(new Callback<HospitalListResponse>() {
             @Override
-            public void onResponse(Call<hospitalListResponse> call, Response<hospitalListResponse> response) {
+            public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getActivity(),"신청되었습니다.", Toast.LENGTH_SHORT).show();
                     mainActivity.onChangeFragment(4);
@@ -372,7 +350,7 @@ public class Fragment_hospital_detail extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<hospitalListResponse> call, Throwable t) {
+            public void onFailure(Call<HospitalListResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("알림")
                         .setMessage("잠시 후에 다시 시도해주세요.")

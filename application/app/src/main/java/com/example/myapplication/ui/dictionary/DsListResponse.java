@@ -1,11 +1,9 @@
-package com.example.myapplication.ui.Dictionary;
-
+package com.example.myapplication.ui.dictionary;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class dsPageResponse {
-
+public class DsListResponse {
     @SerializedName("statusCode")
     private int code;
 
@@ -13,34 +11,23 @@ public class dsPageResponse {
     private String message;
 
     @SerializedName("data")
-    public DsPageList data;
+    public List<DsDataList> data;
 
     public int getCode() {
         return code;
     }
+
     public String getMessage() {
         return message;
     }
 
-    public class DsPageList {
-        //총 페이지 수, 다음 페이지 여부
-        @SerializedName("totalDiseaseCnt")
-        private int totalCnt;
-        @SerializedName("hasNextPage")
-        private boolean nextPage;
-
-        @SerializedName("diseaseList")
-        public List<DsPageListItem> dsPageList;
-
-        public int gettotalCnt() {
-            return totalCnt;
-        }
-        public boolean getnextPage() {
-            return nextPage;
-        }
+    @Override
+    public String toString() {
+        return "DsSearchResponse{" + "data=" + data+ "}";
     }
 
-    public class DsPageListItem {
+    public class DsDataList {
+        //검색결과
         @SerializedName("diseaseId")
         private String dsId;
         @SerializedName("diseaseName")
@@ -53,4 +40,5 @@ public class dsPageResponse {
             return dsName;
         }
     }
+
 }
