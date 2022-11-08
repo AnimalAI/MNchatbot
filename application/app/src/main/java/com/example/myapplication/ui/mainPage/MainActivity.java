@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.tab_3:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, diagnosis).commit();
+                        Toast.makeText(MainActivity.this, "챗봇 상담을 진행해주세요.", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.tab_4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,hospital).commit();
