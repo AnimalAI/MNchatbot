@@ -117,7 +117,6 @@ public class HistoryActivity extends AppCompatActivity {
                     if(HistoryList == null) {
                         Log.d("비어있음", "성공");
                     } else {
-                        Log.d("자료있음", "성공");
                         Log.d("자료있음", String.valueOf(HistoryList.size()));
                         for(int i=0; i< HistoryList.size(); i++) {
                             Log.d("비어있음", HistoryList.toString());

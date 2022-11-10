@@ -22,6 +22,9 @@ import com.example.myapplication.ui.serviceSetting.ServiceAPI;
 import com.example.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.example.myapplication.ui.mainPage.MainActivity;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,8 +63,8 @@ public class Fragment_diagnosis_detail extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.f_diagnosis_detail,container,false);
+
         dia_Date = rootview.findViewById(R.id.dia_Date);
         dia_Time = rootview.findViewById(R.id.dia_time);
         dia_Name = rootview.findViewById(R.id.dia_Name);
@@ -74,7 +77,6 @@ public class Fragment_diagnosis_detail extends Fragment {
         more2 = rootview.findViewById(R.id.more2);
 
         call_Diagnosis();
-
         return rootview;
     }
 
