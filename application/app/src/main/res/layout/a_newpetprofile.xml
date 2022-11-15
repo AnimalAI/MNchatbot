@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:src="@drawable/dog2" />
+        android:src="@drawable/icon_app" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
                 android:backgroundTint="#CCFFFFFF"
                 android:textColor="@color/purple"
 
-                android:text="취소"
+                android:text="뒤로가기"
                 android:textSize="18dp"
                 android:id="@+id/btnAddPetCancel"
                 android:layout_width="120dp"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,11 +105,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if (item.getImgName() != null) {
             // 아이템의 이미지 이름이 cat이면 고양이 사진으로 설정
-            if(item.getImgName().equals("CAT")) { holder.imgView_item.setImageResource(R.drawable.cat);
-            } else{
-            holder.imgView_item.setImageResource(R.drawable.dog);}
-
+            if (item.getImgName().equals("CAT")) {
+                holder.imgView_item.setImageResource(R.drawable.cat);
+            } else {
+                holder.imgView_item.setImageResource(R.drawable.dog);
+            }
             holder.petNickName.setText(item.getMainText());}
+        else {Toast.makeText(context, "이미지 설정을 해주세요.", Toast.LENGTH_SHORT).show();}
     }
 
     @Override

@@ -36,6 +36,7 @@ public class AddPetActivity extends AppCompatActivity {
     private EditText petBreed,petNickName;
     private Button btnAge, btnSave, btnCancel, selectCatButton, selectDogButton;
 
+    int count = 0;
     private SharedPreferences preferences;
 
     //서버통신
@@ -67,29 +68,35 @@ public class AddPetActivity extends AppCompatActivity {
         petBreed = findViewById(R.id.petbreed);
         petNickName = findViewById(R.id.petNickname);
         petAge = findViewById(R.id.petAge);
-        
+
 
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddPetActivity.this);
-                builder.setTitle("알림")
-                        .setMessage("개/고양이 선택 정보는 바꿀 수 없습니다. 확인하셨습니까?")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                setPetinfo();
-                            }
-                        })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .create()
-                        .show();
-
+                if ( petNickName.getText().toString().isEmpty() || petAge.getText().toString().isEmpty() || petBreed.getText().toString().isEmpty()
+                        || (man.isChecked() == false && woman.isChecked()==false)
+                        || (NeuteringYes.isChecked() == false && NeuteringNo.isChecked()==false)
+                        || (count == 0)){
+                    Toast.makeText(AddPetActivity.this, "입력하지 않은 항목이 있습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddPetActivity.this);
+                    builder.setTitle("알림")
+                            .setMessage("개/고양이 선택 정보는 바꿀 수 없습니다. 확인하셨습니까?")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    setPetinfo();
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create()
+                            .show();
+                }
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener(){
@@ -143,6 +150,7 @@ public class AddPetActivity extends AppCompatActivity {
             public void onClick(View view) {
                 petprofile.setImageResource(R.drawable.dog2);
                 CATDOG = "DOG";
+                count = 1;
             }
         });
         selectCatButton.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +158,7 @@ public class AddPetActivity extends AppCompatActivity {
             public void onClick(View view) {
                 petprofile.setImageResource(R.drawable.cat2);
                 CATDOG = "CAT";
+                count = 2;
             }
         });
 
@@ -170,6 +179,7 @@ public class AddPetActivity extends AppCompatActivity {
         if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
+
         Petinfo petinfo = new Petinfo(Species, Name, Age, Breed, Gender, Neutering);
         Call<PetProfileResponse> call = petAddAPI.setPetinfo(petinfo);
 
@@ -178,11 +188,11 @@ public class AddPetActivity extends AppCompatActivity {
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
                     Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
+                    /*Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
                     intent.putExtra("petName", Name);
                     intent.putExtra("CATDOG", CATDOG);
                     setResult(Activity.RESULT_OK, intent);
-                    finish();
+                    finish();*/
                 }
             }
 
