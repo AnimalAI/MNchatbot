@@ -240,7 +240,12 @@ public class Fragment_hospital_detail extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData();
+                if ( Name.getText().toString().isEmpty() || Number.getText().toString().isEmpty()
+                        || (datePickerDialog.isShowing()==false)
+                        || (Reason.getText().toString().isEmpty())
+                        || (radioGroup.getCheckedRadioButtonId()==-1)){
+                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있습니다.", Toast.LENGTH_SHORT).show();
+                } else {sendData();}
             }
         });
         backTolist.setOnClickListener(new View.OnClickListener() {
