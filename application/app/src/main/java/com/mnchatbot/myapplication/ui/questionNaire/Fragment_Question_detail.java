@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.mnchatbot.myapplication.R;
+import com.mnchatbot.myapplication.ui.petSelect.AddPetActivity;
 import com.mnchatbot.myapplication.ui.serviceSetting.ServiceAPI;
 import com.mnchatbot.myapplication.ui.serviceSetting.ServiceGenerator;
 import com.mnchatbot.myapplication.ui.mainPage.MainActivity;
@@ -160,7 +161,12 @@ public class Fragment_Question_detail extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addQuestion();
+                if ( q_Name.getText().toString().isEmpty() || q_reason.getText().toString().isEmpty()
+                        || (q_radioGroup1.getCheckedRadioButtonId() == -1)
+                        || (q_radioGroup2.getCheckedRadioButtonId() == -1)
+                        || (q_radioGroup3.getCheckedRadioButtonId() == -1)){
+                    Toast.makeText(getActivity(), "입력하지 않은 항목이 있습니다.", Toast.LENGTH_SHORT).show();
+                } else {addQuestion();}
             }
         });
 

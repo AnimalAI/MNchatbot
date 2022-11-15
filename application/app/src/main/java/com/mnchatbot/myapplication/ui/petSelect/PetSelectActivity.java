@@ -38,12 +38,12 @@ public class PetSelectActivity extends AppCompatActivity {
     petListResponse dataList;
     List<petListResponse.PetDataList> petdata;
 
-    private SharedPreferences preferences;
+    private SharedPreferences pre, pre2;
 
     //서버통신
     public String getToken() {
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = preferences.getString("TOKEN", null);
+        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
         return token;
     }
 
@@ -78,26 +78,27 @@ public class PetSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(), AddPetActivity.class);
-                startActivityForResult(intent, 101);
+                startActivity(intent);
             }
 
         });
 
     }
-    //사용자가 작성한 반려동물 정보 불러오기
+    /*사용자가 작성한 반려동물 정보 불러오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
         if (resultCode == Activity.RESULT_OK) {
             if (intent !=null) {
-                String petName = intent.getStringExtra("petName");
+                callPetList();
+                /*String petName = intent.getStringExtra("petName");
                 String CATDOG = intent.getStringExtra("CATDOG");
-                addItem(petName, CATDOG, 0);
+                addItem(petName, CATDOG, );
                 mRecyclerViewAdapter.notifyDataSetChanged();
             }
         }
-    }
+    }*/
 
     // 리사이클러뷰에 데이터추가
     public void addItem(String mainText, String imgName, int petSerial){

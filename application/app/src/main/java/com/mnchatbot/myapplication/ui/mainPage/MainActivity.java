@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(0);
 
         ImageButton settingBtn = (ImageButton) findViewById(R.id.setting_btn);
         ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);

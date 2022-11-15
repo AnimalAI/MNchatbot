@@ -155,7 +155,6 @@ public class PetProfileActivity extends SettingActivity {
 
     //반려동물 정보 변경
     public void updatePetPost(){
-        //String Species = "CAT";
         String Name = petNickName.getText().toString().trim();
         int Age = Integer.parseInt(petAge.getText().toString());
         String Breed = petBreed.getText().toString().trim();

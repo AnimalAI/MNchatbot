@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryVariant">@color/warmBlue</item>
         <item name="colorOnPrimary">@color/white</item>
