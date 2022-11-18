@@ -104,9 +104,8 @@ public class Fragment_diagnosis_detail extends Fragment {
     }
 
     public void call_Diagnosis() {
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<DiagResponse> call = DiagAPI.getDiag(getdiagSerial());
-        call.enqueue(new Callback<DiagResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getDiag(getdiagSerial()).enqueue(new Callback<DiagResponse>() {
             @Override
             public void onResponse(Call<DiagResponse> call, Response<DiagResponse> response) {
                 if(!response.equals(200)) {

@@ -114,9 +114,9 @@ public class Fragment_Dictionary_detail extends Fragment {
     }
 
     public void callDsSearchinfo() {
-        ServiceAPI DsSearchAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<DsResponse> call = DsSearchAPI.getDsSearchinfo(getdsId());
-        call.enqueue(new Callback<DsResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+
+        service.getDsSearchinfo(getdsId()).enqueue(new Callback<DsResponse>() {
             @Override
             public void onResponse(Call<DsResponse> call, Response<DsResponse> response) {
                 Dsdata = response.body().data;

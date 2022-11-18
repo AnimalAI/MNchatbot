@@ -127,11 +127,9 @@ public class Fragment_diagnosis extends Fragment {
     //예상진단 로드
     public void setDiagList() {
         DiagList = new ArrayList<>();
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<DiagListResponse> call = DiagAPI.getDiagList(getpetSerial());
-
-        call.enqueue(new Callback<DiagListResponse>() {
+        service.getDiagList(getpetSerial()).enqueue(new Callback<DiagListResponse>() {
             @Override
             public void onResponse(Call<DiagListResponse> call, Response<DiagListResponse> response) {
                 if(response.isSuccessful()) {
@@ -165,10 +163,9 @@ public class Fragment_diagnosis extends Fragment {
 
     //예상진단 삭제
     public void DeleteDiag(int pos) {
-        ServiceAPI DiagAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<DiagListResponse> call = DiagAPI.deleteDiag(getdiagSerial());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        call.enqueue(new Callback<DiagListResponse>() {
+        service.deleteDiag(getdiagSerial()).enqueue(new Callback<DiagListResponse>() {
             @Override
             public void onResponse(Call<DiagListResponse> call, Response<DiagListResponse> response) {
                 if (!response.equals(200)) {

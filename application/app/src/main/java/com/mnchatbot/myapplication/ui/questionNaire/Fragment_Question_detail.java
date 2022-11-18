@@ -211,12 +211,11 @@ public class Fragment_Question_detail extends Fragment {
         if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
-        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         Question questionNaire = new Question(getpetSerial(), Qname, Date, Time, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
-        Call<QnResponse> call = QuestionAPI.setQuestion(questionNaire);
-        call.enqueue(new Callback<QnResponse>() {
+        service.setQuestion(questionNaire).enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
                 Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_SHORT).show();

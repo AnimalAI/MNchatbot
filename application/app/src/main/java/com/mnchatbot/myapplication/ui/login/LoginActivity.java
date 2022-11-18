@@ -40,11 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
 
     //서버 통신
-    private String TOKEN = getToken();
-    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, TOKEN);
-    public String getToken() {
-        return TOKEN;
-    }
+    private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

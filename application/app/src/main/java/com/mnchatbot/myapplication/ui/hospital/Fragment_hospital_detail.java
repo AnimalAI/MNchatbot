@@ -259,10 +259,8 @@ public class Fragment_hospital_detail extends Fragment {
     }
     public void callQuestion() {
         Qndata = new ArrayList<>();
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-
-        Call<QnListResponse> call = QnListAPI.getQnList(getpetSerial());
-        call.enqueue(new Callback<QnListResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getQnList(getpetSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {
@@ -310,7 +308,7 @@ public class Fragment_hospital_detail extends Fragment {
 
         int hospSerial = pre2.getInt("hospSerial", 0);
 
-        ServiceAPI SendAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         RequestBody petSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getpetSerial()));
         RequestBody medicalSerial = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(mediSerial));
@@ -343,9 +341,7 @@ public class Fragment_hospital_detail extends Fragment {
         }
         MultipartBody.Part bbody = body;
 
-        Call<HospitalListResponse> call = SendAPI.apply(bbody, map);
-
-        call.enqueue(new Callback<HospitalListResponse>() {
+        service.apply(bbody, map).enqueue(new Callback<HospitalListResponse>() {
             @Override
             public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
                 if (!response.equals(200)) {

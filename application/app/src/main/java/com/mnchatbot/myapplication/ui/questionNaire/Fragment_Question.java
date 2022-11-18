@@ -137,9 +137,8 @@ public class Fragment_Question extends Fragment {
     //문진표 목록
     public void getQuestion() {
         Qndata = new ArrayList<>();
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<QnListResponse> call = QnListAPI.getQnList(getpetSerial());
-        call.enqueue(new Callback<QnListResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getQnList(getpetSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {
@@ -174,10 +173,8 @@ public class Fragment_Question extends Fragment {
 
     //문진표 삭제
     private void DeleteQuestion(int pos) {
-        ServiceAPI QnListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<QnListResponse> call = QnListAPI.deleteQuestion(getmedicalSerial());
-
-        call.enqueue(new Callback<QnListResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.deleteQuestion(getmedicalSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
                 if (!response.equals(200)) {

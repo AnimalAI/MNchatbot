@@ -38,7 +38,7 @@ public class PetSelectActivity extends AppCompatActivity {
     petListResponse dataList;
     List<petListResponse.PetDataList> petdata;
 
-    private SharedPreferences pre, pre2;
+    private SharedPreferences pre;
 
     //서버통신
     public String getToken() {

@@ -26,13 +26,11 @@ public class SettingActivity extends AppCompatActivity {
         listSet.add("반려동물 프로필");
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ImageButton drawerBtn = (ImageButton) findViewById(R.id.toolbar_btn);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((Context) this);
-        recyclerView.setLayoutManager(linearLayoutManager); //LayoutManger 설정
 
         SettingAdapter settingAdapter = new SettingAdapter(listSet);
-        //==========[Click 이벤트]=========
+        recyclerView.setAdapter(settingAdapter); //어댑터 설정
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, recyclerView.VERTICAL, false)); //LayoutManger 설정
+
         settingAdapter.setOnItemClickListener(new SettingAdapter.OnItemclickListener() {
             @Override
             public void onItemclicked(int position, String data) {
@@ -47,8 +45,5 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-        //====================================
-
-        recyclerView.setAdapter(settingAdapter); //어댑터 설정
     }
 }

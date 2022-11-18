@@ -165,7 +165,7 @@ public class AddPetActivity extends AppCompatActivity {
     }
     //반려동물 정보 설정
     public void setPetinfo(){
-        ServiceAPI petAddAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         String Species = CATDOG;
         String Name = petNickName.getText().toString().trim();
@@ -181,9 +181,7 @@ public class AddPetActivity extends AppCompatActivity {
 
 
         Petinfo petinfo = new Petinfo(Species, Name, Age, Breed, Gender, Neutering);
-        Call<PetProfileResponse> call = petAddAPI.setPetinfo(petinfo);
-
-        call.enqueue(new Callback<PetProfileResponse>() {
+        service.setPetinfo(petinfo).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {

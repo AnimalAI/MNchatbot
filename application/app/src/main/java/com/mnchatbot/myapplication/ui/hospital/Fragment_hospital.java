@@ -153,11 +153,9 @@ public class Fragment_hospital extends Fragment {
         String region = City1Name;
         String city = City2Name;
         hospdata = new ArrayList<>();
-        ServiceAPI hospListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<HospitalListResponse> call = hospListAPI.Allhosplist(region, city);
-
-        call.enqueue(new Callback<HospitalListResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.Allhosplist(region, city).enqueue(new Callback<HospitalListResponse>() {
             @Override
             public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
                 if (!response.equals(200)) {
