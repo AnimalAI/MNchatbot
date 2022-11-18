@@ -16,18 +16,6 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
     private Context context;
     private ArrayList<String> listSet;
 
-    //onItemClickListener 인터페이스 선언
-    public interface OnItemclickListener {
-        void onItemclicked(int position, String data);
-    }
-    //OnItemClickListener 참조변수 선언
-    private OnItemclickListener itemclickListener;
-
-    //OnItemclickListener 전달 메소드
-    public void setOnItemClickListener (OnItemclickListener listener) {
-        itemclickListener = listener;
-    }
-
     //뷰홀더 클래스
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView textView;
@@ -54,8 +42,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.a_setting_item, parent, false);
         SettingAdapter.ViewHolder viewHolder = new SettingAdapter.ViewHolder(view);
-
-        //=================[Click 이벤트]=============
+        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +67,18 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
     @Override //전체 데이터 갯수 리턴
     public int getItemCount() {
         return listSet.size();
+    }
+
+    //onItemClickListener 인터페이스 선언
+    public interface OnItemclickListener {
+        void onItemclicked(int position, String data);
+    }
+    //OnItemClickListener 참조변수 선언
+    private OnItemclickListener itemclickListener;
+
+    //OnItemclickListener 전달 메소드
+    public void setOnItemClickListener (OnItemclickListener listener) {
+        itemclickListener = listener;
     }
 
 

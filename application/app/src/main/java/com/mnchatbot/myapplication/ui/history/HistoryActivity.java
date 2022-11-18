@@ -105,11 +105,9 @@ public class HistoryActivity extends AppCompatActivity {
     //상담내역 로드
     public void setHistoryList() {
         HistoryList = new ArrayList<>();
-        ServiceAPI HistoryAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<HistoryListResponse> call = HistoryAPI.getHistoryList(getpetSerial());
-
-        call.enqueue(new Callback<HistoryListResponse>() {
+        service.getHistoryList(getpetSerial()).enqueue(new Callback<HistoryListResponse>() {
             @Override
             public void onResponse(Call<HistoryListResponse> call, Response<HistoryListResponse> response) {
                 if(response.isSuccessful()) {
@@ -144,10 +142,9 @@ public class HistoryActivity extends AppCompatActivity {
 
     //상담내역 삭제
     public void deleteHistoryList(int pos) {
-        ServiceAPI HistoryAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<HistoryListResponse> call = HistoryAPI.deleteHistory(getapptSerial());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        call.enqueue(new Callback<HistoryListResponse>() {
+        service.deleteHistory(getapptSerial()).enqueue(new Callback<HistoryListResponse>() {
             @Override
             public void onResponse(Call<HistoryListResponse> call, Response<HistoryListResponse> response) {
                 if (!response.equals(200)) {

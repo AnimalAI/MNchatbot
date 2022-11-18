@@ -169,9 +169,8 @@ public class Fragment_Question_detail2 extends Fragment {
 
 
     public void callQuestion() {
-        ServiceAPI QuestionAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<QnResponse> call = QuestionAPI.getQuestion(getmedicalSerial());
-        call.enqueue(new Callback<QnResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getQuestion(getmedicalSerial()).enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
                 if (!response.equals(200)) {
@@ -242,11 +241,10 @@ public class Fragment_Question_detail2 extends Fragment {
         if (etc.getBytes().length<=0) {Qetc = "특이사항 없음";}
         else if (etc.getBytes().length>0){Qetc = q_etc.getText().toString(); }
 
-        ServiceAPI QnEditAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
         QuestionEdit questionNaire = new QuestionEdit(getmedicalSerial(), Qname, Qreason, Disease, Radio1, Qmedichine, Radio2, Radio3, Qetc);
 
-        Call<QnResponse> call = QnEditAPI.EditQuestion(questionNaire);
-        call.enqueue(new Callback<QnResponse>() {
+        service.EditQuestion(questionNaire).enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
                 if (!response.equals(200)) {

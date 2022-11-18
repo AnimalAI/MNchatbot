@@ -166,12 +166,10 @@ public class PetProfileActivity extends SettingActivity {
         if (NeuteringYes.isChecked()) { Neutering = "NEUTER";
         } else if (NeuteringNo.isChecked()) { Neutering = "NOTNEUTER"; }
 
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
         PetinfoData petinfoData = new PetinfoData(getpetSerial(), null, Breed, Name, Age, Gender, Neutering);
 
-        Call<PetProfileResponse> call = profileAPI.EditPetPost(petinfoData);
-
-        call.enqueue(new Callback<PetProfileResponse>() {
+        service.EditPetPost(petinfoData).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
@@ -195,9 +193,8 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 삭제
     private void PetProfileDelete(int pos) {
         ArrayList List = new ArrayList();
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<PetProfileResponse> call = profileAPI.deletePetPost(getpetSerial());
-        call.enqueue(new Callback<PetProfileResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.deletePetPost(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
@@ -241,10 +238,8 @@ public class PetProfileActivity extends SettingActivity {
     //반려동물 정보 불러오기
     public void callPetinfo(){
         Log.d("!!", String.valueOf(getpetSerial()));
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<PetProfileResponse> call = profileAPI.getPetinfo(getpetSerial());
-
-        call.enqueue(new Callback<PetProfileResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getPetinfo(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {

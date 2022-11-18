@@ -59,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
     Fragment_Question_detail question_detail;
     Fragment_Question_detail2 question_detail2;
 
+    //서버통신
+    public String getToken() {
+        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        String token = pre.getString("TOKEN", null);
+        return token;
+    }
+    public int getpetSerial() {
+        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
+        int petSerial = pre2.getInt("petSerial", 0);
+        return petSerial;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,17 +195,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callpetName() {
-        pre = getSharedPreferences("TOKEN", MODE_PRIVATE);
-        String token = pre.getString("TOKEN", null);
-        pre2 = getSharedPreferences("Serial", MODE_PRIVATE);
-        int Serial = pre2.getInt("petSerial", 0);
         TextView petName = (TextView) findViewById(R.id.petName);
 
-        ServiceAPI callpetNameAPI = ServiceGenerator.createService(ServiceAPI.class, token);
-
-        Call<PetProfileResponse> call = callpetNameAPI.getPetinfo(Serial);
-
-        call.enqueue(new Callback<PetProfileResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getPetinfo(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {

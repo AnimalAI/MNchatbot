@@ -120,12 +120,10 @@ public class Fragment_Dictionary extends Fragment {
     }
     //로드 화면
     public void loadDsinfo() {
-        ServiceAPI LoadAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
         int item = itemCnt;
-        Call<DsPageResponse> call = LoadAPI.callDsinfo(getPage(),item);
-
-        call.enqueue(new Callback<DsPageResponse>() {
+        service.callDsinfo(getPage(),item).enqueue(new Callback<DsPageResponse>() {
             @Override
             public void onResponse(Call<DsPageResponse> call, Response<DsPageResponse> response) {
                 if(response.isSuccessful()) {
@@ -176,12 +174,10 @@ public class Fragment_Dictionary extends Fragment {
     }
     public void getDsinfo(){
         DsSearchdata = new ArrayList<>();
-        ServiceAPI DsSearchListAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
         String dsName = editText.getText().toString();
 
-        Call<DsListResponse> call = DsSearchListAPI.getDsinfo(dsName);
-
-        call.enqueue(new Callback<DsListResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.getDsinfo(dsName).enqueue(new Callback<DsListResponse>() {
             @Override
             public void onResponse(Call<DsListResponse> call, Response<DsListResponse> response) {
                 if (!response.equals(200)) {

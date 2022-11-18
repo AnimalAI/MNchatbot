@@ -1,6 +1,7 @@
 package com.mnchatbot.myapplication.ui.setting;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,20 +20,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileActivity extends SettingActivity {
-    private Intent intent;
+    private Context context;
     private TextView ID, pwchange, logout, deleteinfo;
     private SharedPreferences preferences;
 
     //서버통신
     public String getToken() {
-        preferences = getSharedPreferences("TOKEN", MODE_PRIVATE);
+        preferences = context.getSharedPreferences("TOKEN", MODE_PRIVATE);
         String token = preferences.getString("TOKEN", null);
         return token;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_profile);
+
+        context = getApplicationContext();
 
         ID = findViewById(R.id.userID);
         pwchange = findViewById(R.id.pwchange);
@@ -87,10 +91,9 @@ public class ProfileActivity extends SettingActivity {
     
     //회원 탈퇴
     private void ProfileDelete() {
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
         String userID = ID.getText().toString();
-        Call<PetProfileResponse> call = profileAPI.deletePost(userID);
-        call.enqueue(new Callback<PetProfileResponse>() {
+        service.deletePost(userID).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
                 if (!response.equals(200)) {
@@ -112,10 +115,8 @@ public class ProfileActivity extends SettingActivity {
         });
     }
     public void calluserInfo(){
-        ServiceAPI profileAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
-        Call<ProfileResponse> call = profileAPI.GetmemberEmail();
-
-        call.enqueue(new Callback<ProfileResponse>() {
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        service.GetmemberEmail().enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (!response.equals(200)) {

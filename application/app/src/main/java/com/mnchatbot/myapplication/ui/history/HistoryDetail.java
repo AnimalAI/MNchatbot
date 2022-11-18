@@ -72,11 +72,9 @@ public class HistoryDetail extends AppCompatActivity {
         setHistoryItem();
     }
     public void setHistoryItem() {
-        ServiceAPI HistoryAPI = ServiceGenerator.createService(ServiceAPI.class, getToken());
+        ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class, getToken());
 
-        Call<HistoryResponse> call = HistoryAPI.getHistoryObject(getapptSerial());
-
-        call.enqueue(new Callback<HistoryResponse>() {
+        service.getHistoryObject(getapptSerial()).enqueue(new Callback<HistoryResponse>() {
             @Override
             public void onResponse(Call<HistoryResponse> call, Response<HistoryResponse> response) {
                 if (response.isSuccessful()) {
