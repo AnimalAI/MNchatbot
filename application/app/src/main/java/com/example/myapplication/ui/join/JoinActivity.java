@@ -1,3 +1,8 @@
+//
+// JoinActivity.java
+// Created by 배주현
+// 회원가입 페이지
+//
 package com.example.myapplication.ui.join;
 
 import android.app.AlertDialog;
@@ -46,7 +51,7 @@ public class JoinActivity extends AppCompatActivity {
         final Button joinButton = (Button) findViewById(R.id.joinButton);
         final Button emailCheckButton = (Button) findViewById(R.id.emailCheckButton);
 
-        // 텍스트가 변경될때마다 동작하는 TextWatcher
+        // 이메일 텍스트가 변경될때마다 동작하는 TextWatcher
         TextWatcher emailAfterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -61,6 +66,7 @@ public class JoinActivity extends AppCompatActivity {
                 }
             }
         };
+        // 패스워드 텍스트가 변경될때마다 동작하는 TextWatcher
         TextWatcher passwordAfterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -74,6 +80,7 @@ public class JoinActivity extends AppCompatActivity {
                 }
             }
         };
+        // 패스워드 재입력 텍스트가 변경될때마다 동작하는 TextWatcher
         TextWatcher passwordReEnterAfterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}

@@ -1,3 +1,8 @@
+//
+// JoinData.java
+// Created by 배주현
+// 회원가입 데이터 전달
+//
 package com.example.myapplication.ui.join;
 
 import com.google.gson.annotations.SerializedName;

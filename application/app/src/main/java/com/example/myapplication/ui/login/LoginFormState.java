@@ -1,3 +1,8 @@
+//
+// LoginFormState.java
+// Created by 배주현
+// 로그인 데이터 형식 확인을 위한 클래스
+//
 package com.example.myapplication.ui.login;
 
 

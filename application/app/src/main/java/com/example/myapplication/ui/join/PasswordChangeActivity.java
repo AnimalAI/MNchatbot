@@ -1,3 +1,8 @@
+//
+// PasswordChangeActivity.java
+// Created by 배주현
+// 비밀번호 변경 페이지
+//
 package com.example.myapplication.ui.join;
 
 import android.app.AlertDialog;

@@ -1,3 +1,8 @@
+//
+// RetrofitClient.java
+// Created by 배주현
+// 서버와 통신하기 위한 코드
+//
 package com.example.myapplication.ui.join;
 
 import retrofit2.Retrofit;

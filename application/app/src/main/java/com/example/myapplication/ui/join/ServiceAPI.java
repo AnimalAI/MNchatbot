@@ -1,3 +1,8 @@
+//
+// ServiceAPI.java
+// Created by 배주현
+// 벡엔드 POST를 위한 코드
+//
 package com.example.myapplication.ui.join;
 
 import com.example.myapplication.ui.login.LoginRequest;

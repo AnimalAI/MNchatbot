@@ -1,3 +1,8 @@
+//
+// LoginActivity.java
+// Created by 배주현
+// 회원가입 창을 위한 코드
+//
 package com.example.myapplication.ui.login;
 
 import android.app.AlertDialog;

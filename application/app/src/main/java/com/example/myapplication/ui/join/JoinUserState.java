@@ -1,3 +1,4 @@
+
 package com.example.myapplication.ui.join;
 
 import com.google.gson.annotations.SerializedName;

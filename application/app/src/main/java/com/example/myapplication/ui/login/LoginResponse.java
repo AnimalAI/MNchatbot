@@ -1,3 +1,8 @@
+//
+// LoginResponse.java
+// Created by 배주현
+// 로그인 데이터 전달을 위한 클래스
+//
 package com.example.myapplication.ui.login;
 
 import com.google.gson.annotations.SerializedName;
