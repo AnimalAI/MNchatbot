@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class Fragment_diagnosis_detail extends Fragment {
     private SharedPreferences pre, pre2;
     private TextView dia_Date, dia_Time, dia_Name, dia_Breed, dia_definition, dia_cause, dia_advice, more, more1, more2;
 
-    DiagResponse.DiagData DiagData;
+    private DiagResponse.DiagData DiagData;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -109,9 +110,10 @@ public class Fragment_diagnosis_detail extends Fragment {
             @Override
             public void onResponse(Call<DiagResponse> call, Response<DiagResponse> response) {
                 if(!response.equals(200)) {
+                    Log.d("예상진단", response.message());
                     DiagData = response.body().data;
                     if (DiagData == null) {
-                        Toast.makeText(getActivity(), "챗봇 상담을 먼저 진행하세요.", Toast.LENGTH_SHORT).show();
+                        Log.d("예상진단 세부목록", "비어있음");
                     } else {
                         dia_Date.setText(DiagData.getdiagDate());
                         dia_Time.setText(DiagData.getdiagTime());

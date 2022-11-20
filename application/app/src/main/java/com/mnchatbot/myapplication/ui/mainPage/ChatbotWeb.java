@@ -13,6 +13,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,6 +89,7 @@ public class ChatbotWeb extends Fragment {
             @Override
             public void onResponse(Call<ChatbotResponse> call, Response<ChatbotResponse> response) {
                 if (!response.equals(200)) {
+                    Toast.makeText(getActivity(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
                     Log.d("예상진단 저장", "성공");
                 }
             }

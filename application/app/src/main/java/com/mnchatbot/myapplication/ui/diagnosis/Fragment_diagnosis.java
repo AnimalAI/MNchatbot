@@ -135,9 +135,9 @@ public class Fragment_diagnosis extends Fragment {
                 if(response.isSuccessful()) {
                     DiagList = response.body().data;
                     if(DiagList == null) {
-                        Log.d("비어있음", "성공");
+                        Log.d("예상진단", "리스트 비어있음");
                     } else {
-                        Log.d("자료있음", "성공");
+                        Log.d("예상진단", "성공");
                         for(int i=0; i< DiagList.size(); i++) {
                             int dSerial = DiagList.get(i).getDsSerial();
                             String Name = DiagList.get(i).getDsName();
