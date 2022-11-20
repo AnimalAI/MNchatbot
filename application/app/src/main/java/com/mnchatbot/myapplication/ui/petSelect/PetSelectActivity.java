@@ -91,11 +91,11 @@ public class PetSelectActivity extends AppCompatActivity {
 
         if (resultCode == Activity.RESULT_OK) {
             if (intent !=null) {
-                callPetList();
                 /*String petName = intent.getStringExtra("petName");
                 String CATDOG = intent.getStringExtra("CATDOG");
                 addItem(petName, CATDOG, );
                 mRecyclerViewAdapter.notifyDataSetChanged();
+                callPetList();
             }
         }
     }*/

@@ -80,9 +80,9 @@ public class HistoryDetail extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     HistoryObject = response.body().data;
                     if(HistoryObject == null) {
-                        Log.d("비어있음", "성공");
+                        Log.d("상담내역", "비어있음");
                     } else {
-                        Log.d("자료있음", "성공");
+                        Log.d("상담내역", "성공");
                         date.setText(HistoryObject.getHistoryDate());
                         time.setText(HistoryObject.getHistoryTime());
                         memberName.setText(HistoryObject.getMemberName());
