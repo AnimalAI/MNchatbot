@@ -76,7 +76,7 @@ public class JoinActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 joinUserState.setPassword(passwordEditText.getText().toString());
                 if(!joinUserState.isPasswordValid()) {
-                    passwordEditText.setError("비밀번호는 여섯자리 이상, 영어와 숫자로 구성해주세요.");
+                    passwordEditText.setError("비밀번호는 여덟자리 이상, 영문자 대소문자, 숫자, 특수문자(!,@,#,^,&,*,(,))를 포함하여 구성해주세요.");
                 }
             }
         };
