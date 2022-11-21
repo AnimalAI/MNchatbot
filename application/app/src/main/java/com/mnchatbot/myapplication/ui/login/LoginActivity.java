@@ -157,7 +157,15 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     LoginActivity.this.finish();
 
-                }  else {
+                } else if(statusCode==401) {
+                    Log.d("토큰 만료", "401");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setTitle("알림")
+                            .setMessage("일정 시간이 경과하여 로그아웃 되었습니다. 다시 로그인 해주세요. :)")
+                            .setPositiveButton("확인", null)
+                            .create()
+                            .show();
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("알림")
                             .setMessage("아이디 혹은 비밀번호 오류입니다.")

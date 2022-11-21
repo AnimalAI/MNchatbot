@@ -254,8 +254,6 @@ public class PetProfileActivity extends SettingActivity {
                     if (petdata.getPetNeutering().equals("NEUTER")) {
                         NeuteringYes.setChecked(true);
                     } else { NeuteringNo.setChecked(true); }
-
-                    Toast.makeText(getApplicationContext(),"설정되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {Log.d("response 실패", "404");}
             }
 
