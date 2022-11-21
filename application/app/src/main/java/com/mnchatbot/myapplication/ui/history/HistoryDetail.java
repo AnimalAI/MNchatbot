@@ -106,7 +106,7 @@ public class HistoryDetail extends AppCompatActivity {
                                 .error(android.R.drawable.btn_dialog)
                                 .into(Image);
                     }
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

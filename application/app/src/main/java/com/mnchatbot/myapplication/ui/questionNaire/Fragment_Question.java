@@ -141,7 +141,7 @@ public class Fragment_Question extends Fragment {
         service.getQnList(getpetSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
                     } else {
@@ -152,9 +152,7 @@ public class Fragment_Question extends Fragment {
                             addItem(mSerial, Name, ID);
                             mAdapter.notifyDataSetChanged();
                         }}
-
-                } else if (!response.equals(404)) {Log.d("QnList", "404");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -177,11 +175,11 @@ public class Fragment_Question extends Fragment {
         service.deleteQuestion(getmedicalSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     QuestionViewItem item = mList.get(pos);
                     mList.remove(item);
                     mAdapter.notifyDataSetChanged();
-                }
+                } else {Log.d("response 실패", "404");}
             }
             @Override
             public void onFailure(Call<QnListResponse> call, Throwable t) {

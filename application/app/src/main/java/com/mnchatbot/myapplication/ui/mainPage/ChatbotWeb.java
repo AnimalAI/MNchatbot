@@ -88,10 +88,10 @@ public class ChatbotWeb extends Fragment {
         call.enqueue(new Callback<ChatbotResponse>() {
             @Override
             public void onResponse(Call<ChatbotResponse> call, Response<ChatbotResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getActivity(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
                     Log.d("예상진단 저장", "성공");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

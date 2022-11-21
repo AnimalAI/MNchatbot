@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -96,11 +97,11 @@ public class ProfileActivity extends SettingActivity {
         service.deletePost(userID).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                     startActivity(intent);
                     ProfileActivity.this.finish();
-                }
+                } else { Log.d("response 실패", "404");}
             }
 
             @Override
@@ -119,9 +120,9 @@ public class ProfileActivity extends SettingActivity {
         service.GetmemberEmail().enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     ID.setText(response.body().memberEmail);
-                }
+                } else { Log.d("response 실패", "404");}
             }
 
             @Override

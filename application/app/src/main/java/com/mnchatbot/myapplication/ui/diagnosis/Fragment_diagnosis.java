@@ -146,7 +146,7 @@ public class Fragment_diagnosis extends Fragment {
                             mAdapter.notifyDataSetChanged();
                         }
                     }
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -168,11 +168,11 @@ public class Fragment_diagnosis extends Fragment {
         service.deleteDiag(getdiagSerial()).enqueue(new Callback<DiagListResponse>() {
             @Override
             public void onResponse(Call<DiagListResponse> call, Response<DiagListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     DiagnosisViewItem item = mList.get(pos);
                     mList.remove(item);
                     mAdapter.notifyDataSetChanged();
-                }
+                } else {Log.d("response 실패", "404");}
             }
             @Override
             public void onFailure(Call<DiagListResponse> call, Throwable t) {

@@ -109,7 +109,7 @@ public class Fragment_diagnosis_detail extends Fragment {
         service.getDiag(getdiagSerial()).enqueue(new Callback<DiagResponse>() {
             @Override
             public void onResponse(Call<DiagResponse> call, Response<DiagResponse> response) {
-                if(!response.equals(200)) {
+                if(response.isSuccessful()) {
                     Log.d("예상진단", response.message());
                     DiagData = response.body().data;
                     if (DiagData == null) {
@@ -126,7 +126,7 @@ public class Fragment_diagnosis_detail extends Fragment {
                         dia_advice.setText(DiagData.getdsAdvice());
                         isEllipsize(dia_advice, more2);
                     }
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
