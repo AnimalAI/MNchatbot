@@ -28,6 +28,12 @@ public class JoinUserState {
         Pattern pattern_symbol = Pattern.compile(val_symbol);
         Pattern pattern_alpha = Pattern.compile(val_alpha);
 
+        if (password == null)
+            return false;
+
+        if (password.length() == 0)
+            return false;
+
         Matcher matcher_symbol = pattern_symbol.matcher(password);
         Matcher matcher_alpha = pattern_alpha.matcher(password);
 
@@ -35,7 +41,7 @@ public class JoinUserState {
             return false;
         }
 
-        return password != null && password.trim().length() > 7;
+        return password.trim().length() > 7;
     }
 
     public boolean isPasswordSame(){
@@ -64,24 +70,4 @@ public class JoinUserState {
 
     public String getPassword() { return password; }
 
-    public static class PasswordChangeRequest {
-        @SerializedName("memberEmail")
-        public String inputId;
-
-        @SerializedName("memberPassword")
-        public String inputPw;
-
-        @SerializedName("sendCode")
-        public int sendCode;
-
-        @SerializedName("receivedCode")
-        public int receivedCode;
-
-        public PasswordChangeRequest(String inputId, String inputPw, int sendCode, int receivedCode) {
-            this.inputId = inputId;
-            this.inputPw = inputPw;
-            this.sendCode = sendCode;
-            this.receivedCode = receivedCode;
-        }
-    }
 }
