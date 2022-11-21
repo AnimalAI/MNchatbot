@@ -98,7 +98,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 joinUserState.setPassword(passwordEditText.getText().toString());
                 joinUserState.setRePassword(passwordEditTextCheck.getText().toString());
                 if (joinUserState.isValidData() && isEmailValidated) {
-                    changePw(new PasswordChangeRequest(joinUserState.getPassword()));
+                    changePw(new PasswordChangeRequest(joinUserState.getEmail(), joinUserState.getPassword()));
                 } else {
                     Toast.makeText(getApplicationContext(), "다시 입력해주세요", Toast.LENGTH_LONG).show();
                 }
@@ -188,9 +188,13 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PasswordChangeActivity.this);
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+                } else if(response.code() == 400) {
+                    Log.d("패스워드변경", String.valueOf(response.code()));
+                    String faileResult = "존재하지 않은 아이디 입니다. 다시 시도해주세요.";
+                    Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("패스워드변경", String.valueOf(response.code()));
-                    String faileResult = "비밀번호 변경에 실패하였습니다. 다시 시도해주세요.";
+                    String faileResult = "패스워드 변경 실패했습니다. 다시 시도해주세요.";
                     Toast.makeText(PasswordChangeActivity.this, faileResult, Toast.LENGTH_SHORT).show();
                 }
             }
