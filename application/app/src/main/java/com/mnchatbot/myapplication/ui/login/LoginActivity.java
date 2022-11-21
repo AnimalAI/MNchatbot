@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     LoginActivity.this.finish();
 
-                } else if(statusCode==401) {
+                } else if(result.getMessage().equals("잘못된 접근")) {
                     Log.d("토큰 만료", "401");
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("알림")
