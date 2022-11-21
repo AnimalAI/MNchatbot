@@ -62,7 +62,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 joinUserState.setPassword(passwordEditText.getText().toString());
                 if (!joinUserState.isPasswordValid())
-                    passwordEditText.setError("비밀번호는 여섯자리 이상, 영어와 숫자로 구성해주세요.");
+                    passwordEditText.setError("비밀번호는 여덟자리 이상, 영문자 대소문자, 숫자, 특수문자(!,@,#,^,&,*,(,))를 포함하여 구성해주세요.");
             }
         };
         TextWatcher passwordReEnterAfterTextChangedListener = new TextWatcher() {
@@ -200,8 +200,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<JoinResponse> call, Throwable t) {
-                Toast.makeText(PasswordChangeActivity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
-                Log.e("회원가입 에러 발생", t.getMessage());
+                Toast.makeText(PasswordChangeActivity.this, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                Log.e("비밀번호 변경 통신 장애", t.getMessage());
                 t.printStackTrace(); // 에러 발생시 에러 발생 원인 단계별로 출력해줌
             }
         });

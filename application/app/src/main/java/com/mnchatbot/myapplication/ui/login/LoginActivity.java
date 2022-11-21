@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 LoginFormState.setPassword(login_password.getText().toString());
                 if(!LoginFormState.isPasswordValid()) {
-                    login_password.setError("6자리 이상 입력해주세요.");
+                    login_password.setError("8자리 이상 입력해주세요.");
                 }
                 //data 형식이 유효하면 로그인 버튼 활성화
                 login_button.setEnabled(LoginFormState.isValidData());

@@ -150,7 +150,7 @@ public class JoinActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<JoinResponse> call, Throwable t) {
-                Toast.makeText(JoinActivity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Toast.makeText(JoinActivity.this, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                 Log.e("회원가입 에러 발생", t.getMessage());
                 t.printStackTrace(); // 에러 발생시 에러 발생 원인 단계별로 출력해줌
             }
@@ -176,7 +176,7 @@ public class JoinActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<JoinResponse> call, Throwable t) {
-                Toast.makeText(JoinActivity.this, "회원가입 에러 발생", Toast.LENGTH_SHORT).show();
+                Toast.makeText(JoinActivity.this, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                 Log.e("이메일 인증 에러 발생", t.getMessage());
                 t.printStackTrace(); // 에러 발생시 에러 발생 원인 단계별로 출력해줌
             }
