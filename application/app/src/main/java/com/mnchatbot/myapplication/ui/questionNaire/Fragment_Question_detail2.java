@@ -173,7 +173,7 @@ public class Fragment_Question_detail2 extends Fragment {
         service.getQuestion(getmedicalSerial()).enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Qndata = response.body().data;
                     q_Name.setText(Qndata.getQnName());
                     q_Date.setText(Qndata.getQnDate().substring(0, 10));
@@ -208,11 +208,7 @@ public class Fragment_Question_detail2 extends Fragment {
                     else if (Qndata.getQnExercise() == false) {q_radioGroup3.check(R.id.q_radioNo3);}
 
                     q_etc.setText(Qndata.getQnEtc());
-
-
-                } else if (!response.equals(404)) {
-                    Log.d("QnData", "404");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -247,8 +243,9 @@ public class Fragment_Question_detail2 extends Fragment {
         service.EditQuestion(questionNaire).enqueue(new Callback<QnResponse>() {
             @Override
             public void onResponse(Call<QnResponse> call, Response<QnResponse> response) {
-                if (!response.equals(200)) {
-                }
+                if (response.isSuccessful()) {
+                    Log.d("response 성공", "200");
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

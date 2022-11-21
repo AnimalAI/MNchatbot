@@ -180,7 +180,7 @@ public class Fragment_Dictionary extends Fragment {
         service.getDsinfo(dsName).enqueue(new Callback<DsListResponse>() {
             @Override
             public void onResponse(Call<DsListResponse> call, Response<DsListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     DsSearchdata = response.body().data;
                     if (DsSearchdata == null) {
                         Toast.makeText(getActivity(), "정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
@@ -193,8 +193,7 @@ public class Fragment_Dictionary extends Fragment {
                             setNextPage(false);
                         }}
 
-                } else if (!response.equals(404)) {Log.d("DsSearchList", "404");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

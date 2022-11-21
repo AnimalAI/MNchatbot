@@ -172,10 +172,10 @@ public class PetProfileActivity extends SettingActivity {
         service.EditPetPost(petinfoData).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"변경되었습니다.", Toast.LENGTH_SHORT).show();
                     PetProfileActivity.this.finish();
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -197,7 +197,7 @@ public class PetProfileActivity extends SettingActivity {
         service.deletePetPost(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     //펫 리스트 목록으로 받기
                     String json = pre2.getString("key", null);
                     if (json != null) {
@@ -218,10 +218,8 @@ public class PetProfileActivity extends SettingActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
-                }
+                } else {Log.d("response 실패", "404");}
             }
             @Override
             public void onFailure(Call<PetProfileResponse> call, Throwable t) {
@@ -242,7 +240,7 @@ public class PetProfileActivity extends SettingActivity {
         service.getPetinfo(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     petdata = response.body().data;
                     CATDOG = petdata.getpetSpecies();
                     if (CATDOG.equals("CAT")) {petSpecies.setImageResource(R.drawable.cat2);}
@@ -256,9 +254,7 @@ public class PetProfileActivity extends SettingActivity {
                     if (petdata.getPetNeutering().equals("NEUTER")) {
                         NeuteringYes.setChecked(true);
                     } else { NeuteringNo.setChecked(true); }
-
-                    Toast.makeText(getApplicationContext(),"설정되었습니다.", Toast.LENGTH_SHORT).show();
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -269,7 +265,7 @@ public class PetProfileActivity extends SettingActivity {
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
-                Log.d("~", t.toString());
+                Log.d("펫 프로필 통신", t.toString());
             }
         });
     }

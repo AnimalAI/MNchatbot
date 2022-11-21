@@ -120,7 +120,7 @@ public class PetSelectActivity extends AppCompatActivity {
         call.enqueue(new Callback<petListResponse>() {
             @Override
             public void onResponse(Call<petListResponse> call, Response<petListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     dataList = response.body();
                     if (dataList.data == null ) { Toast.makeText(PetSelectActivity.this, "펫 등록 해주세요 :)", Toast.LENGTH_SHORT).show(); }
                     else{
@@ -134,7 +134,7 @@ public class PetSelectActivity extends AppCompatActivity {
                         }
                         Log.d("petList", "200");
                     }
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

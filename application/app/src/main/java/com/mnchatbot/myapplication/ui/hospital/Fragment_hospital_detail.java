@@ -263,7 +263,7 @@ public class Fragment_hospital_detail extends Fragment {
         service.getQnList(getpetSerial()).enqueue(new Callback<QnListResponse>() {
             @Override
             public void onResponse(Call<QnListResponse> call, Response<QnListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
                     } else {
@@ -275,8 +275,7 @@ public class Fragment_hospital_detail extends Fragment {
                             Log.d("spn", String.valueOf(mSerial));
                         }}
 
-                } else if (!response.equals(404)) {Log.d("QnList", "404");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -344,10 +343,10 @@ public class Fragment_hospital_detail extends Fragment {
         service.apply(bbody, map).enqueue(new Callback<HospitalListResponse>() {
             @Override
             public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getActivity(),"신청되었습니다.", Toast.LENGTH_SHORT).show();
                     mainActivity.onChangeFragment(4);
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

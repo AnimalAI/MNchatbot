@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,31 +120,32 @@ public class Fragment_Dictionary_detail extends Fragment {
         service.getDsSearchinfo(getdsId()).enqueue(new Callback<DsResponse>() {
             @Override
             public void onResponse(Call<DsResponse> call, Response<DsResponse> response) {
-                Dsdata = response.body().data;
-                ds_Name.setText(Dsdata.getdsName());
-                ds_Species.setText(Dsdata.getdsAmlBreed());
-                ds_definition.setText(Dsdata.getdsDefinition());
-                isEllipsize(ds_definition, more);
-                ds_cause.setText(Dsdata.getdsCause());
-                isEllipsize(ds_cause, more1);
-                ds_pathogenesis.setText(Dsdata.getdsPathogenesis());
-                isEllipsize(ds_pathogenesis, more2);
-                ds_epidemiology.setText(Dsdata.getdsEpidemiology());
-                isEllipsize(ds_epidemiology, more3);
-                ds_symptom.setText(Dsdata.getdsSymptom());
-                isEllipsize(ds_symptom, more4);
-                ds_diagnosis.setText(Dsdata.getdsDiagnosis());
-                isEllipsize(ds_diagnosis, more5);
-                ds_treatment.setText(Dsdata.getdsTreatment());
-                isEllipsize(ds_treatment, more6);
-                ds_prevention.setText(Dsdata.getdsPrevention());
-                isEllipsize(ds_prevention, more7);
-                ds_prognosis.setText(Dsdata.getdsPrognosis());
-                isEllipsize(ds_prognosis, more8);
-                ds_advice.setText(Dsdata.getdsAdvice());
-                isEllipsize(ds_advice, more9);
+                if (response.isSuccessful()) {
+                    Dsdata = response.body().data;
+                    ds_Name.setText(Dsdata.getdsName());
+                    ds_Species.setText(Dsdata.getdsAmlBreed());
+                    ds_definition.setText(Dsdata.getdsDefinition());
+                    isEllipsize(ds_definition, more);
+                    ds_cause.setText(Dsdata.getdsCause());
+                    isEllipsize(ds_cause, more1);
+                    ds_pathogenesis.setText(Dsdata.getdsPathogenesis());
+                    isEllipsize(ds_pathogenesis, more2);
+                    ds_epidemiology.setText(Dsdata.getdsEpidemiology());
+                    isEllipsize(ds_epidemiology, more3);
+                    ds_symptom.setText(Dsdata.getdsSymptom());
+                    isEllipsize(ds_symptom, more4);
+                    ds_diagnosis.setText(Dsdata.getdsDiagnosis());
+                    isEllipsize(ds_diagnosis, more5);
+                    ds_treatment.setText(Dsdata.getdsTreatment());
+                    isEllipsize(ds_treatment, more6);
+                    ds_prevention.setText(Dsdata.getdsPrevention());
+                    isEllipsize(ds_prevention, more7);
+                    ds_prognosis.setText(Dsdata.getdsPrognosis());
+                    isEllipsize(ds_prognosis, more8);
+                    ds_advice.setText(Dsdata.getdsAdvice());
+                    isEllipsize(ds_advice, more9);
+                } else { Log.d("response 실패", "404");}
             }
-
             @Override
             public void onFailure(Call<DsResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

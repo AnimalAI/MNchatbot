@@ -158,7 +158,7 @@ public class Fragment_hospital extends Fragment {
         service.Allhosplist(region, city).enqueue(new Callback<HospitalListResponse>() {
             @Override
             public void onResponse(Call<HospitalListResponse> call, Response<HospitalListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     dataList = response.body();
                     hospdata = dataList.data;
                     if (mList.size() == 0){
@@ -171,8 +171,7 @@ public class Fragment_hospital extends Fragment {
                         }
                     }
                     Log.d("hospList", "200");
-                } else if (!response.equals(404)) {Log.d("hospList", "404");
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

@@ -125,7 +125,7 @@ public class HistoryActivity extends AppCompatActivity {
                             mAdapter.notifyDataSetChanged();
                         }
                     }
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
@@ -147,11 +147,11 @@ public class HistoryActivity extends AppCompatActivity {
         service.deleteHistory(getapptSerial()).enqueue(new Callback<HistoryListResponse>() {
             @Override
             public void onResponse(Call<HistoryListResponse> call, Response<HistoryListResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     HistoryViewItem item = mList.get(pos);
                     mList.remove(item);
                     mAdapter.notifyDataSetChanged();
-                }
+                } else {Log.d("response 실패", "404");}
             }
             @Override
             public void onFailure(Call<HistoryListResponse> call, Throwable t) {

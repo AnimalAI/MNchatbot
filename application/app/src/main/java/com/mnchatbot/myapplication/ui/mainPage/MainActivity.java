@@ -201,12 +201,10 @@ public class MainActivity extends AppCompatActivity {
         service.getPetinfo(getpetSerial()).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     petdata = response.body().data;
                     petName.setText(petdata.getPetName());
-
-
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override

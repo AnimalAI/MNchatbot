@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -184,14 +185,9 @@ public class AddPetActivity extends AppCompatActivity {
         service.setPetinfo(petinfo).enqueue(new Callback<PetProfileResponse>() {
             @Override
             public void onResponse(Call<PetProfileResponse> call, Response<PetProfileResponse> response) {
-                if (!response.equals(200)) {
+                if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"등록되었습니다.", Toast.LENGTH_SHORT).show();
-                    /*Intent intent = new Intent(AddPetActivity.this, PetSelectActivity.class);
-                    intent.putExtra("petName", Name);
-                    intent.putExtra("CATDOG", CATDOG);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();*/
-                }
+                } else {Log.d("response 실패", "404");}
             }
 
             @Override
