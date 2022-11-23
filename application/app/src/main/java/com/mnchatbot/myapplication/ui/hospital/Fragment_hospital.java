@@ -148,7 +148,7 @@ public class Fragment_hospital extends Fragment {
         item.setfield(field);
         mList.add(item);
     }
-    //모든 연계병원 보기
+    //모든 동물병원 보기
     public void call_totalList(){
         String region = City1Name;
         String city = City2Name;

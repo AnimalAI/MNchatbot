@@ -144,6 +144,7 @@ public class Fragment_Question extends Fragment {
                 if (response.isSuccessful()) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
+                        {Log.d("문진표", "데이터 없음");}
                     } else {
                         for(int i=0; i< Qndata.size(); i++) {
                             int mSerial = Qndata.get(i).getMedicalFormSerial();

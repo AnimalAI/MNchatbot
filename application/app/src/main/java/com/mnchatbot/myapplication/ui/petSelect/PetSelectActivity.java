@@ -84,21 +84,6 @@ public class PetSelectActivity extends AppCompatActivity {
         });
 
     }
-    /*사용자가 작성한 반려동물 정보 불러오기
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (intent !=null) {
-                /*String petName = intent.getStringExtra("petName");
-                String CATDOG = intent.getStringExtra("CATDOG");
-                addItem(petName, CATDOG, );
-                mRecyclerViewAdapter.notifyDataSetChanged();
-                callPetList();
-            }
-        }
-    }*/
 
     // 리사이클러뷰에 데이터추가
     public void addItem(String mainText, String imgName, int petSerial){
