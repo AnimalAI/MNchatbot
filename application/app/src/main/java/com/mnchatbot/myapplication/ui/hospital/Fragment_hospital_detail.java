@@ -266,6 +266,8 @@ public class Fragment_hospital_detail extends Fragment {
                 if (response.isSuccessful()) {
                     Qndata = response.body().data;
                     if (Qndata == null) {
+                        Log.d("문진표 스피너", "데이터 없음");
+                        Toast.makeText(getActivity(), "문진표를 작성해주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         for(int i=0; i< Qndata.size(); i++) {
                             mSerial = Qndata.get(i).getMedicalFormSerial();
@@ -331,7 +333,7 @@ public class Fragment_hospital_detail extends Fragment {
         map.put("apptReason", apptReason);
 
         //Uri 타입 파일 경로가지는 requestBody 객체 생성
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri)); //요부분을 잘 모르겠음.
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), String.valueOf(mImageCaptureUri));
         File IImage = directory_AAI;
         //requestBody로 Multipart.Part 객체 생성
         if (IImage == null) {body = null;}
@@ -385,6 +387,7 @@ public class Fragment_hospital_detail extends Fragment {
 
     // 카메라 촬영 후 이미지 가져오기
     public void TakePhoto() {
+        //카메라 호출
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -426,14 +429,14 @@ public class Fragment_hospital_detail extends Fragment {
                 intent.putExtra("aspectY", 1); // CROP 박스의 Y축 비율
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", true);
-                Log.d("크롭!", "성공");
+                Log.d("크롭", "성공");
                 startActivityForResult(intent, CROP_FROM_IMAGE); // CROP_FROM_CAMERA case문 이동
                 break;
             }
 
             case CROP_FROM_IMAGE:
             {
-                Log.d("크롭~", "성공");
+                Log.d("크롭 이미지 보여주기", "성공");
                 if(resultCode != RESULT_OK) { return;}
                 final Bundle extras = data.getExtras();
                 // CROP된 이미지를 저장하기 위한 FILE 경로 >> Provider의 문제?
@@ -445,7 +448,7 @@ public class Fragment_hospital_detail extends Fragment {
                     storeCropImage(photo, filePath); // CROP된 이미지를 외부저장소, 앨범에 저장한다.
                     absoultePath = filePath;
                     break;
-                }
+                } else {Log.d("extras", "데이터 없음"); }
 
                 // 임시 파일 삭제
                 File f = new File(mImageCaptureUri.getPath());
