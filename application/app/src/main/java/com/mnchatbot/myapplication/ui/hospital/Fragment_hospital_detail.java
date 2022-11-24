@@ -1,3 +1,7 @@
+/*
+[연계병원 상담신청 화면] 동물병원 중 연계병원에 한해 상담 신청 가능.
+상담 일자(날짜, 시간), 보호자 이름, 번호, 신청 사유, 예상비용 안내 여부, 참고 이미지에 대해 입력받음. */
+
 package com.mnchatbot.myapplication.ui.hospital;
 
 import static android.app.Activity.RESULT_OK;

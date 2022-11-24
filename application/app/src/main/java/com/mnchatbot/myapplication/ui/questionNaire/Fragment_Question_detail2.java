@@ -1,3 +1,7 @@
+/*
+[문진표 수정 화면] 기존 문진표 내용 수정.
+문진표 제목, 사유, 기저질환, 약 특이사항, 수술여부, 운동여부, 기타 사항에 대해 수정할 수 있음. */
+
 package com.mnchatbot.myapplication.ui.questionNaire;
 
 import static android.content.Context.MODE_PRIVATE;

@@ -1,3 +1,7 @@
+/*
+[반려동물 프로필 화면] 초기에 등록한 반려동물 정보를 수정하거나 삭제함.
+품종, 이름, 나이, 성별, 중성화여부의 내용에 대해 입력받음. */
+
 package com.mnchatbot.myapplication.ui.setting;
 
 import android.app.AlertDialog;

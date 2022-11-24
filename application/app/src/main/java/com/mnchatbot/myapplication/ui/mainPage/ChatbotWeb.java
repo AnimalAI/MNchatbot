@@ -1,3 +1,7 @@
+/*
+[챗봇 화면] 웹뷰를 통해 반려동물 질병을 상담할 수 있음.
+하단의 상담 내용 저장 버튼을 통해 저장 가능함.*/
+
 package com.mnchatbot.myapplication.ui.mainPage;
 
 import static android.content.Context.MODE_PRIVATE;

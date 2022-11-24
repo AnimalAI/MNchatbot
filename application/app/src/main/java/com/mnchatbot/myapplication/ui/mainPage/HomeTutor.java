@@ -1,3 +1,6 @@
+/*
+[튜토리얼 화면] 앱에 대한 소개와 하단 탭 기능별 설명을 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.mainPage;
 
 import android.content.Context;

@@ -1,3 +1,7 @@
+/*
+[펫 추가 화면] 새로운 펫 추가.
+축종, 품종, 이름, 나이, 성별, 중성화여부의 내용을 설정함. */
+
 package com.mnchatbot.myapplication.ui.petSelect;
 
 import android.app.Activity;
