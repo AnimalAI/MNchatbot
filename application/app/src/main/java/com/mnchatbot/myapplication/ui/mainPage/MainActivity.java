@@ -1,3 +1,7 @@
+/*
+[메인화면] 튜토리얼/챗봇/문진표/예상진단/동물병원/질병백과 화면을 출력함.
+상단 툴바를 통해 로그인, 펫 선택, 상담신청 내역 화면을 볼 수 있음.*/
+
 package com.mnchatbot.myapplication.ui.mainPage;
 
 import android.app.AlertDialog;

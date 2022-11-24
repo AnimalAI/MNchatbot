@@ -1,3 +1,6 @@
+/*
+[동물병원 목록 화면] 등록된 동물병원을 시도/시군구 조건에 맞게 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.hospital;
 
 import static android.content.Context.MODE_PRIVATE;

@@ -1,3 +1,6 @@
+/*
+[설정 화면] 내 프로필, 반려동물 프로필을 선택할 수 있음.*/
+
 package com.mnchatbot.myapplication.ui.setting;
 
 import androidx.appcompat.app.AppCompatActivity;

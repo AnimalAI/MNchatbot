@@ -1,3 +1,6 @@
+/*
+[내 프로필 화면] 로그아웃/비밀번호 변경/회원 탈퇴를 보여주고 각 화면으로 연결함.*/
+
 package com.mnchatbot.myapplication.ui.setting;
 
 import android.app.AlertDialog;

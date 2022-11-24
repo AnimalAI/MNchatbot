@@ -1,3 +1,6 @@
+/*
+[문진표 목록 화면] 등록된 문진표 목록을 불러오고, 원하는 문진표를 선택하여 볼 수 있음. */
+
 package com.mnchatbot.myapplication.ui.questionNaire;
 
 import static android.content.Context.MODE_PRIVATE;

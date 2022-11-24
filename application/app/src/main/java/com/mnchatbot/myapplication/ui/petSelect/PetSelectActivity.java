@@ -1,3 +1,6 @@
+/*
+[펫 선택 화면] 등록된 펫 목록을 불러오고, 원하는 펫을 선택함. */
+
 package com.mnchatbot.myapplication.ui.petSelect;
 
 import android.app.Activity;
