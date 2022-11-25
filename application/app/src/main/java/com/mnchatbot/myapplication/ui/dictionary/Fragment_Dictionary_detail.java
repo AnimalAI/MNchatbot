@@ -1,3 +1,6 @@
+/*
+[질병백과 세부화면] 등록된 질병에 대한 정보를 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.dictionary;
 
 import static android.content.Context.MODE_PRIVATE;

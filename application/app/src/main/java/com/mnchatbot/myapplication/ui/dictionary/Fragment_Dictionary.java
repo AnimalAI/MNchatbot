@@ -1,3 +1,6 @@
+/*
+[질병백과 목록 화면] 등록된 질병명 목록을 10개 먼저 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.dictionary;
 
 import static android.content.Context.MODE_PRIVATE;
