@@ -1,3 +1,7 @@
+/*
+[예상진단 세부화면] 챗봇상담 후 저장한 내용 보여줌.
+상담 일자(날짜, 시간), 질병명, 축종, 정의, 원인, 보호자에 대한 조언 보여줌. */
+
 package com.mnchatbot.myapplication.ui.diagnosis;
 
 import static android.content.Context.MODE_PRIVATE;

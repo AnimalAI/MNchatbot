@@ -1,3 +1,6 @@
+/*
+[예상진단 목록 화면] 등록된 예상진단 목록을 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.diagnosis;
 import static android.content.Context.MODE_PRIVATE;
 
