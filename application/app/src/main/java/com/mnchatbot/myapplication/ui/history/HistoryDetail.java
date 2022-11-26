@@ -1,3 +1,6 @@
+/*
+[상담신청 내역 세부화면] 상담신청 시 작성한 내용 보여줌.*/
+
 package com.mnchatbot.myapplication.ui.history;
 
 import android.app.AlertDialog;
