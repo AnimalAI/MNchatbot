@@ -190,9 +190,13 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText codeEditText = enterCodeDialog.findViewById(R.id.editTextNumberPassword);
-                codeEntered = Integer.parseInt(codeEditText.getText().toString());
-                enterCodeDialog.cancel();
-                startJoin(new JoinData(joinUserState.getEmail(),joinUserState.getPassword(),codeReceived,codeEntered));
+                try {
+                    codeEntered = Integer.parseInt(codeEditText.getText().toString());
+                    enterCodeDialog.cancel();
+                    startJoin(new JoinData(joinUserState.getEmail(),joinUserState.getPassword(),codeReceived,codeEntered));
+                } catch (NumberFormatException e) {
+                    Toast.makeText(JoinActivity.this, "숫자를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
