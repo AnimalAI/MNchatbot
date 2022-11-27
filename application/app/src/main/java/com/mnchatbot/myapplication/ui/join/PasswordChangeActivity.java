@@ -142,9 +142,13 @@ public class PasswordChangeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText codeEditText = enterCodeDialog.findViewById(R.id.editTextNumberPassword);
-                codeEntered = Integer.parseInt(codeEditText.getText().toString());
-                enterCodeDialog.cancel();
-                enterEmailCode(new EmailCodeData(codeReceived,codeEntered));
+                try {
+                    codeEntered = Integer.parseInt(codeEditText.getText().toString());
+                    enterCodeDialog.cancel();
+                    enterEmailCode(new EmailCodeData(codeReceived,codeEntered));
+                } catch (NumberFormatException e) {
+                    Toast.makeText(PasswordChangeActivity.this, "숫자를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
