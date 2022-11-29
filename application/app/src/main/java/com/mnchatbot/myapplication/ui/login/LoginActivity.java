@@ -2,6 +2,7 @@ package com.mnchatbot.myapplication.ui.login;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -120,7 +121,13 @@ public class LoginActivity extends AppCompatActivity {
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginResponse();
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("서버를 옮기는 중입니다! 지금은 서비스를 이용하실 수 없습니다.🥺")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+                //LoginResponse();
             }
         });
     }
