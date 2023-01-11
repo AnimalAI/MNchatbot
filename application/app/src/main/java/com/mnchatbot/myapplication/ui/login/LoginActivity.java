@@ -35,13 +35,15 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    String ID;
+
     private TextView pw_change;
     private EditText login_email, login_password;
     private Button login_button, join_button;
     private CheckBox autoLogin;
     private LoginFormState LoginFormState = new LoginFormState();
 
-    private SharedPreferences preferences, pre2;
+    private SharedPreferences preferences;
 
     //서버 통신
     private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
@@ -122,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         login_button = findViewById( R.id.login );
+
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +135,11 @@ public class LoginActivity extends AppCompatActivity {
                         .create()
                         .show();
                 //LoginResponse();
+                if (ID != null) {
+                    Intent intent = new Intent(LoginActivity.this, PetSelectActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }
             }
         });
 
@@ -141,17 +149,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 preferences = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-
                 editor.putString("userId", String.valueOf(login_email.getText()));
                 editor.commit();
-                String ID = preferences.getString("userId", null);
+                ID = preferences.getString("userId", null);
                 Log.d("아이디", ID);
-                //autoLoginEdit.putString("passwordNo", passwordNo);
-                //autoLoginEdit.putString("userRole", loginInfo.getUserRole());
-                //autoLoginEdit.putString("userName", loginInfo.getUserNm());
-
             }
         });
+
     }
 
     public void LoginResponse() {
