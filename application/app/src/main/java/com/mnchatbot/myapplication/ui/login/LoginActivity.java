@@ -35,13 +35,15 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    String ID;
+
     private TextView pw_change;
     private EditText login_email, login_password;
     private Button login_button, join_button;
     private CheckBox autoLogin;
     private LoginFormState LoginFormState = new LoginFormState();
 
-    private SharedPreferences pre, pre2;
+    private SharedPreferences preferences;
 
     //서버 통신
     private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
@@ -122,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         login_button = findViewById( R.id.login );
+
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,8 +135,27 @@ public class LoginActivity extends AppCompatActivity {
                         .create()
                         .show();
                 //LoginResponse();
+                if (ID != null) {
+                    Intent intent = new Intent(LoginActivity.this, PetSelectActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }
             }
         });
+
+        //(TEST) 자동 로그인 체크됨에 따라 저장하기
+        autoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("userId", String.valueOf(login_email.getText()));
+                editor.commit();
+                ID = preferences.getString("userId", null);
+                Log.d("아이디", ID);
+            }
+        });
+
     }
 
     public void LoginResponse() {
@@ -152,8 +174,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 //받은 코드 저장
                 int statusCode = result.getStatusCode();
-                pre = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pre.edit();
+                preferences = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
                 String token = response.headers().value(3);
                 editor.putString("TOKEN", token);
                 editor.commit();
@@ -161,13 +183,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 //자동 로그인 체크됨에 따라 저장하기
                 if(autoLogin.isChecked()) {
-                    pre2 = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor autoLoginEdit = pre2.edit();
-                    autoLoginEdit.putString("userId", userID);
-                    //autoLoginEdit.putString("passwordNo", passwordNo);
-                    //autoLoginEdit.putString("userRole", loginInfo.getUserRole());
-                    //autoLoginEdit.putString("userName", loginInfo.getUserNm());
-                    autoLoginEdit.commit();
                 }
 
                 if (statusCode==200) {
