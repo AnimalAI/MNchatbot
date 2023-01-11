@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox autoLogin;
     private LoginFormState LoginFormState = new LoginFormState();
 
-    private SharedPreferences pre, pre2;
+    private SharedPreferences preferences, pre2;
 
     //서버 통신
     private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
@@ -134,6 +134,24 @@ public class LoginActivity extends AppCompatActivity {
                 //LoginResponse();
             }
         });
+
+        //(TEST) 자동 로그인 체크됨에 따라 저장하기
+        autoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+
+                editor.putString("userId", String.valueOf(login_email.getText()));
+                editor.commit();
+                String ID = preferences.getString("userId", null);
+                Log.d("아이디", ID);
+                //autoLoginEdit.putString("passwordNo", passwordNo);
+                //autoLoginEdit.putString("userRole", loginInfo.getUserRole());
+                //autoLoginEdit.putString("userName", loginInfo.getUserNm());
+
+            }
+        });
     }
 
     public void LoginResponse() {
@@ -152,8 +170,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 //받은 코드 저장
                 int statusCode = result.getStatusCode();
-                pre = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pre.edit();
+                preferences = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
                 String token = response.headers().value(3);
                 editor.putString("TOKEN", token);
                 editor.commit();
@@ -161,13 +179,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 //자동 로그인 체크됨에 따라 저장하기
                 if(autoLogin.isChecked()) {
-                    pre2 = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor autoLoginEdit = pre2.edit();
-                    autoLoginEdit.putString("userId", userID);
-                    //autoLoginEdit.putString("passwordNo", passwordNo);
-                    //autoLoginEdit.putString("userRole", loginInfo.getUserRole());
-                    //autoLoginEdit.putString("userName", loginInfo.getUserNm());
-                    autoLoginEdit.commit();
                 }
 
                 if (statusCode==200) {
