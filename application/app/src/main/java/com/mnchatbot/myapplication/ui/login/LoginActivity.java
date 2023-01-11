@@ -1,5 +1,6 @@
 package com.mnchatbot.myapplication.ui.login;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,9 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextView pw_change;
     private EditText login_email, login_password;
     private Button login_button, join_button;
+    private CheckBox autoLogin;
     private LoginFormState LoginFormState = new LoginFormState();
 
-    private SharedPreferences preferences;
+    private SharedPreferences pre, pre2;
 
     //서버 통신
     private ServiceAPI service = ServiceGenerator.createService(ServiceAPI.class);
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         login_email = findViewById( R.id.username );
         login_password = findViewById( R.id.password );
+        autoLogin = findViewById(R.id.autoLogin);
 
         join_button = findViewById( R.id.signup );
         join_button.setOnClickListener( new View.OnClickListener() {
@@ -148,12 +152,23 @@ public class LoginActivity extends AppCompatActivity {
 
                 //받은 코드 저장
                 int statusCode = result.getStatusCode();
-                preferences = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
+                pre = getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pre.edit();
                 String token = response.headers().value(3);
                 editor.putString("TOKEN", token);
                 editor.commit();
                 Log.d("Token", token);
+
+                //자동 로그인 체크됨에 따라 저장하기
+                if(autoLogin.isChecked()) {
+                    pre2 = getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor autoLoginEdit = pre2.edit();
+                    autoLoginEdit.putString("userId", userID);
+                    //autoLoginEdit.putString("passwordNo", passwordNo);
+                    //autoLoginEdit.putString("userRole", loginInfo.getUserRole());
+                    //autoLoginEdit.putString("userName", loginInfo.getUserNm());
+                    autoLoginEdit.commit();
+                }
 
                 if (statusCode==200) {
                     String userID = login_email.getText().toString();
