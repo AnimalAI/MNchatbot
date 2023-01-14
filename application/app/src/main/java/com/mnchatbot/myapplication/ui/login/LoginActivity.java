@@ -123,26 +123,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        login_button = findViewById( R.id.login );
-
-        login_button.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("알림")
-                        .setMessage("서버를 옮기는 중입니다! 지금은 서비스를 이용하실 수 없습니다.🥺")
-                        .setPositiveButton("확인", null)
-                        .create()
-                        .show();
-                //LoginResponse();
-                if (ID != null) {
-                    Intent intent = new Intent(LoginActivity.this, PetSelectActivity.class);
-                    startActivity(intent);
-                    LoginActivity.this.finish();
-                }
-            }
-        });
-
         //(TEST) 자동 로그인 체크됨에 따라 저장하기
         autoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +136,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        if (ID == null) {
+            Login();
+        } else {
+            Toast.makeText(this, "자동 로그인", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, PetSelectActivity.class);
+            startActivity(intent);
+            LoginActivity.this.finish();
+        }
+
+    }
+
+    public void Login() {
+        login_button = findViewById( R.id.login );
+        login_button.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("알림")
+                        .setMessage("서버를 옮기는 중입니다! 지금은 서비스를 이용하실 수 없습니다.🥺")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+                LoginResponse();
+            }
+        });
     }
 
     public void LoginResponse() {
@@ -180,10 +185,6 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("TOKEN", token);
                 editor.commit();
                 Log.d("Token", token);
-
-                //자동 로그인 체크됨에 따라 저장하기
-                if(autoLogin.isChecked()) {
-                }
 
                 if (statusCode==200) {
                     String userID = login_email.getText().toString();

@@ -3,6 +3,7 @@
 
 package com.mnchatbot.myapplication.ui.setting;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 public class ProfileActivity extends SettingActivity {
     private Context context;
     private TextView ID, pwchange, logout, deleteinfo;
-    private SharedPreferences preferences;
+    private SharedPreferences preferences, pre2;
 
     //서버통신
     public String getToken() {
@@ -63,6 +64,11 @@ public class ProfileActivity extends SettingActivity {
             @Override
             public void onClick(View view) {
                 //로그인 화면으로 돌아가기
+                pre2 = context.getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pre2.edit();
+                editor.clear();
+                editor.commit();
+
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
