@@ -20,28 +20,22 @@ public class JoinUserState {
     }
 
     public boolean isPasswordValid() {
-        // 비밀번호 유효성 검사식1 : 숫자, 특수문자가 포함되어야 한다.
-        String val_symbol = "([0-9].*[!,@,#,^,&,*,(,)])|([!,@,#,^,&,*,(,)].*[0-9])";
-        // 비밀번호 유효성 검사식2 : 영문자 대소문자가 적어도 하나씩은 포함되어야 한다.
-        String val_alpha = "([a-z].*[A-Z])|([A-Z].*[a-z])";
+        // 비밀번호 유효성 검사식1 : 영문자 대소문자, 숫자, 특수문자 중 3가지 이상 포함되어야 한다.
+        String val_symbol = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$"; // 영문, 숫자, 특수문자
+
         // 정규표현식 컴파일
         Pattern pattern_symbol = Pattern.compile(val_symbol);
-        Pattern pattern_alpha = Pattern.compile(val_alpha);
 
-        if (password == null)
-            return false;
-
-        if (password.length() == 0)
+        if (password == null || password.length() == 0)
             return false;
 
         Matcher matcher_symbol = pattern_symbol.matcher(password);
-        Matcher matcher_alpha = pattern_alpha.matcher(password);
 
-        if (!matcher_symbol.find() || !matcher_alpha.find()) {
+        if (!matcher_symbol.find()) {
             return false;
         }
 
-        return password.trim().length() > 7;
+        return true;
     }
 
     public boolean isPasswordSame(){
